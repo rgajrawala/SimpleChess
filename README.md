@@ -1,14 +1,5 @@
 # ChessPlusPlus
-A [C++ Community](http://cplusplus.com) Project.
-<br>
-<i>Disclaimer: This is not what the REAL project looks like! Please visit it at [/CPlusPlusCom/Chess++](https://github.com/cpluspluscom/ChessPlusPlus).</i>
-
-## Description
-This project was forked from [/CPlusPlusCom/Chess++](https://github.com/cpluspluscom/ChessPlusPlus).
-<br>
-I forked it so I could understand how to make a chess game (specifically using C++ and SFML) and learn more about porting code to many OSs.
-<br>
-Eventually, I hope to contribute something useful to the main project.
+A Chess game made in C++11.
 
 ## Environments?
 The current version of SFML used here is v2.1.
@@ -21,8 +12,6 @@ This project has been tested on the following IDEs (working):
 &nbsp; &nbsp; &nbsp; &nbsp; Orwell Dev-C++ 5.5.3 with MinGW32
 <br>
 &nbsp; &nbsp; &nbsp; &nbsp; XCode 5.0 with Clang (C++11 &amp; LibC++ Support)
-<br>
-<br>
 
 ## Organization
 ### Directory: ./dist
@@ -47,12 +36,3 @@ Chess Piece Images by [AtskaHeart](http://atskaheart.deviantart.com/) [here](htt
 Sounds from [FreeSound.Org](http://freesound.org/).
 <br>
 Documentation created by [Doxygen](http://doxygen.org/).
-<br>
-Forked from [/CPlusPlusCom/Chess++](https://github.com/cpluspluscom/ChessPlusPlus).
-<br>
-Licensed under Creative Commons: http://creativecommons.org/licenses/by-nc-nd/3.0/
-
-## Notes
-<i>Obviously, you can tell that I am not following the rules / organization of the forked project at all.
-<br>
-Hopefully along the way, I will learn how the root project works and contribute something helpful.
