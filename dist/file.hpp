@@ -1,13 +1,13 @@
 //
 //  file.hpp
-//  ChessPlusPlus
+//  SimpleChess
 //
 //  Created by Ronak Gajrawala on 12/26/13.
 //  Copyright (c) 2013 Ronak Gajrawala. All rights reserved.
 //
 
-#ifndef ChessPlusPlus_file_hpp
-#define ChessPlusPlus_file_hpp
+#ifndef SimpleChess_file_hpp
+#define SimpleChess_file_hpp
 
 class File {
 private:
