@@ -1,13 +1,13 @@
 /*
  *  console.hpp
- *  ChessPlusPlus
+ *  SimpleChess
  *
  *  Created by Ronak Gajrawala on 12/01/13.
  *  Copyright (c) 2013 Ronak Gajrawala. All rights reserved.
  */
 
-#ifndef ChessPlusPlus_console_hpp
-#define ChessPlusPlus_console_hpp
+#ifndef SimpleChess_console_hpp
+#define SimpleChess_console_hpp
 
 /**
  * The Console class.
