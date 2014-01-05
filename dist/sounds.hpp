@@ -1,13 +1,13 @@
 /*
  *  sounds.hpp
- *  ChessPlusPlus
+ *  SimpleChess
  *
  *  Created by Ronak Gajrawala on 12/21/13.
  *  Copyright (c) 2013 Ronak Gajrawala. All rights reserved.
  */
 
-#ifndef ChessPlusPlus_sounds_hpp
-#define ChessPlusPlus_sounds_hpp
+#ifndef SimpleChess_sounds_hpp
+#define SimpleChess_sounds_hpp
 
 /**
  * The Sounds class.
