@@ -1,13 +1,13 @@
 /*
  *  start.hpp
- *  ChessPlusPlus
+ *  SimpleChess
  *
  *  Created by Ronak Gajrawala on 12/01/13.
  *  Copyright (c) 2013 Ronak Gajrawala. All rights reserved.
  */
 
-#ifndef ChessPlusPlus_start_hpp
-#define ChessPlusPlus_start_hpp
+#ifndef SimpleChess_start_hpp
+#define SimpleChess_start_hpp
 
 /**
  * The StartPage class.
@@ -20,7 +20,7 @@ class StartPage {
     sf::Vector2u Mouse; /**< Mouse coordinates. */
     sf::Image Icon; /**< The icon for the window */
     
-    sf::Text Title; /**< The menu's title. Will say: "Chess++". */
+    sf::Text Title; /**< The menu's title. Will say: "Simple Chess". */
     sf::Text WhoWonText; /**< Shows who won. */
     
     sf::RectangleShape NewGameButton; /**< The button for New Game. */
@@ -82,7 +82,7 @@ public:
 ////////// SOURCE //////////
 
 void StartPage::Initialize(void) {
-    this->Window.create(sf::VideoMode(600, 600), "ChessPlusPlus - Start Page", sf::Style::Close);
+    this->Window.create(sf::VideoMode(600, 600), "SimpleChess - Start Page", sf::Style::Close);
     this->Window.setFramerateLimit(10);
     
     if (!this->Icon.loadFromFile(GetResource("white_knight.png"))) {
@@ -95,8 +95,8 @@ void StartPage::Initialize(void) {
     }
     
     this->Title.setFont(this->Font);
-    this->Title.setString("Chess++");
-    this->Title.setPosition(110.0, 50.0);
+    this->Title.setString("SimpleChess");
+    this->Title.setPosition(20.0, 50.0);
     this->Title.setCharacterSize(100);
     
     this->NewGameText.setColor(sf::Color::Blue);
