@@ -24,8 +24,8 @@
 
 // This file has been altered.
 
-#ifndef ChessPlusPlus_resosx_hpp
-#define ChessPlusPlus_resosx_hpp
+#ifndef SimpleChess_resosx_hpp
+#define SimpleChess_resosx_hpp
 
 #include <string>
 
