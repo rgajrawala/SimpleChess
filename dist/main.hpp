@@ -1,13 +1,13 @@
 /*
  *  main.hpp
- *  ChessPlusPlus
+ *  SimpleChess
  *
  *  Created by Ronak Gajrawala on 12/01/13.
  *  Copyright (c) 2013 Ronak Gajrawala. All rights reserved.
  */
 
-#ifndef ChessPlusPlus_main_hpp
-#define ChessPlusPlus_main_hpp
+#ifndef SimpleChess_main_hpp
+#define SimpleChess_main_hpp
 
 #include <cstdio>
 #include <cstdarg>
