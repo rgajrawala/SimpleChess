@@ -1,13 +1,13 @@
 /*
  *  board.hpp
- *  ChessPlusPlus
+ *  SimpleChess
  *
  *  Created by Ronak Gajrawala on 12/21/13.
  *  Copyright (c) 2013 Ronak Gajrawala. All rights reserved.
  */
 
-#ifndef ChessPlusPlus_board_hpp
-#define ChessPlusPlus_board_hpp
+#ifndef SimpleChess_board_hpp
+#define SimpleChess_board_hpp
 
 /**
  * Piece IDs for the board.
