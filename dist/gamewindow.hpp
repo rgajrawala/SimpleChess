@@ -1,13 +1,13 @@
 /*
  *  gamewindow.hpp
- *  ChessPlusPlus
+ *  SimpleChess
  *
  *  Created by Ronak Gajrawala on 12/01/13.
  *  Copyright (c) 2013 Ronak Gajrawala. All rights reserved.
  */
 
-#ifndef ChessPlusPlus_gamewindow_hpp
-#define ChessPlusPlus_gamewindow_hpp
+#ifndef SimpleChess_gamewindow_hpp
+#define SimpleChess_gamewindow_hpp
 
 /**
  * The GameWindow class.
@@ -286,7 +286,7 @@ void GameWindow::Initialize(void) {
 	this->Board[7][6] = Pieces::White_Knight;
 	this->Board[7][7] = Pieces::White_Rook;
     
-    this->Window.create(sf::VideoMode(900, 640), "ChessPlusPlus - Game", sf::Style::Close);
+    this->Window.create(sf::VideoMode(900, 640), "SimpleChess - Game", sf::Style::Close);
     this->Window.setFramerateLimit(10);
     
     if(!this->Icon.loadFromFile(GetResource("white_knight.png"))) {
