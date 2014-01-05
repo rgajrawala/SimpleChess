@@ -1,13 +1,13 @@
 /*
  *  funcs.hpp
- *  ChessPlusPlus
+ *  SimpleChess
  *
  *  Created by Ronak Gajrawala on 12/8/13.
  *  Copyright (c) 2013 Ronak Gajrawala. All rights reserved.
  */
 
-#ifndef ChessPlusPlus_funcs_hpp
-#define ChessPlusPlus_funcs_hpp
+#ifndef SimpleChess_funcs_hpp
+#define SimpleChess_funcs_hpp
 
 /**
  * The Utils class.
