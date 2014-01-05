@@ -1,6 +1,6 @@
 /*
  *  main.cpp
- *  ChessPlusPlus
+ *  SimpleChess
  *
  *  Created by Ronak Gajrawala on 12/01/13.
  *  Copyright (c) 2013 Ronak Gajrawala. All rights reserved.
@@ -17,7 +17,7 @@
 #include "main.hpp"
 
 ChessMain() {
-    File.SetPath("/Users/usandfriends/Documents/Ronak\'s Folder/Programming/C++/My Programs/ChessPlusPlus/ChessPlusPlus/");
+    File.SetPath("/Users/usandfriends/Documents/Ronak\'s Folder/Programming/C++/My Programs/SimpleChess/SimpleChess/");
     Textures.Initialize();
     Sounds.Initialize();
     
