@@ -30,7 +30,7 @@ public:
     typedef std::vector<Info> Information;
     
     /**
-     * Appends str to "Chess++.log".
+     * Appends str to "SimpleChess.log".
      * @param str The string to be appended to the file.
      */
     void Append(std::string);
@@ -68,13 +68,13 @@ void File::SetPath(std::string str) {
 }
 
 void File::Clear(void) {
-    fopen((this->Path + "Chess++.log").c_str(), "w");
+    fopen((this->Path + "SimpleChess.log").c_str(), "w");
 }
 
 void File::Append(std::string str) {
-    FILE* File = fopen((this->Path + "Chess++.log").c_str(), "a");
+    FILE* File = fopen((this->Path + "SimpleChess.log").c_str(), "a");
     if(File == NULL) {
-        Console.Log(__LINE__, __FILE__, __func__, "WARNING: Chess++.log could not be opened and will not be written to.");
+        Console.Log(__LINE__, __FILE__, __func__, "WARNING: SimpleChess.log could not be opened and will not be written to.");
         return;
     }
     fprintf(File, "%s", str.c_str());
@@ -82,9 +82,9 @@ void File::Append(std::string str) {
 }
 
 void File::Read(File::Information* inf) {
-    std::ifstream fl(this->Path + "Chess++.log");
+    std::ifstream fl(this->Path + "SimpleChess.log");
     if(not fl.is_open()) {
-        Console.Log(__LINE__, __FILE__, __func__, "ERROR: Chess++.log could not be opened!");
+        Console.Log(__LINE__, __FILE__, __func__, "ERROR: SimpleChess.log could not be opened!");
         throw 1;
         return;
     }
