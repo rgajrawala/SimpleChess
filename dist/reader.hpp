@@ -1,13 +1,13 @@
 /*
  *  reader.hpp
- *  ChessPlusPlus
+ *  SimpleChess
  *
  *  Created by Ronak Gajrawala on 12/26/13.
  *  Copyright (c) 2013 Ronak Gajrawala. All rights reserved.
  */
 
-#ifndef ChessPlusPlus_reader_hpp
-#define ChessPlusPlus_reader_hpp
+#ifndef SimpleChess_reader_hpp
+#define SimpleChess_reader_hpp
 
 /***********
  * @todo Create the board reader, next move / last move.
@@ -80,7 +80,7 @@ public:
 ////////// SOURCE //////////
 
 void Reader::Initialize(void) {
-    this->Window.create(sf::VideoMode(900, 640), "ChessPlusPlus - Reader", sf::Style::Close);
+    this->Window.create(sf::VideoMode(900, 640), "SimpleChess - Reader", sf::Style::Close);
     this->Window.setFramerateLimit(10);
     
     if(!this->Icon.loadFromFile(GetResource("white_knight.png"))) {
