@@ -33,13 +33,12 @@ public:
     const char* BStringify(short);
     
     /**
-     * Prints the pieces on the board to a file.
-     * @see Pieces
-     * @see PStringify
+     * Prints the pieces on or background of a board to a file.
      * @param file The file to print to.
      * @param Board The board to print.
+     * @param back_or_piece True if to print pieces, false if to print background.
      */
-    void print_r(FILE*, Board8);
+    void print_r(FILE*, Board8, bool = true);
     
     /**
      * Checks to see if the point (hpi, wpi) is in the rectangle (hp, wp, hp + h, wp + w).
@@ -86,10 +85,10 @@ const char* Utils::BStringify(short background_type) {
     return "did nothing";
 }
 
-void Utils::print_r(FILE* file, Board8 Board) {
-    for(unsigned short y = 0; y < 8; y++) {
-        for(unsigned short x = 0; x < 8; x++) {
-            fprintf(file, "%-13s", this->PStringify(Board[y][x]));
+void Utils::print_r(FILE* file, Board8 Board, bool back_or_piece) {
+    for(unsigned short y = 0; y < Board.size(); y++) {
+        for(unsigned short x = 0; x < Board.size(); x++) {
+            fprintf(file, "%-13s", back_or_piece ? this->PStringify(Board[y][x]) : this->BStringify(Board[y][x]));
         }
         fputc('\n', file);
     }

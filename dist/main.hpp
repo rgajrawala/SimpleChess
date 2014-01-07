@@ -18,6 +18,7 @@
 #include <array>
 #include <vector>
 #include <list>
+#include <map>
 #include <sstream>
 #include <fstream>
 
@@ -40,18 +41,18 @@
 
 #include "sounds.hpp"
 #include "console.hpp"
-#include "file.hpp"
 #include "board.hpp"
+#include "file.hpp"
 #include "utils.hpp"
-#include "reader.hpp"
 #include "start.hpp"
+#include "reader.hpp"
 #include "gamewindow.hpp"
 
-void EndMain(void) {
-#if defined(__CPP_DEBUG__)
-    Pause();
-#endif
+void EndChessMain(void) {
+    Console.Pause();
     exit(0);
 }
+
+#define ChessHoldAtExit() atexit(EndChessMain);
 
 #endif

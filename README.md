@@ -13,14 +13,6 @@ This project has been tested on the following IDEs (working):
 <br>
 &nbsp; &nbsp; &nbsp; &nbsp; XCode 5.0 with Clang (C++11 &amp; LibC++ Support)
 
-## Organization
-### Directory: ./dist
-This is where the source code and other files are stored.
-### Directory: ./dist/res
-This is where the image resources are stored.
-### Directory: ./docs
-Documentation.
-
 ## HowTo
 There are three main steps to build.
 <br>

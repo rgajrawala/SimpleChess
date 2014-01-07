@@ -23,18 +23,19 @@ class Reader {
     sf::Event Event; /**< Any window events. */
     sf::Vector2u Mouse; /**< Mouse coordinates. */
     sf::Image Icon; /**< The icon for the window */
-    
-    sf::Text PlayerTurn, /**< Stores who's turn it is. */
-             LastMove; /**< Stores the last move. */
     sf::Sprite Sprite; /**< The Sprite that will load the board and pieces. */
     
-    sf::RectangleShape NextButton; /**< The button that says "Next". */
-    sf::Text NextBtnText; /**< Text for the Next Button. */
-    sf::RectangleShape GoBackButton; /**< The button that says "Back". */
-    sf::Text GoBackBtnText; /**< Text for the Go-Back Button. */
+    sf::Text PlayerTurn, /**< Stores who's turn it is. */
+             LastMove, /**< Stores the last move. */
+             NextBtnText, /**< Text for the Next Button. */
+             GoBackBtnText; /**< Text for the Go-Back Button. */
+    
+    sf::RectangleShape NextButton, /**< The button that says "Next". */
+                       GoBackButton; /**< The button that says "Back". */
     
     File::Information FileInfo; /**< File information necessary for the replay. */
     Board8 Board; /**< The board we will be replaying. */
+    unsigned short moveNumber;
 public:
     
     /**
@@ -80,6 +81,13 @@ public:
 ////////// SOURCE //////////
 
 void Reader::Initialize(void) {
+    try {
+        File.Read("log/SimpleChess.log", &this->FileInfo);
+        File.CreateBoardFromFile("config/default.chessconf", &this->Board);
+    } catch (int e) {
+        StartPage.WhoWonText = "e";
+    }
+    
     this->Window.create(sf::VideoMode(900, 640), "SimpleChess - Reader", sf::Style::Close);
     this->Window.setFramerateLimit(10);
     
@@ -92,8 +100,7 @@ void Reader::Initialize(void) {
         exit(EXIT_FAILURE);
     }
     
-    File.Read(&this->FileInfo);
-    File.CreateBoardFromFile("default.chessconf", &this->Board);
+    this->moveNumber = 0;
     
     this->NextButton.setFillColor(sf::Color::Yellow);
     this->NextButton.setSize(sf::Vector2f(240.0, 50.0));
@@ -129,11 +136,21 @@ void Reader::OnKeyPressed(void) {
 
 void Reader::OnMouseButtonReleased(void) {
     if(Utils.Contains(this->Mouse.x, this->Mouse.y, this->NextButton.getPosition().x, this->NextButton.getPosition().y, this->NextButton.getSize().x, this->NextButton.getSize().y)) {
-        // Next
-    } else if(Utils.Contains(this->Mouse.x, this->Mouse.y, this->GoBackButton.getPosition().x, this->GoBackButton.getPosition().y, this->GoBackButton.getSize().x, this->GoBackButton.getSize().y)) {
-        // Back
-    } else {
+        if (moveNumber > this->FileInfo.size()) {
+            moveNumber = this->FileInfo.size();
+        }
         
+        Board[this->FileInfo.at(moveNumber).Piece2Loc.y][this->FileInfo.at(moveNumber).Piece2Loc.x] = Board[this->FileInfo.at(moveNumber).Piece1Loc.y][this->FileInfo.at(moveNumber).Piece1Loc.x];
+        Board[this->FileInfo.at(moveNumber).Piece1Loc.y][this->FileInfo.at(moveNumber).Piece1Loc.x] = Pieces::Empty;
+        moveNumber++;
+    } else if(Utils.Contains(this->Mouse.x, this->Mouse.y, this->GoBackButton.getPosition().x, this->GoBackButton.getPosition().y, this->GoBackButton.getSize().x, this->GoBackButton.getSize().y)) {
+        if (moveNumber < 0) {
+            moveNumber = 0;
+        }
+        
+        Board[this->FileInfo.at(moveNumber).Piece2Loc.y][this->FileInfo.at(moveNumber).Piece2Loc.x] = Board[this->FileInfo.at(moveNumber).Piece1Loc.y][this->FileInfo.at(moveNumber).Piece1Loc.x];
+        Board[this->FileInfo.at(moveNumber).Piece1Loc.y][this->FileInfo.at(moveNumber).Piece1Loc.x] = Pieces::Empty;
+        moveNumber--;
     }
 }
 

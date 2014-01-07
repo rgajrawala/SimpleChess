@@ -1158,11 +1158,15 @@ void Move::OnPlayer1Turn(void) {
         if(omove is Background::Valid_Capture) {
             ss << Utils.PStringify(GameWindow.Board[this->Piece.y][this->Piece.x]) << " (" << this->Select.x << ", " << this->Select.y << ") captured " << Utils.PStringify(opp) << " (" << this->Piece.x << ", " << this->Piece.y << ").";
             dss << GameWindow.Board[this->Piece.y][this->Piece.x] << " " << this->Select.x << " " << this->Select.y << " " << 1 << " " << opp << " " << this->Piece.x << " " << this->Piece.y;
+#ifdef __CPP_DEBUG__
             Console.Log(__LINE__, __FILE__, __func__, "%s", ss.str().c_str());
+#endif
         } else {
             ss << Utils.PStringify(GameWindow.Board[this->Piece.y][this->Piece.x]) << " (" << this->Select.x << ", " << this->Select.y << ") moved to (" << this->Piece.x << ", " << this->Piece.y << ").";
             dss << GameWindow.Board[this->Piece.y][this->Piece.x] << " " << this->Select.x << " " << this->Select.y << " " << 2 << " " << opp << " " << this->Piece.x << " " << this->Piece.y;
+#ifdef __CPP_DEBUG__
             Console.Log(__LINE__, __FILE__, __func__, "%s", ss.str().c_str());
+#endif
         }
         
         File.Append(dss.str() + "\n");
@@ -1206,11 +1210,15 @@ void Move::OnPlayer2Turn(void) {
         if(omove is Background::Enemy_Capture) {
             ss << Utils.PStringify(GameWindow.Board[this->Piece.y][this->Piece.x]) << " (" << this->Select.x << ", " << this->Select.y << ") captured " << Utils.PStringify(opp) << " (" << this->Piece.x << ", " << this->Piece.y << ").";
             dss << GameWindow.Board[this->Piece.y][this->Piece.x] << " " << this->Select.x << " " << this->Select.y << " " << 1 << " " << opp << " " << this->Piece.x << " " << this->Piece.y;
+#ifdef __CPP_DEBUG__
             Console.Log(__LINE__, __FILE__, __func__, "%s", ss.str().c_str());
+#endif
         } else {
             ss << Utils.PStringify(GameWindow.Board[this->Piece.y][this->Piece.x]) << " (" << this->Select.x << ", " << this->Select.y << ") moved to (" << this->Piece.x << ", " << this->Piece.y << ").";
             dss << GameWindow.Board[this->Piece.y][this->Piece.x] << " " << this->Select.x << " " << this->Select.y << " " << 2 << " " << opp << " " << this->Piece.x << " " << this->Piece.y;
+#ifdef __CPP_DEBUG__
             Console.Log(__LINE__, __FILE__, __func__, "%s", ss.str().c_str());
+#endif
         }
         
         File.Append(dss.str() + "\n");

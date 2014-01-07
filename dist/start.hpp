@@ -50,6 +50,11 @@ public:
     bool Main(void);
     
     /**
+     * Draws the window.
+     */
+    void Draw(void);
+    
+    /**
      * Event handler for window events.
      */
     void OnEvent(void);
@@ -99,8 +104,6 @@ void StartPage::Initialize(void) {
     this->Title.setPosition(20.0, 50.0);
     this->Title.setCharacterSize(100);
     
-    this->NewGameText.setColor(sf::Color::Blue);
-    
     this->NewGameButton.setFillColor(sf::Color::Yellow);
     this->NewGameButton.setSize(sf::Vector2f(300.0, 50.0));
     this->NewGameButton.setPosition(150.0, 200.0);
@@ -122,6 +125,8 @@ void StartPage::Initialize(void) {
     this->ReaderText.setString("Reader");
     
     this->WhoWonText.setFont(this->Font);
+    this->WhoWonText.setPosition(80.0, 310.0);
+    this->WhoWonText.setCharacterSize(25);
     if(this->WhoWon == 1) {
         this->WhoWonText.setString("White (Player 1) Won!");
     } else if(this->WhoWon == 2) {
@@ -129,8 +134,6 @@ void StartPage::Initialize(void) {
     } else {
         this->WhoWonText.setString("");
     }
-    this->WhoWonText.setPosition(80.0, 310.0);
-    this->WhoWonText.setCharacterSize(25);
     
     this->WhoWon = 0;
 }
@@ -173,22 +176,26 @@ void StartPage::OnEvent(void) {
     }
 }
 
+void StartPage::Draw(void) {
+    this->Window.clear(sf::Color::Black);
+    this->Window.draw(this->Title);
+    this->Window.draw(this->NewGameButton);
+    this->Window.draw(this->NewGameText);
+    this->Window.draw(this->ReaderButton);
+    this->Window.draw(this->ReaderText);
+    this->Window.draw(this->WhoWonText);
+    this->Window.display();
+}
+
 bool StartPage::Main(void) {
     this->Initialize();
+    
     while(this->Window.isOpen()) {
-        this->Window.clear(sf::Color::Black);
+        this->Draw();
         
         while(this->Window.pollEvent(this->Event)) {
             this->OnEvent();
         }
-        
-        this->Window.draw(this->Title);
-        this->Window.draw(this->NewGameButton);
-        this->Window.draw(this->NewGameText);
-        this->Window.draw(this->ReaderButton);
-        this->Window.draw(this->ReaderText);
-        this->Window.draw(this->WhoWonText);
-        this->Window.display();
     }
     
     return this->Go;

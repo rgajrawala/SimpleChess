@@ -6,7 +6,7 @@
  *  Copyright (c) 2013 Ronak Gajrawala. All rights reserved.
  */
 
-// #define __CPP_DEBUG__ // If you are debugging. (Currently, this changes very little.)
+#define __CPP_DEBUG__ // If you are debugging. (Currently, this changes very little.)
 
 /**
  * @todo Add Castle button.
@@ -17,7 +17,13 @@
 #include "main.hpp"
 
 ChessMain() {
-    File.SetPath("/Users/usandfriends/Documents/Ronak\'s Folder/Programming/C++/My Programs/SimpleChess/SimpleChess/");
+#ifdef __CPP_DEBUG__
+    ChessHoldAtExit();
+#endif
+    
+    // Make sure the config folder (and its contents) and the log folder (and its contents) are in this directory.
+    File.SetPath("/Users/usandfriends/Documents/GitHub/SimpleChess/");
+    
     Textures.Initialize();
     Sounds.Initialize();
     
@@ -29,5 +35,5 @@ ChessMain() {
         }
     }
     
-    EndMain();
+    EndChessMain();
 }

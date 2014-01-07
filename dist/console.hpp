@@ -102,7 +102,6 @@ void Console::Error(const unsigned short line, const char* file, const char* fun
         fputc('\n', stderr);
     }
     va_end(args);
-	Pause();
 	exit(1);
 }
 
