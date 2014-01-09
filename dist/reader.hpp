@@ -81,13 +81,6 @@ public:
 ////////// SOURCE //////////
 
 void Reader::Initialize(void) {
-    try {
-        File.Read("log/SimpleChess.log", &this->FileInfo);
-        File.CreateBoardFromFile("config/default.chessconf", &this->Board);
-    } catch (int e) {
-        StartPage.WhoWonText = "e";
-    }
-    
     this->Window.create(sf::VideoMode(900, 640), "SimpleChess - Reader", sf::Style::Close);
     this->Window.setFramerateLimit(10);
     
@@ -121,6 +114,13 @@ void Reader::Initialize(void) {
     this->GoBackBtnText.setPosition(722.0, 580.0);
     this->GoBackBtnText.setFont(this->Font);
     this->GoBackBtnText.setString("Back");
+    
+    try {
+        File.Read("log/SimpleChess.log", &this->FileInfo);
+        File.CreateBoardFromFile("config/default.chessconf", &this->Board);
+    } catch (int e) {
+        StartPage.SetWhoWon(-1);
+    }
 }
 
 void Reader::OnMouseMove(void) {

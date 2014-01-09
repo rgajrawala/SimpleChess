@@ -17,13 +17,13 @@ class GameWindow {
 public:
     sf::Event Event; /**< Where the window's new event will be stored. */
     sf::Text PlayerTurn, /**< Stores who's turn it is. */
-             LastMove; /**< Stores the last move. */
+    LastMove; /**< Stores the last move. */
     sf::Font Font; /**< Stores the font file (sansation.ttf) for the text. */
     sf::RenderWindow Window; /**< The window for the app. */
     sf::Image Icon; /**< The icon for the application. */
     sf::Sprite Sprite; /**< The Sprite that will load the board and pieces. */
     Board8 BoardBackground, /**< The board's background. */
-           Board; /**< The board's pieces. */
+    Board; /**< The board's pieces. */
     
     /**
      * Intializes Window.
@@ -235,7 +235,7 @@ public:
 ////////// SOURCE //////////
 
 void GameWindow::Initialize(void) {
-    if(!this->Font.loadFromFile(GetResource("sansation.ttf"))) {
+    if (not this->Font.loadFromFile(GetResource("sansation.ttf"))) {
         exit(EXIT_FAILURE);
     }
     
@@ -251,8 +251,8 @@ void GameWindow::Initialize(void) {
     this->LastMove.setPosition(680.0, 40.0);
     this->LastMove.setColor(sf::Color::White);
     
-	for(short y = 0; y < 8; y++) {
-		for(short x = 0; x < 8; x++) {
+	for (short y = 0; y < 8; y++) {
+		for (short x = 0; x < 8; x++) {
 			this->BoardBackground[y][x] = Background::Empty;
 		}
 	}
@@ -266,13 +266,13 @@ void GameWindow::Initialize(void) {
 	this->Board[0][6] = Pieces::Black_Knight;
 	this->Board[0][7] = Pieces::Black_Rook;
 	
-	for(short x = 0; x < 8; x++) {
+	for (short x = 0; x < 8; x++) {
 		this->Board[1][x] = Pieces::Black_Pawn;
 		this->Board[6][x] = Pieces::White_Pawn;
 	}
 	
-	for(short y = 2; y < 6; y++) {
-		for(short x = 0; x < 8; x++) {
+	for (short y = 2; y < 6; y++) {
+		for (short x = 0; x < 8; x++) {
 			this->Board[y][x] = Pieces::Empty;
 		}
 	}
@@ -289,7 +289,7 @@ void GameWindow::Initialize(void) {
     this->Window.create(sf::VideoMode(900, 640), "SimpleChess - Game", sf::Style::Close);
     this->Window.setFramerateLimit(10);
     
-    if(!this->Icon.loadFromFile(GetResource("white_knight.png"))) {
+    if (not this->Icon.loadFromFile(GetResource("white_knight.png"))) {
         exit(EXIT_FAILURE);
     }
     this->Window.setIcon(this->Icon.getSize().x, this->Icon.getSize().y, this->Icon.getPixelsPtr());
@@ -328,11 +328,11 @@ void GameWindow::Display(void) {
     this->Sprite.setPosition(0.0, 0.0);
     this->Draw(this->Sprite);
     
-    for(int y = 0; y < 8; y++) {
-        for(int x = 0; x < 8; x++) {
+    for (int y = 0; y < 8; y++) {
+        for (int x = 0; x < 8; x++) {
             bool isNotEmpty = true;
             
-            switch(this->BoardBackground.at(y).at(x)) {
+            switch (this->BoardBackground.at(y).at(x)) {
                 case Background::Empty: isNotEmpty = false; break;
                 case Background::Enemy_Capture: this->Sprite.setTexture(Textures.Enemy_Capture); break;
                 case Background::Enemy_Move: this->Sprite.setTexture(Textures.Enemy_Move); break;
@@ -340,18 +340,18 @@ void GameWindow::Display(void) {
                 case Background::Valid_Move: this->Sprite.setTexture(Textures.Valid_Move); break;
             }
             
-            if(isNotEmpty) {
+            if (isNotEmpty) {
                 this->Sprite.setPosition(float(x * 80), float(y * 80));
                 this->Draw(this->Sprite);
             }
         }
     }
     
-    for(int y = 0; y < 8; y++) {
-        for(int x = 0; x < 8; x++) {
+    for (int y = 0; y < 8; y++) {
+        for (int x = 0; x < 8; x++) {
             bool isNotEmpty = true;
             
-            switch(this->Board.at(y).at(x)) {
+            switch (this->Board.at(y).at(x)) {
                 case Pieces::Empty: isNotEmpty = false; break;
                 case Pieces::Black_Pawn: this->Sprite.setTexture(Textures.Black.Pawn); break;
                 case Pieces::Black_Rook: this->Sprite.setTexture(Textures.Black.Rook); break;
@@ -367,7 +367,7 @@ void GameWindow::Display(void) {
                 case Pieces::White_King: this->Sprite.setTexture(Textures.White.King); break;
             }
             
-            if(isNotEmpty) {
+            if (isNotEmpty) {
                 this->Sprite.setPosition(float(x * 80), float(y * 80));
                 this->Draw(this->Sprite);
             }
@@ -381,7 +381,7 @@ void GameWindow::Display(void) {
 }
 
 void GameWindow::OnKeyPress(void) {
-    if((this->Event.key.code is sf::Keyboard::Escape) or ((this->Event.key.control is true or this->Event.key.alt is true) and (this->Event.key.code is sf::Keyboard::W or this->Event.key.code is sf::Keyboard::C))) {
+    if ((this->Event.key.code is sf::Keyboard::Escape) or ((this->Event.key.control is true or this->Event.key.alt is true) and (this->Event.key.code is sf::Keyboard::W or this->Event.key.code is sf::Keyboard::C))) {
         this->Close();
     }
 }
@@ -396,7 +396,7 @@ void GameWindow::OnMouseButtonPress(void) {
 }
 
 void GameWindow::OnEvent(void) {
-    switch(this->Event.type) {
+    switch (this->Event.type) {
         case sf::Event::Closed: this->Close(); break;
         case sf::Event::KeyPressed: this->OnKeyPress(); break;
         case sf::Event::MouseMoved: this->OnMouseMove(); break;
@@ -435,38 +435,38 @@ void Move::InitializeSelect(void) {
 }
 
 void Move::InitializeBoard(void) {
-    for(int y = 0; y < 8; y++) {
-        for(int x = 0; x < 8; x++) {
+    for (int y = 0; y < 8; y++) {
+        for (int x = 0; x < 8; x++) {
             GameWindow.BoardBackground[y][x] = Background::Empty;
         }
     }
 }
 
 void Move::ShowWhitePawnPath(void) {
-    if(this->Piece.y - 1 >= 0) {
-        if(GameWindow.Board[this->Piece.y - 1][this->Piece.x] is Pieces::Empty) {
+    if (this->Piece.y - 1 >= 0) {
+        if (GameWindow.Board[this->Piece.y - 1][this->Piece.x] is Pieces::Empty) {
             GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x] = Background::Valid_Move;
             
-            if(this->Piece.y is 6 and GameWindow.Board[this->Piece.y - 2][this->Piece.x] is Pieces::Empty) {
+            if (this->Piece.y is 6 and GameWindow.Board[this->Piece.y - 2][this->Piece.x] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y - 2][this->Piece.x] = Background::Valid_Move;
             }
         }
     }
     
-    if(this->Piece.x - 1 >= 0 and this->Piece.y - 1 >= 0 and GameWindow.Board[this->Piece.y - 1][this->Piece.x - 1] > 6) {
+    if (this->Piece.x - 1 >= 0 and this->Piece.y - 1 >= 0 and GameWindow.Board[this->Piece.y - 1][this->Piece.x - 1] > 6) {
         GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x - 1] = Background::Valid_Capture;
     }
     
-    if(this->Piece.y - 1 >= 0 and this->Piece.x + 1 < 8 and GameWindow.Board[this->Piece.y - 1][this->Piece.x + 1] > 6) {
+    if (this->Piece.y - 1 >= 0 and this->Piece.x + 1 < 8 and GameWindow.Board[this->Piece.y - 1][this->Piece.x + 1] > 6) {
         GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x + 1] = Background::Valid_Capture;
     }
 }
 
 void Move::ShowWhiteRookPath(void) {
-    for(int x = this->Piece.x + 1; x < 8; x++) {
-        if(GameWindow.Board[this->Piece.y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x + 1; x < 8; x++) {
+        if (GameWindow.Board[this->Piece.y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[this->Piece.y][x] = Background::Valid_Move;
-        } else if(GameWindow.Board[this->Piece.y][x] > 6) {
+        } else if (GameWindow.Board[this->Piece.y][x] > 6) {
             GameWindow.BoardBackground[this->Piece.y][x] = Background::Valid_Capture;
             break;
         } else {
@@ -474,10 +474,10 @@ void Move::ShowWhiteRookPath(void) {
         }
     }
     
-    for(int x = this->Piece.x - 1; x >= 0; x--) {
-        if(GameWindow.Board[this->Piece.y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x - 1; x >= 0; x--) {
+        if (GameWindow.Board[this->Piece.y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[this->Piece.y][x] = Background::Valid_Move;
-        } else if(GameWindow.Board[this->Piece.y][x] > 6) {
+        } else if (GameWindow.Board[this->Piece.y][x] > 6) {
             GameWindow.BoardBackground[this->Piece.y][x] = Background::Valid_Capture;
             break;
         } else {
@@ -485,10 +485,10 @@ void Move::ShowWhiteRookPath(void) {
         }
     }
     
-    for(int y = this->Piece.y + 1; y < 8; y++) {
-        if(GameWindow.Board[y][this->Piece.x] is Pieces::Empty) {
+    for (int y = this->Piece.y + 1; y < 8; y++) {
+        if (GameWindow.Board[y][this->Piece.x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][this->Piece.x] = Background::Valid_Move;
-        } else if(GameWindow.Board[y][this->Piece.x] > 6) {
+        } else if (GameWindow.Board[y][this->Piece.x] > 6) {
             GameWindow.BoardBackground[y][this->Piece.x] = Background::Valid_Capture;
             break;
         } else {
@@ -496,10 +496,10 @@ void Move::ShowWhiteRookPath(void) {
         }
     }
     
-    for(int y = this->Piece.y - 1; y >= 0; y--) {
-        if(GameWindow.Board[y][this->Piece.x] is Pieces::Empty) {
+    for (int y = this->Piece.y - 1; y >= 0; y--) {
+        if (GameWindow.Board[y][this->Piece.x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][this->Piece.x] = Background::Valid_Move;
-        } else if(GameWindow.Board[y][this->Piece.x] > 6) {
+        } else if (GameWindow.Board[y][this->Piece.x] > 6) {
             GameWindow.BoardBackground[y][this->Piece.x] = Background::Valid_Capture;
             break;
         } else {
@@ -509,71 +509,71 @@ void Move::ShowWhiteRookPath(void) {
 }
 
 void Move::ShowWhiteKnightPath(void) {
-    if(this->Piece.x + 2 < 8) {
-        if(this->Piece.y + 1 < 8) {
-            if(GameWindow.Board[this->Piece.y + 1][this->Piece.x + 2] is Pieces::Empty) {
+    if (this->Piece.x + 2 < 8) {
+        if (this->Piece.y + 1 < 8) {
+            if (GameWindow.Board[this->Piece.y + 1][this->Piece.x + 2] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x + 2] = Background::Valid_Move;
-            } else if(GameWindow.Board[this->Piece.y + 1][this->Piece.x + 2] > 6) {
+            } else if (GameWindow.Board[this->Piece.y + 1][this->Piece.x + 2] > 6) {
                 GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x + 2] = Background::Valid_Capture;
             }
         }
-        if(this->Piece.y - 1 >= 0) {
-            if(GameWindow.Board[this->Piece.y - 1][this->Piece.x + 2] is Pieces::Empty) {
+        if (this->Piece.y - 1 >= 0) {
+            if (GameWindow.Board[this->Piece.y - 1][this->Piece.x + 2] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x + 2] = Background::Valid_Move;
-            } else if(GameWindow.Board[this->Piece.y - 1][this->Piece.x + 2] > 6) {
+            } else if (GameWindow.Board[this->Piece.y - 1][this->Piece.x + 2] > 6) {
                 GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x + 2] = Background::Valid_Capture;
             }
         }
     }
     
-    if(this->Piece.x - 2 >= 0) {
-        if(this->Piece.y + 1 < 8) {
-            if(GameWindow.Board[this->Piece.y + 1][this->Piece.x - 2] is Pieces::Empty) {
+    if (this->Piece.x - 2 >= 0) {
+        if (this->Piece.y + 1 < 8) {
+            if (GameWindow.Board[this->Piece.y + 1][this->Piece.x - 2] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x - 2] = Background::Valid_Move;
-            } else if(GameWindow.Board[this->Piece.y + 1][this->Piece.x - 2] > 6) {
+            } else if (GameWindow.Board[this->Piece.y + 1][this->Piece.x - 2] > 6) {
                 GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x - 2] = Background::Valid_Capture;
             }
         }
-        if(this->Piece.y - 1 >= 0) {
-            if(GameWindow.Board[this->Piece.y - 1][this->Piece.x - 2] is Pieces::Empty) {
+        if (this->Piece.y - 1 >= 0) {
+            if (GameWindow.Board[this->Piece.y - 1][this->Piece.x - 2] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x - 2] = Background::Valid_Move;
-            } else if(GameWindow.Board[this->Piece.y - 1][this->Piece.x - 2] > 6) {
+            } else if (GameWindow.Board[this->Piece.y - 1][this->Piece.x - 2] > 6) {
                 GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x - 2] = Background::Valid_Capture;
             }
         }
     }
     
-    if(this->Piece.y + 2 < 8) {
-        if(this->Piece.x + 1 < 8) {
-            if(GameWindow.Board[this->Piece.y + 2][this->Piece.x + 1] is Pieces::Empty) {
+    if (this->Piece.y + 2 < 8) {
+        if (this->Piece.x + 1 < 8) {
+            if (GameWindow.Board[this->Piece.y + 2][this->Piece.x + 1] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y + 2][this->Piece.x + 1] = Background::Valid_Move;
-            } else if(GameWindow.Board[this->Piece.y + 2][this->Piece.x + 1] > 6) {
+            } else if (GameWindow.Board[this->Piece.y + 2][this->Piece.x + 1] > 6) {
                 GameWindow.BoardBackground[this->Piece.y + 2][this->Piece.x + 1] = Background::Valid_Capture;
             }
         }
         
-        if(this->Piece.x - 1 >= 0) {
-            if(GameWindow.Board[this->Piece.y + 2][this->Piece.x - 1] is Pieces::Empty) {
+        if (this->Piece.x - 1 >= 0) {
+            if (GameWindow.Board[this->Piece.y + 2][this->Piece.x - 1] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y + 2][this->Piece.x - 1] = Background::Valid_Move;
-            } else if(GameWindow.Board[this->Piece.y + 2][this->Piece.x - 1] > 6) {
+            } else if (GameWindow.Board[this->Piece.y + 2][this->Piece.x - 1] > 6) {
                 GameWindow.BoardBackground[this->Piece.y + 2][this->Piece.x - 1] = Background::Valid_Capture;
             }
         }
     }
     
-    if(this->Piece.y - 2 >= 0) {
-        if(this->Piece.x + 1 < 8) {
-            if(GameWindow.Board[this->Piece.y - 2][this->Piece.x + 1] is Pieces::Empty) {
+    if (this->Piece.y - 2 >= 0) {
+        if (this->Piece.x + 1 < 8) {
+            if (GameWindow.Board[this->Piece.y - 2][this->Piece.x + 1] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y - 2][this->Piece.x + 1] = Background::Valid_Move;
-            } else if(GameWindow.Board[this->Piece.y - 2][this->Piece.x + 1] > 6) {
+            } else if (GameWindow.Board[this->Piece.y - 2][this->Piece.x + 1] > 6) {
                 GameWindow.BoardBackground[this->Piece.y - 2][this->Piece.x + 1] = Background::Valid_Capture;
             }
         }
         
-        if(this->Piece.x - 1 >= 0) {
-            if(GameWindow.Board[this->Piece.y - 2][this->Piece.x - 1] is Pieces::Empty) {
+        if (this->Piece.x - 1 >= 0) {
+            if (GameWindow.Board[this->Piece.y - 2][this->Piece.x - 1] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y - 2][this->Piece.x - 1] = Background::Valid_Move;
-            } else if(GameWindow.Board[this->Piece.y - 2][this->Piece.x - 1] > 6) {
+            } else if (GameWindow.Board[this->Piece.y - 2][this->Piece.x - 1] > 6) {
                 GameWindow.BoardBackground[this->Piece.y - 2][this->Piece.x - 1] = Background::Valid_Capture;
             }
         }
@@ -581,10 +581,10 @@ void Move::ShowWhiteKnightPath(void) {
 }
 
 void Move::ShowWhiteBishopPath(void) {
-    for(int x = this->Piece.x - 1, y = this->Piece.y - 1; x >= 0 and y >= 0; x--, y--) {
-        if(GameWindow.Board[y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x - 1, y = this->Piece.y - 1; x >= 0 and y >= 0; x--, y--) {
+        if (GameWindow.Board[y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][x] = Background::Valid_Move;
-        } else if(GameWindow.Board[y][x] > 6) {
+        } else if (GameWindow.Board[y][x] > 6) {
             GameWindow.BoardBackground[y][x] = Background::Valid_Capture;
             break;
         } else {
@@ -592,10 +592,10 @@ void Move::ShowWhiteBishopPath(void) {
         }
     }
     
-    for(int x = this->Piece.x + 1, y = this->Piece.y - 1; x < 8 and y >= 0; x++, y--) {
-        if(GameWindow.Board[y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x + 1, y = this->Piece.y - 1; x < 8 and y >= 0; x++, y--) {
+        if (GameWindow.Board[y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][x] = Background::Valid_Move;
-        } else if(GameWindow.Board[y][x] > 6) {
+        } else if (GameWindow.Board[y][x] > 6) {
             GameWindow.BoardBackground[y][x] = Background::Valid_Capture;
             break;
         } else {
@@ -603,10 +603,10 @@ void Move::ShowWhiteBishopPath(void) {
         }
     }
     
-    for(int x = this->Piece.x + 1, y = this->Piece.y + 1; x < 8 and y < 8; x++, y++) {
-        if(GameWindow.Board[y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x + 1, y = this->Piece.y + 1; x < 8 and y < 8; x++, y++) {
+        if (GameWindow.Board[y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][x] = Background::Valid_Move;
-        } else if(GameWindow.Board[y][x] > 6) {
+        } else if (GameWindow.Board[y][x] > 6) {
             GameWindow.BoardBackground[y][x] = Background::Valid_Capture;
             break;
         } else {
@@ -614,10 +614,10 @@ void Move::ShowWhiteBishopPath(void) {
         }
     }
     
-    for(int x = this->Piece.x - 1, y = this->Piece.y + 1; x >= 0 and y < 8; x--, y++) {
-        if(GameWindow.Board[y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x - 1, y = this->Piece.y + 1; x >= 0 and y < 8; x--, y++) {
+        if (GameWindow.Board[y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][x] = Background::Valid_Move;
-        } else if(GameWindow.Board[y][x] > 6) {
+        } else if (GameWindow.Board[y][x] > 6) {
             GameWindow.BoardBackground[y][x] = Background::Valid_Capture;
             break;
         } else {
@@ -627,65 +627,65 @@ void Move::ShowWhiteBishopPath(void) {
 }
 
 void Move::ShowWhiteKingPath(void) {
-    if(this->Piece.x + 1 < 8) {
-        if(GameWindow.Board[this->Piece.y][this->Piece.x + 1] is Pieces::Empty) {
+    if (this->Piece.x + 1 < 8) {
+        if (GameWindow.Board[this->Piece.y][this->Piece.x + 1] is Pieces::Empty) {
             GameWindow.BoardBackground[this->Piece.y][this->Piece.x + 1] = Background::Valid_Move;
-        } else if(GameWindow.Board[this->Piece.y][this->Piece.x + 1] > 6) {
+        } else if (GameWindow.Board[this->Piece.y][this->Piece.x + 1] > 6) {
             GameWindow.BoardBackground[this->Piece.y][this->Piece.x + 1] = Background::Valid_Capture;
         }
     }
     
-    if(this->Piece.x - 1 >= 0) {
-        if(GameWindow.Board[this->Piece.y][this->Piece.x - 1] is Pieces::Empty) {
+    if (this->Piece.x - 1 >= 0) {
+        if (GameWindow.Board[this->Piece.y][this->Piece.x - 1] is Pieces::Empty) {
             GameWindow.BoardBackground[this->Piece.y][this->Piece.x - 1] = Background::Valid_Move;
-        } else if(GameWindow.Board[this->Piece.y][this->Piece.x - 1] > 6) {
+        } else if (GameWindow.Board[this->Piece.y][this->Piece.x - 1] > 6) {
             GameWindow.BoardBackground[this->Piece.y][this->Piece.x - 1] = Background::Valid_Capture;
         }
     }
     
-    if(this->Piece.y - 1 >= 0) {
-        if(GameWindow.Board[this->Piece.y - 1][this->Piece.x] is Pieces::Empty) {
+    if (this->Piece.y - 1 >= 0) {
+        if (GameWindow.Board[this->Piece.y - 1][this->Piece.x] is Pieces::Empty) {
             GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x] = Background::Valid_Move;
-        } else if(GameWindow.Board[this->Piece.y - 1][this->Piece.x] > 6) {
+        } else if (GameWindow.Board[this->Piece.y - 1][this->Piece.x] > 6) {
             GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x] = Background::Valid_Capture;
         }
         
-        if(this->Piece.x + 1 < 8) {
-            if(GameWindow.Board[this->Piece.y - 1][this->Piece.x + 1] is Pieces::Empty) {
+        if (this->Piece.x + 1 < 8) {
+            if (GameWindow.Board[this->Piece.y - 1][this->Piece.x + 1] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x + 1] = Background::Valid_Move;
-            } else if(GameWindow.Board[this->Piece.y - 1][this->Piece.x + 1] > 6) {
+            } else if (GameWindow.Board[this->Piece.y - 1][this->Piece.x + 1] > 6) {
                 GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x + 1] = Background::Valid_Capture;
             }
         }
         
-        if(this->Piece.x - 1 >= 0) {
-            if(GameWindow.Board[this->Piece.y - 1][this->Piece.x - 1] is Pieces::Empty) {
+        if (this->Piece.x - 1 >= 0) {
+            if (GameWindow.Board[this->Piece.y - 1][this->Piece.x - 1] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x - 1] = Background::Valid_Move;
-            } else if(GameWindow.Board[this->Piece.y - 1][this->Piece.x - 1] > 6) {
+            } else if (GameWindow.Board[this->Piece.y - 1][this->Piece.x - 1] > 6) {
                 GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x - 1] = Background::Valid_Capture;
             }
         }
     }
     
-    if(this->Piece.y + 1 < 8) {
-        if(GameWindow.Board[this->Piece.y + 1][this->Piece.x] is Pieces::Empty) {
+    if (this->Piece.y + 1 < 8) {
+        if (GameWindow.Board[this->Piece.y + 1][this->Piece.x] is Pieces::Empty) {
             GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x] = Background::Valid_Move;
-        } else if(GameWindow.Board[this->Piece.y + 1][this->Piece.x] > 6) {
+        } else if (GameWindow.Board[this->Piece.y + 1][this->Piece.x] > 6) {
             GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x] = Background::Valid_Capture;
         }
         
-        if(this->Piece.x + 1 < 8) {
-            if(GameWindow.Board[this->Piece.y + 1][this->Piece.x + 1] is Pieces::Empty) {
+        if (this->Piece.x + 1 < 8) {
+            if (GameWindow.Board[this->Piece.y + 1][this->Piece.x + 1] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x + 1] = Background::Valid_Move;
-            } else if(GameWindow.Board[this->Piece.y + 1][this->Piece.x + 1] > 6) {
+            } else if (GameWindow.Board[this->Piece.y + 1][this->Piece.x + 1] > 6) {
                 GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x + 1] = Background::Valid_Capture;
             }
         }
         
-        if(this->Piece.x - 1 >= 0) {
-            if(GameWindow.Board[this->Piece.y + 1][this->Piece.x - 1] is Pieces::Empty) {
+        if (this->Piece.x - 1 >= 0) {
+            if (GameWindow.Board[this->Piece.y + 1][this->Piece.x - 1] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x - 1] = Background::Valid_Move;
-            } else if(GameWindow.Board[this->Piece.y + 1][this->Piece.x - 1] > 6) {
+            } else if (GameWindow.Board[this->Piece.y + 1][this->Piece.x - 1] > 6) {
                 GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x - 1] = Background::Valid_Capture;
             }
         }
@@ -693,10 +693,10 @@ void Move::ShowWhiteKingPath(void) {
 }
 
 void Move::ShowWhiteQueenPath(void) {
-    for(int x = this->Piece.x + 1; x < 8; x++) {
-        if(GameWindow.Board[this->Piece.y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x + 1; x < 8; x++) {
+        if (GameWindow.Board[this->Piece.y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[this->Piece.y][x] = Background::Valid_Move;
-        } else if(GameWindow.Board[this->Piece.y][x] > 6) {
+        } else if (GameWindow.Board[this->Piece.y][x] > 6) {
             GameWindow.BoardBackground[this->Piece.y][x] = Background::Valid_Capture;
             break;
         } else {
@@ -704,10 +704,10 @@ void Move::ShowWhiteQueenPath(void) {
         }
     }
     
-    for(int x = this->Piece.x - 1; x >= 0; x--) {
-        if(GameWindow.Board[this->Piece.y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x - 1; x >= 0; x--) {
+        if (GameWindow.Board[this->Piece.y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[this->Piece.y][x] = Background::Valid_Move;
-        } else if(GameWindow.Board[this->Piece.y][x] > 6) {
+        } else if (GameWindow.Board[this->Piece.y][x] > 6) {
             GameWindow.BoardBackground[this->Piece.y][x] = Background::Valid_Capture;
             break;
         } else {
@@ -715,10 +715,10 @@ void Move::ShowWhiteQueenPath(void) {
         }
     }
     
-    for(int y = this->Piece.y + 1; y < 8; y++) {
-        if(GameWindow.Board[y][this->Piece.x] is Pieces::Empty) {
+    for (int y = this->Piece.y + 1; y < 8; y++) {
+        if (GameWindow.Board[y][this->Piece.x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][this->Piece.x] = Background::Valid_Move;
-        } else if(GameWindow.Board[y][this->Piece.x] > 6) {
+        } else if (GameWindow.Board[y][this->Piece.x] > 6) {
             GameWindow.BoardBackground[y][this->Piece.x] = Background::Valid_Capture;
             break;
         } else {
@@ -726,10 +726,10 @@ void Move::ShowWhiteQueenPath(void) {
         }
     }
     
-    for(int y = this->Piece.y - 1; y >= 0; y--) {
-        if(GameWindow.Board[y][this->Piece.x] is Pieces::Empty) {
+    for (int y = this->Piece.y - 1; y >= 0; y--) {
+        if (GameWindow.Board[y][this->Piece.x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][this->Piece.x] = Background::Valid_Move;
-        } else if(GameWindow.Board[y][this->Piece.x] > 6) {
+        } else if (GameWindow.Board[y][this->Piece.x] > 6) {
             GameWindow.BoardBackground[y][this->Piece.x] = Background::Valid_Capture;
             break;
         } else {
@@ -737,10 +737,10 @@ void Move::ShowWhiteQueenPath(void) {
         }
     }
     
-    for(int x = this->Piece.x - 1, y = this->Piece.y - 1; x >= 0 and y >= 0; x--, y--) {
-        if(GameWindow.Board[y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x - 1, y = this->Piece.y - 1; x >= 0 and y >= 0; x--, y--) {
+        if (GameWindow.Board[y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][x] = Background::Valid_Move;
-        } else if(GameWindow.Board[y][x] > 6) {
+        } else if (GameWindow.Board[y][x] > 6) {
             GameWindow.BoardBackground[y][x] = Background::Valid_Capture;
             break;
         } else {
@@ -748,10 +748,10 @@ void Move::ShowWhiteQueenPath(void) {
         }
     }
     
-    for(int x = this->Piece.x + 1, y = this->Piece.y - 1; x < 8 and y >= 0; x++, y--) {
-        if(GameWindow.Board[y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x + 1, y = this->Piece.y - 1; x < 8 and y >= 0; x++, y--) {
+        if (GameWindow.Board[y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][x] = Background::Valid_Move;
-        } else if(GameWindow.Board[y][x] > 6) {
+        } else if (GameWindow.Board[y][x] > 6) {
             GameWindow.BoardBackground[y][x] = Background::Valid_Capture;
             break;
         } else {
@@ -759,10 +759,10 @@ void Move::ShowWhiteQueenPath(void) {
         }
     }
     
-    for(int x = this->Piece.x + 1, y = this->Piece.y + 1; x < 8 and y < 8; x++, y++) {
-        if(GameWindow.Board[y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x + 1, y = this->Piece.y + 1; x < 8 and y < 8; x++, y++) {
+        if (GameWindow.Board[y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][x] = Background::Valid_Move;
-        } else if(GameWindow.Board[y][x] > 6) {
+        } else if (GameWindow.Board[y][x] > 6) {
             GameWindow.BoardBackground[y][x] = Background::Valid_Capture;
             break;
         } else {
@@ -770,10 +770,10 @@ void Move::ShowWhiteQueenPath(void) {
         }
     }
     
-    for(int x = this->Piece.x - 1, y = this->Piece.y + 1; x >= 0 and y < 8; x--, y++) {
-        if(GameWindow.Board[y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x - 1, y = this->Piece.y + 1; x >= 0 and y < 8; x--, y++) {
+        if (GameWindow.Board[y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][x] = Background::Valid_Move;
-        } else if(GameWindow.Board[y][x] > 6) {
+        } else if (GameWindow.Board[y][x] > 6) {
             GameWindow.BoardBackground[y][x] = Background::Valid_Capture;
             break;
         } else {
@@ -783,30 +783,30 @@ void Move::ShowWhiteQueenPath(void) {
 }
 
 void Move::ShowBlackPawnPath(void) {
-    if(this->Piece.y + 1 < 8) {
-        if(GameWindow.Board[this->Piece.y + 1][this->Piece.x] is Pieces::Empty) {
+    if (this->Piece.y + 1 < 8) {
+        if (GameWindow.Board[this->Piece.y + 1][this->Piece.x] is Pieces::Empty) {
             GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x] = Background::Enemy_Move;
             
-            if(this->Piece.y is 1 and GameWindow.Board[this->Piece.y + 2][this->Piece.x] is Pieces::Empty) {
+            if (this->Piece.y is 1 and GameWindow.Board[this->Piece.y + 2][this->Piece.x] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y + 2][this->Piece.x] = Background::Enemy_Move;
             }
         }
     }
     
-    if(this->Piece.x - 1 >= 0 and this->Piece.y + 1 < 8 and GameWindow.Board[this->Piece.y + 1][this->Piece.x - 1] > 0 and GameWindow.Board[this->Piece.y + 1][this->Piece.x - 1] < 7) {
+    if (this->Piece.x - 1 >= 0 and this->Piece.y + 1 < 8 and GameWindow.Board[this->Piece.y + 1][this->Piece.x - 1] > 0 and GameWindow.Board[this->Piece.y + 1][this->Piece.x - 1] < 7) {
         GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x - 1] = Background::Enemy_Capture;
     }
     
-    if(this->Piece.x + 1 < 8 and this->Piece.y + 1 < 8 and GameWindow.Board[this->Piece.y + 1][this->Piece.x + 1] > 0 and GameWindow.Board[this->Piece.y + 1][this->Piece.x + 1] < 7) {
+    if (this->Piece.x + 1 < 8 and this->Piece.y + 1 < 8 and GameWindow.Board[this->Piece.y + 1][this->Piece.x + 1] > 0 and GameWindow.Board[this->Piece.y + 1][this->Piece.x + 1] < 7) {
         GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x + 1] = Background::Enemy_Capture;
     }
 }
 
 void Move::ShowBlackRookPath(void) {
-    for(int x = this->Piece.x + 1; x < 8; x++) {
-        if(GameWindow.Board[this->Piece.y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x + 1; x < 8; x++) {
+        if (GameWindow.Board[this->Piece.y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[this->Piece.y][x] = Background::Enemy_Move;
-        } else if(GameWindow.Board[this->Piece.y][x] > 0 and GameWindow.Board[this->Piece.y][x] < 7) {
+        } else if (GameWindow.Board[this->Piece.y][x] > 0 and GameWindow.Board[this->Piece.y][x] < 7) {
             GameWindow.BoardBackground[this->Piece.y][x] = Background::Enemy_Capture;
             break;
         } else {
@@ -814,10 +814,10 @@ void Move::ShowBlackRookPath(void) {
         }
     }
     
-    for(int x = this->Piece.x - 1; x >= 0; x--) {
-        if(GameWindow.Board[this->Piece.y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x - 1; x >= 0; x--) {
+        if (GameWindow.Board[this->Piece.y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[this->Piece.y][x] = Background::Enemy_Move;
-        } else if(GameWindow.Board[this->Piece.y][x] > 0 and GameWindow.Board[this->Piece.y][x] < 7) {
+        } else if (GameWindow.Board[this->Piece.y][x] > 0 and GameWindow.Board[this->Piece.y][x] < 7) {
             GameWindow.BoardBackground[this->Piece.y][x] = Background::Enemy_Capture;
             break;
         } else {
@@ -825,10 +825,10 @@ void Move::ShowBlackRookPath(void) {
         }
     }
     
-    for(int y = this->Piece.y + 1; y < 8; y++) {
-        if(GameWindow.Board[y][this->Piece.x] is Pieces::Empty) {
+    for (int y = this->Piece.y + 1; y < 8; y++) {
+        if (GameWindow.Board[y][this->Piece.x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][this->Piece.x] = Background::Enemy_Move;
-        } else if(GameWindow.Board[y][this->Piece.x] > 0 and GameWindow.Board[y][this->Piece.x] < 7) {
+        } else if (GameWindow.Board[y][this->Piece.x] > 0 and GameWindow.Board[y][this->Piece.x] < 7) {
             GameWindow.BoardBackground[y][this->Piece.x] = Background::Enemy_Capture;
             break;
         } else {
@@ -836,10 +836,10 @@ void Move::ShowBlackRookPath(void) {
         }
     }
     
-    for(int y = this->Piece.y - 1; y >= 0; y--) {
-        if(GameWindow.Board[y][this->Piece.x] is Pieces::Empty) {
+    for (int y = this->Piece.y - 1; y >= 0; y--) {
+        if (GameWindow.Board[y][this->Piece.x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][this->Piece.x] = Background::Enemy_Move;
-        } else if(GameWindow.Board[y][this->Piece.x] > 0 and GameWindow.Board[y][this->Piece.x] < 7) {
+        } else if (GameWindow.Board[y][this->Piece.x] > 0 and GameWindow.Board[y][this->Piece.x] < 7) {
             GameWindow.BoardBackground[y][this->Piece.x] = Background::Enemy_Capture;
             break;
         } else {
@@ -849,71 +849,71 @@ void Move::ShowBlackRookPath(void) {
 }
 
 void Move::ShowBlackKnightPath(void) {
-    if(this->Piece.x + 2 < 8) {
-        if(this->Piece.y + 1 < 8) {
-            if(GameWindow.Board[this->Piece.y + 1][this->Piece.x + 2] is Pieces::Empty) {
+    if (this->Piece.x + 2 < 8) {
+        if (this->Piece.y + 1 < 8) {
+            if (GameWindow.Board[this->Piece.y + 1][this->Piece.x + 2] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x + 2] = Background::Enemy_Move;
-            } else if(GameWindow.Board[this->Piece.y + 1][this->Piece.x + 2] > 0 and GameWindow.Board[this->Piece.y + 1][this->Piece.x + 2] < 7) {
+            } else if (GameWindow.Board[this->Piece.y + 1][this->Piece.x + 2] > 0 and GameWindow.Board[this->Piece.y + 1][this->Piece.x + 2] < 7) {
                 GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x + 2] = Background::Enemy_Capture;
             }
         }
-        if(this->Piece.y - 1 >= 0) {
-            if(GameWindow.Board[this->Piece.y - 1][this->Piece.x + 2] is Pieces::Empty) {
+        if (this->Piece.y - 1 >= 0) {
+            if (GameWindow.Board[this->Piece.y - 1][this->Piece.x + 2] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x + 2] = Background::Enemy_Move;
-            } else if(GameWindow.Board[this->Piece.y - 1][this->Piece.x + 2] > 0 and GameWindow.Board[this->Piece.y - 1][this->Piece.x + 2] < 7) {
+            } else if (GameWindow.Board[this->Piece.y - 1][this->Piece.x + 2] > 0 and GameWindow.Board[this->Piece.y - 1][this->Piece.x + 2] < 7) {
                 GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x + 2] = Background::Enemy_Capture;
             }
         }
     }
     
-    if(this->Piece.x - 2 >= 0) {
-        if(this->Piece.y + 1 < 8) {
-            if(GameWindow.Board[this->Piece.y + 1][this->Piece.x - 2] is Pieces::Empty) {
+    if (this->Piece.x - 2 >= 0) {
+        if (this->Piece.y + 1 < 8) {
+            if (GameWindow.Board[this->Piece.y + 1][this->Piece.x - 2] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x - 2] = Background::Enemy_Move;
-            } else if(GameWindow.Board[this->Piece.y + 1][this->Piece.x - 2] > 0 and GameWindow.Board[this->Piece.y + 1][this->Piece.x - 2] < 7) {
+            } else if (GameWindow.Board[this->Piece.y + 1][this->Piece.x - 2] > 0 and GameWindow.Board[this->Piece.y + 1][this->Piece.x - 2] < 7) {
                 GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x - 2] = Background::Enemy_Capture;
             }
         }
-        if(this->Piece.y - 1 >= 0) {
-            if(GameWindow.Board[this->Piece.y - 1][this->Piece.x - 2] is Pieces::Empty) {
+        if (this->Piece.y - 1 >= 0) {
+            if (GameWindow.Board[this->Piece.y - 1][this->Piece.x - 2] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x - 2] = Background::Enemy_Move;
-            } else if(GameWindow.Board[this->Piece.y - 1][this->Piece.x - 2] > 0 and GameWindow.Board[this->Piece.y - 1][this->Piece.x - 2] < 7) {
+            } else if (GameWindow.Board[this->Piece.y - 1][this->Piece.x - 2] > 0 and GameWindow.Board[this->Piece.y - 1][this->Piece.x - 2] < 7) {
                 GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x - 2] = Background::Enemy_Capture;
             }
         }
     }
     
-    if(this->Piece.y + 2 < 8) {
-        if(this->Piece.x + 1 < 8) {
-            if(GameWindow.Board[this->Piece.y + 2][this->Piece.x + 1] is Pieces::Empty) {
+    if (this->Piece.y + 2 < 8) {
+        if (this->Piece.x + 1 < 8) {
+            if (GameWindow.Board[this->Piece.y + 2][this->Piece.x + 1] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y + 2][this->Piece.x + 1] = Background::Enemy_Move;
-            } else if(GameWindow.Board[this->Piece.y + 2][this->Piece.x + 1] > 0 and GameWindow.Board[this->Piece.y + 2][this->Piece.x + 1] < 7) {
+            } else if (GameWindow.Board[this->Piece.y + 2][this->Piece.x + 1] > 0 and GameWindow.Board[this->Piece.y + 2][this->Piece.x + 1] < 7) {
                 GameWindow.BoardBackground[this->Piece.y + 2][this->Piece.x + 1] = Background::Enemy_Capture;
             }
         }
         
-        if(this->Piece.x - 1 >= 0) {
-            if(GameWindow.Board[this->Piece.y + 2][this->Piece.x - 1] is Pieces::Empty) {
+        if (this->Piece.x - 1 >= 0) {
+            if (GameWindow.Board[this->Piece.y + 2][this->Piece.x - 1] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y + 2][this->Piece.x - 1] = Background::Enemy_Move;
-            } else if(GameWindow.Board[this->Piece.y + 2][this->Piece.x - 1] > 0 and GameWindow.Board[this->Piece.y + 2][this->Piece.x - 1] < 7) {
+            } else if (GameWindow.Board[this->Piece.y + 2][this->Piece.x - 1] > 0 and GameWindow.Board[this->Piece.y + 2][this->Piece.x - 1] < 7) {
                 GameWindow.BoardBackground[this->Piece.y + 2][this->Piece.x - 1] = Background::Enemy_Capture;
             }
         }
     }
     
-    if(this->Piece.y - 2 >= 0) {
-        if(this->Piece.x + 1 < 8) {
-            if(GameWindow.Board[this->Piece.y - 2][this->Piece.x + 1] is Pieces::Empty) {
+    if (this->Piece.y - 2 >= 0) {
+        if (this->Piece.x + 1 < 8) {
+            if (GameWindow.Board[this->Piece.y - 2][this->Piece.x + 1] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y - 2][this->Piece.x + 1] = Background::Enemy_Move;
-            } else if(GameWindow.Board[this->Piece.y - 2][this->Piece.x + 1] > 0 and GameWindow.Board[this->Piece.y - 2][this->Piece.x + 1] < 7) {
+            } else if (GameWindow.Board[this->Piece.y - 2][this->Piece.x + 1] > 0 and GameWindow.Board[this->Piece.y - 2][this->Piece.x + 1] < 7) {
                 GameWindow.BoardBackground[this->Piece.y - 2][this->Piece.x + 1] = Background::Enemy_Capture;
             }
         }
         
-        if(this->Piece.x - 1 >= 0) {
-            if(GameWindow.Board[this->Piece.y - 2][this->Piece.x - 1] is Pieces::Empty) {
+        if (this->Piece.x - 1 >= 0) {
+            if (GameWindow.Board[this->Piece.y - 2][this->Piece.x - 1] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y - 2][this->Piece.x - 1] = Background::Enemy_Move;
-            } else if(GameWindow.Board[this->Piece.y - 2][this->Piece.x - 1] > 0 and GameWindow.Board[this->Piece.y - 2][this->Piece.x - 1] < 7) {
+            } else if (GameWindow.Board[this->Piece.y - 2][this->Piece.x - 1] > 0 and GameWindow.Board[this->Piece.y - 2][this->Piece.x - 1] < 7) {
                 GameWindow.BoardBackground[this->Piece.y - 2][this->Piece.x - 1] = Background::Enemy_Capture;
             }
         }
@@ -921,10 +921,10 @@ void Move::ShowBlackKnightPath(void) {
 }
 
 void Move::ShowBlackBishopPath(void) {
-    for(int x = this->Piece.x - 1, y = this->Piece.y - 1; x >= 0 and y >= 0; x--, y--) {
-        if(GameWindow.Board[y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x - 1, y = this->Piece.y - 1; x >= 0 and y >= 0; x--, y--) {
+        if (GameWindow.Board[y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][x] = Background::Enemy_Move;
-        } else if(GameWindow.Board[y][x] > 0 and GameWindow.Board[y][x] < 7) {
+        } else if (GameWindow.Board[y][x] > 0 and GameWindow.Board[y][x] < 7) {
             GameWindow.BoardBackground[y][x] = Background::Enemy_Capture;
             break;
         } else {
@@ -932,10 +932,10 @@ void Move::ShowBlackBishopPath(void) {
         }
     }
     
-    for(int x = this->Piece.x + 1, y = this->Piece.y - 1; x < 8 and y >= 0; x++, y--) {
-        if(GameWindow.Board[y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x + 1, y = this->Piece.y - 1; x < 8 and y >= 0; x++, y--) {
+        if (GameWindow.Board[y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][x] = Background::Enemy_Move;
-        } else if(GameWindow.Board[y][x] > 0 and GameWindow.Board[y][x] < 7) {
+        } else if (GameWindow.Board[y][x] > 0 and GameWindow.Board[y][x] < 7) {
             GameWindow.BoardBackground[y][x] = Background::Enemy_Capture;
             break;
         } else {
@@ -943,10 +943,10 @@ void Move::ShowBlackBishopPath(void) {
         }
     }
     
-    for(int x = this->Piece.x + 1, y = this->Piece.y + 1; x < 8 and y < 8; x++, y++) {
-        if(GameWindow.Board[y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x + 1, y = this->Piece.y + 1; x < 8 and y < 8; x++, y++) {
+        if (GameWindow.Board[y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][x] = Background::Enemy_Move;
-        } else if(GameWindow.Board[y][x] > 0 and GameWindow.Board[y][x] < 7) {
+        } else if (GameWindow.Board[y][x] > 0 and GameWindow.Board[y][x] < 7) {
             GameWindow.BoardBackground[y][x] = Background::Enemy_Capture;
             break;
         } else {
@@ -954,10 +954,10 @@ void Move::ShowBlackBishopPath(void) {
         }
     }
     
-    for(int x = this->Piece.x - 1, y = this->Piece.y + 1; x >= 0 and y < 8; x--, y++) {
-        if(GameWindow.Board[y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x - 1, y = this->Piece.y + 1; x >= 0 and y < 8; x--, y++) {
+        if (GameWindow.Board[y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][x] = Background::Enemy_Move;
-        } else if(GameWindow.Board[y][x] > 0 and GameWindow.Board[y][x] < 7) {
+        } else if (GameWindow.Board[y][x] > 0 and GameWindow.Board[y][x] < 7) {
             GameWindow.BoardBackground[y][x] = Background::Enemy_Capture;
             break;
         } else {
@@ -967,65 +967,65 @@ void Move::ShowBlackBishopPath(void) {
 }
 
 void Move::ShowBlackKingPath(void) {
-    if(this->Piece.x + 1 < 8) {
-        if(GameWindow.Board[this->Piece.y][this->Piece.x + 1] is Pieces::Empty) {
+    if (this->Piece.x + 1 < 8) {
+        if (GameWindow.Board[this->Piece.y][this->Piece.x + 1] is Pieces::Empty) {
             GameWindow.BoardBackground[this->Piece.y][this->Piece.x + 1] = Background::Enemy_Move;
-        } else if(GameWindow.Board[this->Piece.y][this->Piece.x + 1] > 0 and GameWindow.Board[this->Piece.y][this->Piece.x + 1] < 7) {
+        } else if (GameWindow.Board[this->Piece.y][this->Piece.x + 1] > 0 and GameWindow.Board[this->Piece.y][this->Piece.x + 1] < 7) {
             GameWindow.BoardBackground[this->Piece.y][this->Piece.x + 1] = Background::Enemy_Capture;
         }
     }
     
-    if(this->Piece.x - 1 >= 0) {
-        if(GameWindow.Board[this->Piece.y][this->Piece.x - 1] is Pieces::Empty) {
+    if (this->Piece.x - 1 >= 0) {
+        if (GameWindow.Board[this->Piece.y][this->Piece.x - 1] is Pieces::Empty) {
             GameWindow.BoardBackground[this->Piece.y][this->Piece.x - 1] = Background::Enemy_Move;
-        } else if(GameWindow.Board[this->Piece.y][this->Piece.x - 1] > 0 and GameWindow.Board[this->Piece.y][this->Piece.x - 1] < 7) {
+        } else if (GameWindow.Board[this->Piece.y][this->Piece.x - 1] > 0 and GameWindow.Board[this->Piece.y][this->Piece.x - 1] < 7) {
             GameWindow.BoardBackground[this->Piece.y][this->Piece.x - 1] = Background::Enemy_Capture;
         }
     }
     
-    if(this->Piece.y - 1 >= 0) {
-        if(GameWindow.Board[this->Piece.y - 1][this->Piece.x] is Pieces::Empty) {
+    if (this->Piece.y - 1 >= 0) {
+        if (GameWindow.Board[this->Piece.y - 1][this->Piece.x] is Pieces::Empty) {
             GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x] = Background::Enemy_Move;
-        } else if(GameWindow.Board[this->Piece.y - 1][this->Piece.x] > 0 and GameWindow.Board[this->Piece.y - 1][this->Piece.x] < 7) {
+        } else if (GameWindow.Board[this->Piece.y - 1][this->Piece.x] > 0 and GameWindow.Board[this->Piece.y - 1][this->Piece.x] < 7) {
             GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x] = Background::Enemy_Capture;
         }
         
-        if(this->Piece.x + 1 < 8) {
-            if(GameWindow.Board[this->Piece.y - 1][this->Piece.x + 1] is Pieces::Empty) {
+        if (this->Piece.x + 1 < 8) {
+            if (GameWindow.Board[this->Piece.y - 1][this->Piece.x + 1] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x + 1] = Background::Enemy_Move;
-            } else if(GameWindow.Board[this->Piece.y - 1][this->Piece.x + 1] > 0 and GameWindow.Board[this->Piece.y - 1][this->Piece.x + 1] < 7) {
+            } else if (GameWindow.Board[this->Piece.y - 1][this->Piece.x + 1] > 0 and GameWindow.Board[this->Piece.y - 1][this->Piece.x + 1] < 7) {
                 GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x + 1] = Background::Enemy_Capture;
             }
         }
         
-        if(this->Piece.x - 1 >= 0) {
-            if(GameWindow.Board[this->Piece.y - 1][this->Piece.x - 1] is Pieces::Empty) {
+        if (this->Piece.x - 1 >= 0) {
+            if (GameWindow.Board[this->Piece.y - 1][this->Piece.x - 1] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x - 1] = Background::Enemy_Move;
-            } else if(GameWindow.Board[this->Piece.y - 1][this->Piece.x - 1] > 0 and GameWindow.Board[this->Piece.y - 1][this->Piece.x - 1] < 7) {
+            } else if (GameWindow.Board[this->Piece.y - 1][this->Piece.x - 1] > 0 and GameWindow.Board[this->Piece.y - 1][this->Piece.x - 1] < 7) {
                 GameWindow.BoardBackground[this->Piece.y - 1][this->Piece.x - 1] = Background::Enemy_Capture;
             }
         }
     }
     
-    if(this->Piece.y + 1 < 8) {
-        if(GameWindow.Board[this->Piece.y + 1][this->Piece.x] is Pieces::Empty) {
+    if (this->Piece.y + 1 < 8) {
+        if (GameWindow.Board[this->Piece.y + 1][this->Piece.x] is Pieces::Empty) {
             GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x] = Background::Enemy_Move;
-        } else if(GameWindow.Board[this->Piece.y + 1][this->Piece.x] > 0 and GameWindow.Board[this->Piece.y + 1][this->Piece.x] < 7) {
+        } else if (GameWindow.Board[this->Piece.y + 1][this->Piece.x] > 0 and GameWindow.Board[this->Piece.y + 1][this->Piece.x] < 7) {
             GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x] = Background::Enemy_Capture;
         }
         
-        if(this->Piece.x + 1 < 8) {
-            if(GameWindow.Board[this->Piece.y + 1][this->Piece.x + 1] is Pieces::Empty) {
+        if (this->Piece.x + 1 < 8) {
+            if (GameWindow.Board[this->Piece.y + 1][this->Piece.x + 1] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x + 1] = Background::Enemy_Move;
-            } else if(GameWindow.Board[this->Piece.y + 1][this->Piece.x + 1] > 0 and GameWindow.Board[this->Piece.y + 1][this->Piece.x + 1] < 7) {
+            } else if (GameWindow.Board[this->Piece.y + 1][this->Piece.x + 1] > 0 and GameWindow.Board[this->Piece.y + 1][this->Piece.x + 1] < 7) {
                 GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x + 1] = Background::Enemy_Capture;
             }
         }
         
-        if(Piece.x - 1 >= 0) {
-            if(GameWindow.Board[this->Piece.y + 1][this->Piece.x - 1] is Pieces::Empty) {
+        if (Piece.x - 1 >= 0) {
+            if (GameWindow.Board[this->Piece.y + 1][this->Piece.x - 1] is Pieces::Empty) {
                 GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x - 1] = Background::Enemy_Move;
-            } else if(GameWindow.Board[this->Piece.y + 1][this->Piece.x - 1] > 0 and GameWindow.Board[this->Piece.y + 1][this->Piece.x - 1] < 7) {
+            } else if (GameWindow.Board[this->Piece.y + 1][this->Piece.x - 1] > 0 and GameWindow.Board[this->Piece.y + 1][this->Piece.x - 1] < 7) {
                 GameWindow.BoardBackground[this->Piece.y + 1][this->Piece.x - 1] = Background::Enemy_Capture;
             }
         }
@@ -1033,10 +1033,10 @@ void Move::ShowBlackKingPath(void) {
 }
 
 void Move::ShowBlackQueenPath(void) {
-    for(int x = this->Piece.x + 1; x < 8; x++) {
-        if(GameWindow.Board[this->Piece.y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x + 1; x < 8; x++) {
+        if (GameWindow.Board[this->Piece.y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[this->Piece.y][x] = Background::Enemy_Move;
-        } else if(GameWindow.Board[this->Piece.y][x] > 0 and GameWindow.Board[this->Piece.y][x] < 7) {
+        } else if (GameWindow.Board[this->Piece.y][x] > 0 and GameWindow.Board[this->Piece.y][x] < 7) {
             GameWindow.BoardBackground[this->Piece.y][x] = Background::Enemy_Capture;
             break;
         } else {
@@ -1044,10 +1044,10 @@ void Move::ShowBlackQueenPath(void) {
         }
     }
     
-    for(int x = this->Piece.x - 1; x >= 0; x--) {
-        if(GameWindow.Board[this->Piece.y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x - 1; x >= 0; x--) {
+        if (GameWindow.Board[this->Piece.y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[this->Piece.y][x] = Background::Enemy_Move;
-        } else if(GameWindow.Board[this->Piece.y][x] > 0 and GameWindow.Board[this->Piece.y][x] < 7) {
+        } else if (GameWindow.Board[this->Piece.y][x] > 0 and GameWindow.Board[this->Piece.y][x] < 7) {
             GameWindow.BoardBackground[this->Piece.y][x] = Background::Enemy_Capture;
             break;
         } else {
@@ -1055,10 +1055,10 @@ void Move::ShowBlackQueenPath(void) {
         }
     }
     
-    for(int y = this->Piece.y + 1; y < 8; y++) {
-        if(GameWindow.Board[y][this->Piece.x] is Pieces::Empty) {
+    for (int y = this->Piece.y + 1; y < 8; y++) {
+        if (GameWindow.Board[y][this->Piece.x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][this->Piece.x] = Background::Enemy_Move;
-        } else if(GameWindow.Board[y][this->Piece.x] > 0 and GameWindow.Board[y][this->Piece.x] < 7) {
+        } else if (GameWindow.Board[y][this->Piece.x] > 0 and GameWindow.Board[y][this->Piece.x] < 7) {
             GameWindow.BoardBackground[y][this->Piece.x] = Background::Enemy_Capture;
             break;
         } else {
@@ -1066,10 +1066,10 @@ void Move::ShowBlackQueenPath(void) {
         }
     }
     
-    for(int y = this->Piece.y - 1; y >= 0; y--) {
-        if(GameWindow.Board[y][this->Piece.x] is Pieces::Empty) {
+    for (int y = this->Piece.y - 1; y >= 0; y--) {
+        if (GameWindow.Board[y][this->Piece.x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][this->Piece.x] = Background::Enemy_Move;
-        } else if(GameWindow.Board[y][this->Piece.x] > 0 and GameWindow.Board[y][this->Piece.x] < 7) {
+        } else if (GameWindow.Board[y][this->Piece.x] > 0 and GameWindow.Board[y][this->Piece.x] < 7) {
             GameWindow.BoardBackground[y][this->Piece.x] = Background::Enemy_Capture;
             break;
         } else {
@@ -1077,10 +1077,10 @@ void Move::ShowBlackQueenPath(void) {
         }
     }
     
-    for(int x = this->Piece.x - 1, y = this->Piece.y - 1; x >= 0 and y >= 0; x--, y--) {
-        if(GameWindow.Board[y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x - 1, y = this->Piece.y - 1; x >= 0 and y >= 0; x--, y--) {
+        if (GameWindow.Board[y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][x] = Background::Enemy_Move;
-        } else if(GameWindow.Board[y][x] > 0 and GameWindow.Board[y][x] < 7) {
+        } else if (GameWindow.Board[y][x] > 0 and GameWindow.Board[y][x] < 7) {
             GameWindow.BoardBackground[y][x] = Background::Enemy_Capture;
             break;
         } else {
@@ -1088,10 +1088,10 @@ void Move::ShowBlackQueenPath(void) {
         }
     }
     
-    for(int x = this->Piece.x + 1, y = this->Piece.y - 1; x < 8 and y >= 0; x++, y--) {
-        if(GameWindow.Board[y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x + 1, y = this->Piece.y - 1; x < 8 and y >= 0; x++, y--) {
+        if (GameWindow.Board[y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][x] = Background::Enemy_Move;
-        } else if(GameWindow.Board[y][x] > 0 and GameWindow.Board[y][x] < 7) {
+        } else if (GameWindow.Board[y][x] > 0 and GameWindow.Board[y][x] < 7) {
             GameWindow.BoardBackground[y][x] = Background::Enemy_Capture;
             break;
         } else {
@@ -1099,10 +1099,10 @@ void Move::ShowBlackQueenPath(void) {
         }
     }
     
-    for(int x = this->Piece.x + 1, y = this->Piece.y + 1; x < 8 and y < 8; x++, y++) {
-        if(GameWindow.Board[y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x + 1, y = this->Piece.y + 1; x < 8 and y < 8; x++, y++) {
+        if (GameWindow.Board[y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][x] = Background::Enemy_Move;
-        } else if(GameWindow.Board[y][x] > 0 and GameWindow.Board[y][x] < 7) {
+        } else if (GameWindow.Board[y][x] > 0 and GameWindow.Board[y][x] < 7) {
             GameWindow.BoardBackground[y][x] = Background::Enemy_Capture;
             break;
         } else {
@@ -1110,10 +1110,10 @@ void Move::ShowBlackQueenPath(void) {
         }
     }
     
-    for(int x = this->Piece.x - 1, y = this->Piece.y + 1; x >= 0 and y < 8; x--, y++) {
-        if(GameWindow.Board[y][x] is Pieces::Empty) {
+    for (int x = this->Piece.x - 1, y = this->Piece.y + 1; x >= 0 and y < 8; x--, y++) {
+        if (GameWindow.Board[y][x] is Pieces::Empty) {
             GameWindow.BoardBackground[y][x] = Background::Enemy_Move;
-        } else if(GameWindow.Board[y][x] > 0 and GameWindow.Board[y][x] < 7) {
+        } else if (GameWindow.Board[y][x] > 0 and GameWindow.Board[y][x] < 7) {
             GameWindow.BoardBackground[y][x] = Background::Enemy_Capture;
             break;
         } else {
@@ -1123,12 +1123,12 @@ void Move::ShowBlackQueenPath(void) {
 }
 
 void Move::OnPlayer1Turn(void) {
-    if(GameWindow.Board[this->Piece.y][this->Piece.x] > 0 and GameWindow.Board[this->Piece.y][this->Piece.x] < 7) {
+    if (GameWindow.Board[this->Piece.y][this->Piece.x] > 0 and GameWindow.Board[this->Piece.y][this->Piece.x] < 7) {
         Sounds.Music2.play();
         this->InitializeSelect();
         this->InitializeBoard();
         
-        switch(GameWindow.Board[this->Piece.y][this->Piece.x]) {
+        switch (GameWindow.Board[this->Piece.y][this->Piece.x]) {
             case Pieces::White_Pawn: Move::ShowWhitePawnPath(); break;
             case Pieces::White_Rook: Move::ShowWhiteRookPath(); break;
             case Pieces::White_Knight: Move::ShowWhiteKnightPath(); break;
@@ -1136,17 +1136,17 @@ void Move::OnPlayer1Turn(void) {
             case Pieces::White_King: Move::ShowWhiteKingPath(); break;
             case Pieces::White_Queen: Move::ShowWhiteQueenPath(); break;
         }
-    } else if(GameWindow.BoardBackground[this->Piece.y][this->Piece.x] is Background::Valid_Move or GameWindow.BoardBackground[this->Piece.y][this->Piece.x] is Background::Valid_Capture) {
+    } else if (GameWindow.BoardBackground[this->Piece.y][this->Piece.x] is Background::Valid_Move or GameWindow.BoardBackground[this->Piece.y][this->Piece.x] is Background::Valid_Capture) {
         Sounds.Music1.play();
         std::stringstream ss, dss;
         short omove = GameWindow.BoardBackground[this->Piece.y][this->Piece.x];
         this->InitializeBoard();
         short opp = GameWindow.Board[this->Piece.y][this->Piece.x];
         
-        if(this->Select.y != this->Piece.y or this->Select.x != this->Piece.x) {
+        if (this->Select.y != this->Piece.y or this->Select.x != this->Piece.x) {
             GameWindow.Board[this->Piece.y][this->Piece.x] = GameWindow.Board[this->Select.y][this->Select.x];
             
-            if(GameWindow.Board[this->Piece.y][this->Piece.x] is Pieces::White_Pawn and this->Piece.y is 0) {
+            if (GameWindow.Board[this->Piece.y][this->Piece.x] is Pieces::White_Pawn and this->Piece.y is 0) {
                 GameWindow.Board[this->Piece.y][this->Piece.x] = Pieces::White_Queen;
             }
             
@@ -1155,7 +1155,7 @@ void Move::OnPlayer1Turn(void) {
             GameWindow.PlayerTurn.setString("Player 2\'s Turn");
         }
         
-        if(omove is Background::Valid_Capture) {
+        if (omove is Background::Valid_Capture) {
             ss << Utils.PStringify(GameWindow.Board[this->Piece.y][this->Piece.x]) << " (" << this->Select.x << ", " << this->Select.y << ") captured " << Utils.PStringify(opp) << " (" << this->Piece.x << ", " << this->Piece.y << ").";
             dss << GameWindow.Board[this->Piece.y][this->Piece.x] << " " << this->Select.x << " " << this->Select.y << " " << 1 << " " << opp << " " << this->Piece.x << " " << this->Piece.y;
 #ifdef __CPP_DEBUG__
@@ -1175,12 +1175,12 @@ void Move::OnPlayer1Turn(void) {
 }
 
 void Move::OnPlayer2Turn(void) {
-    if(GameWindow.Board[this->Piece.y][this->Piece.x] > 6) {
+    if (GameWindow.Board[this->Piece.y][this->Piece.x] > 6) {
         Sounds.Music2.play();
         this->InitializeSelect();
         this->InitializeBoard();
         
-        switch(GameWindow.Board[this->Piece.y][this->Piece.x]) {
+        switch (GameWindow.Board[this->Piece.y][this->Piece.x]) {
             case Pieces::Black_Pawn: Move::ShowBlackPawnPath(); break;
             case Pieces::Black_Rook: Move::ShowBlackRookPath(); break;
             case Pieces::Black_Knight: Move::ShowBlackKnightPath(); break;
@@ -1188,17 +1188,17 @@ void Move::OnPlayer2Turn(void) {
             case Pieces::Black_King: Move::ShowBlackKingPath(); break;
             case Pieces::Black_Queen: Move::ShowBlackQueenPath(); break;
         }
-    } else if(GameWindow.BoardBackground[this->Piece.y][this->Piece.x] is Background::Enemy_Move or GameWindow.BoardBackground[this->Piece.y][this->Piece.x] is Background::Enemy_Capture) {
+    } else if (GameWindow.BoardBackground[this->Piece.y][this->Piece.x] is Background::Enemy_Move or GameWindow.BoardBackground[this->Piece.y][this->Piece.x] is Background::Enemy_Capture) {
         Sounds.Music1.play();
         std::stringstream ss, dss;
         short omove = GameWindow.BoardBackground[this->Piece.y][this->Piece.x];
         this->InitializeBoard();
         short opp = GameWindow.Board[this->Piece.y][this->Piece.x];
         
-        if(this->Select.y != this->Piece.y or this->Select.x != this->Piece.x) {
+        if (this->Select.y != this->Piece.y or this->Select.x != this->Piece.x) {
             GameWindow.Board[this->Piece.y][this->Piece.x] = GameWindow.Board[this->Select.y][this->Select.x];
             
-            if(GameWindow.Board[this->Piece.y][this->Piece.x] is Pieces::Black_Pawn and this->Piece.y is 7) {
+            if (GameWindow.Board[this->Piece.y][this->Piece.x] is Pieces::Black_Pawn and this->Piece.y is 7) {
                 GameWindow.Board[this->Piece.y][this->Piece.x] = Pieces::Black_Queen;
             }
             
@@ -1207,7 +1207,7 @@ void Move::OnPlayer2Turn(void) {
             GameWindow.PlayerTurn.setString("Player 1\'s Turn");
         }
         
-        if(omove is Background::Enemy_Capture) {
+        if (omove is Background::Enemy_Capture) {
             ss << Utils.PStringify(GameWindow.Board[this->Piece.y][this->Piece.x]) << " (" << this->Select.x << ", " << this->Select.y << ") captured " << Utils.PStringify(opp) << " (" << this->Piece.x << ", " << this->Piece.y << ").";
             dss << GameWindow.Board[this->Piece.y][this->Piece.x] << " " << this->Select.x << " " << this->Select.y << " " << 1 << " " << opp << " " << this->Piece.x << " " << this->Piece.y;
 #ifdef __CPP_DEBUG__
@@ -1236,23 +1236,23 @@ void Move::IfGameIsOver(void) {
     bool WhiteKingExists = false;
     bool BlackKingExists = false;
     
-    for(int y = 0; y < 8; y++) {
-        for(int x = 0; x < 8; x++) {
-            if(WhiteKingExists and BlackKingExists) {
+    for (int y = 0; y < 8; y++) {
+        for (int x = 0; x < 8; x++) {
+            if (WhiteKingExists and BlackKingExists) {
                 return;
             }
             
-            if(GameWindow.Board[y][x] is Pieces::Black_King) {
+            if (GameWindow.Board[y][x] is Pieces::Black_King) {
                 BlackKingExists = true;
-            } else if(GameWindow.Board[y][x] is Pieces::White_King) {
+            } else if (GameWindow.Board[y][x] is Pieces::White_King) {
                 WhiteKingExists = true;
             }
         }
     }
     
-    if(not BlackKingExists) {
+    if (not BlackKingExists) {
         StartPage.SetWhoWon(1);
-    } else if(not WhiteKingExists) {
+    } else if (not WhiteKingExists) {
         StartPage.SetWhoWon(2);
     }
     

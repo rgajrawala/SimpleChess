@@ -131,6 +131,8 @@ void StartPage::Initialize(void) {
         this->WhoWonText.setString("White (Player 1) Won!");
     } else if(this->WhoWon == 2) {
         this->WhoWonText.setString("Black (Player 2) Won!");
+    } else if(this->WhoWon == -1) {
+        this->WhoWonText.setString(" There was an error!");
     } else {
         this->WhoWonText.setString("");
     }
@@ -168,7 +170,7 @@ void StartPage::OnMouseButtonReleased(void) {
 
 void StartPage::OnEvent(void) {
     switch(this->Event.type) {
-        case sf::Event::Closed: exit(EXIT_SUCCESS);
+        case sf::Event::Closed: this->Window.close(); this->Window.setSize(sf::Vector2u(0, 0)); exit(EXIT_SUCCESS);
         case sf::Event::KeyPressed: this->OnKeyPressed(); break;
         case sf::Event::MouseMoved: this->OnMouseMove(); break;
         case sf::Event::MouseButtonReleased: this->OnMouseButtonReleased(); break;
@@ -202,7 +204,7 @@ bool StartPage::Main(void) {
 }
 
 void StartPage::SetWhoWon(short whowon) {
-    if(whowon > 2 or whowon < 0) {
+    if(whowon > 2 or whowon < -1 or whowon == 0) {
         return;
     }
     

@@ -39,6 +39,7 @@
 #include "reswin.hpp"
 #endif
 
+#include "alert.hpp"
 #include "sounds.hpp"
 #include "console.hpp"
 #include "board.hpp"
