@@ -9,34 +9,35 @@
 #ifndef SimpleChess_sounds_hpp
 #define SimpleChess_sounds_hpp
 
-/**
- * The Sounds class.
- * The sounds for the menu and selection / placement of pieces @todo FINISH
- */
-class Sounds {
-public:
-    sf::Music Music1, /**< Music object for 1.wav. */
-              Music2, /**< Music object for 2.wav. */
-              Music3; /**< Music object for 3.wav. */
-    
+namespace SimpleChess {
     /**
-     * Loads all the music objects with their .wav files.
+     * The Sounds class.
+     * The sounds for the menu and selection / placement of pieces @todo FINISH
      */
-    void Initialize(void);
-} Sounds;
+    namespace Sounds {
+        sf::Music Music1, /**< Music object for 1.wav. */
+                  Music2, /**< Music object for 2.wav. */
+                  Music3; /**< Music object for 3.wav. */
+        
+        /**
+         * Loads all the music objects with their .wav files.
+         */
+        void Initialize(void);
+    };
+};
 
 ////////// SOURCE //////////
 
-void Sounds::Initialize(void) {
-    if(!this->Music1.openFromFile(GetResource("1.wav"))) {
+void SimpleChess::Sounds::Initialize(void) {
+    if(!SimpleChess::Sounds::Music1.openFromFile(GetResource("1.wav"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!this->Music2.openFromFile(GetResource("2.wav"))) {
+    if(!SimpleChess::Sounds::Music2.openFromFile(GetResource("2.wav"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!this->Music3.openFromFile(GetResource("3.wav"))) {
+    if(!SimpleChess::Sounds::Music3.openFromFile(GetResource("3.wav"))) {
         exit(EXIT_FAILURE);
     }
 }

@@ -10,9 +10,9 @@
 #define SimpleChess_alert_hpp
 
 namespace sf {
-    class Alert {
+    namespace Alert {
         typedef sf::RenderWindow AlertBox;
-    } Alert;
+    };
 }
 
 #endif

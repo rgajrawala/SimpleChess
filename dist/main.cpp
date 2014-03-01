@@ -17,23 +17,19 @@
 #include "main.hpp"
 
 ChessMain() {
-#ifdef __CPP_DEBUG__
-    ChessHoldAtExit();
-#endif
-    
     // Make sure the config folder (and its contents) and the log folder (and its contents) are in this directory.
-    File.SetPath("/Users/usandfriends/Documents/GitHub/SimpleChess/");
+    SimpleChess::File::SetPath("SET_THIS");
     
-    Textures.Initialize();
-    Sounds.Initialize();
+    SimpleChess::Textures::Initialize();
+    SimpleChess::Sounds::Initialize();
     
     while(true) {
-        if(StartPage.Main()) {
-            GameWindow.Main();
+        if(SimpleChess::StartPage::Main()) {
+            SimpleChess::GameWindow::Main();
         } else {
-            Reader.Main();
+            SimpleChess::Reader::Main();
         }
     }
     
-    EndChessMain();
+    SimpleChess::EndChessMain();
 }

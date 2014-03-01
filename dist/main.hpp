@@ -49,10 +49,12 @@
 #include "reader.hpp"
 #include "gamewindow.hpp"
 
-void EndChessMain(void) {
-    Console.Pause();
-    exit(0);
-}
+namespace SimpleChess {
+    void EndChessMain(void) {
+        SimpleChess::Console::Pause();
+        exit(0);
+    }
+};
 
 #define ChessHoldAtExit() atexit(EndChessMain);
 

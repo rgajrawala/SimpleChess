@@ -38,7 +38,7 @@ public:
      * @param Board The board to print.
      * @param back_or_piece True if to print pieces, false if to print background.
      */
-    void print_r(FILE*, Board8, bool = true);
+    void print_r(FILE*, SimpleChess::Board8, bool = true);
     
     /**
      * Checks to see if the point (hpi, wpi) is in the rectangle (hp, wp, hp + h, wp + w).
@@ -57,18 +57,18 @@ public:
 
 const char* Utils::PStringify(short piece_type) {
     switch(piece_type) {
-        case Pieces::White_Pawn: return "White Pawn";
-        case Pieces::White_Rook: return "White Rook";
-        case Pieces::White_Knight: return "White Knight";
-        case Pieces::White_Bishop: return "White Bishop";
-        case Pieces::White_King: return "White King";
-        case Pieces::White_Queen: return "White Queen";
-        case Pieces::Black_Pawn: return "Black Pawn";
-        case Pieces::Black_Rook: return "Black Rook";
-        case Pieces::Black_Knight: return "Black Knight";
-        case Pieces::Black_Bishop: return "Black Bishop";
-        case Pieces::Black_King: return "Black King";
-        case Pieces::Black_Queen: return "Black Queen";
+        case SimpleChess::Pieces::White_Pawn: return "White Pawn";
+        case SimpleChess::Pieces::White_Rook: return "White Rook";
+        case SimpleChess::Pieces::White_Knight: return "White Knight";
+        case SimpleChess::Pieces::White_Bishop: return "White Bishop";
+        case SimpleChess::Pieces::White_King: return "White King";
+        case SimpleChess::Pieces::White_Queen: return "White Queen";
+        case SimpleChess::Pieces::Black_Pawn: return "Black Pawn";
+        case SimpleChess::Pieces::Black_Rook: return "Black Rook";
+        case SimpleChess::Pieces::Black_Knight: return "Black Knight";
+        case SimpleChess::Pieces::Black_Bishop: return "Black Bishop";
+        case SimpleChess::Pieces::Black_King: return "Black King";
+        case SimpleChess::Pieces::Black_Queen: return "Black Queen";
     }
     
     return "Empty";
@@ -76,16 +76,16 @@ const char* Utils::PStringify(short piece_type) {
 
 const char* Utils::BStringify(short background_type) {
     switch(background_type) {
-        case Background::Valid_Capture:
-        case Background::Enemy_Capture: return "captured";
-        case Background::Valid_Move:
-        case Background::Enemy_Move: return "moved";
+        case SimpleChess::Background::Valid_Capture:
+        case SimpleChess::Background::Enemy_Capture: return "captured";
+        case SimpleChess::Background::Valid_Move:
+        case SimpleChess::Background::Enemy_Move: return "moved";
     }
     
     return "did nothing";
 }
 
-void Utils::print_r(FILE* file, Board8 Board, bool back_or_piece) {
+void Utils::print_r(FILE* file, SimpleChess::Board8 Board, bool back_or_piece) {
     for(unsigned short y = 0; y < Board.size(); y++) {
         for(unsigned short x = 0; x < Board.size(); x++) {
             fprintf(file, "%-13s", back_or_piece ? this->PStringify(Board[y][x]) : this->BStringify(Board[y][x]));
