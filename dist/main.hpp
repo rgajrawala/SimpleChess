@@ -31,7 +31,10 @@
 #include "SFML/Window.hpp"
 
 #define is ==
-#define ChessMain() int main(void)
+#define ChessMain int main(void) {
+#define ChessMainH ChessMain ChessHoldAtExit;
+#define ChessEnd return 0; }
+#define ChessHoldAtExit atexit(SimpleChess::EndChessMain);
 
 #if defined(__APPLE__) || defined(__MACH__)
 #include "resosx.hpp"
@@ -52,10 +55,8 @@
 namespace SimpleChess {
     void EndChessMain(void) {
         SimpleChess::Console::Pause();
-        exit(0);
+        exit(EXIT_SUCCESS);
     }
 };
-
-#define ChessHoldAtExit() atexit(EndChessMain);
 
 #endif

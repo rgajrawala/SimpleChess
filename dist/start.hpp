@@ -88,120 +88,120 @@ namespace SimpleChess {
 ////////// SOURCE //////////
 
 void SimpleChess::StartPage::Initialize(void) {
-    SimpleChess::StartPage::Window.create(sf::VideoMode(600, 600), "SimpleChess - Start Page", sf::Style::Close);
-    SimpleChess::StartPage::Window.setFramerateLimit(10);
+    Window.create(sf::VideoMode(600, 600), "SimpleChess - Start Page", sf::Style::Close);
+    Window.setFramerateLimit(10);
     
-    if (!SimpleChess::StartPage::Icon.loadFromFile(GetResource("white_knight.png"))) {
+    if (!Icon.loadFromFile(GetResource("white_knight.png"))) {
         exit(EXIT_FAILURE);
     }
-    SimpleChess::StartPage::Window.setIcon(SimpleChess::StartPage::Icon.getSize().x, SimpleChess::StartPage::Icon.getSize().y, SimpleChess::StartPage::Icon.getPixelsPtr());
+    Window.setIcon(Icon.getSize().x, Icon.getSize().y, Icon.getPixelsPtr());
     
-    if(!SimpleChess::StartPage::Font.loadFromFile(GetResource("sansation.ttf"))) {
+    if(!Font.loadFromFile(GetResource("sansation.ttf"))) {
         exit(EXIT_FAILURE);
     }
     
-    SimpleChess::StartPage::Title.setFont(SimpleChess::StartPage::Font);
-    SimpleChess::StartPage::Title.setString("SimpleChess");
-    SimpleChess::StartPage::Title.setPosition(20.0, 50.0);
-    SimpleChess::StartPage::Title.setCharacterSize(100);
+    Title.setFont(Font);
+    Title.setString("SimpleChess");
+    Title.setPosition(20.0, 50.0);
+    Title.setCharacterSize(100);
     
-    SimpleChess::StartPage::NewGameButton.setFillColor(sf::Color::Yellow);
-    SimpleChess::StartPage::NewGameButton.setSize(sf::Vector2f(300.0, 50.0));
-    SimpleChess::StartPage::NewGameButton.setPosition(150.0, 200.0);
+    NewGameButton.setFillColor(sf::Color::Yellow);
+    NewGameButton.setSize(sf::Vector2f(300.0, 50.0));
+    NewGameButton.setPosition(150.0, 200.0);
     
-    SimpleChess::StartPage::ReaderButton.setFillColor(sf::Color::Yellow);
-    SimpleChess::StartPage::ReaderButton.setSize(sf::Vector2f(300.0, 50.0));
-    SimpleChess::StartPage::ReaderButton.setPosition(150.0, 275.0);
+    ReaderButton.setFillColor(sf::Color::Yellow);
+    ReaderButton.setSize(sf::Vector2f(300.0, 50.0));
+    ReaderButton.setPosition(150.0, 275.0);
     
-    SimpleChess::StartPage::NewGameText.setFont(SimpleChess::StartPage::Font);
-    SimpleChess::StartPage::NewGameText.setColor(sf::Color::Blue);
-    SimpleChess::StartPage::NewGameText.setPosition(200.0, 200.0);
-    SimpleChess::StartPage::NewGameText.setCharacterSize(40);
-    SimpleChess::StartPage::NewGameText.setString("New Game");
+    NewGameText.setFont(Font);
+    NewGameText.setColor(sf::Color::Blue);
+    NewGameText.setPosition(200.0, 200.0);
+    NewGameText.setCharacterSize(40);
+    NewGameText.setString("New Game");
     
-    SimpleChess::StartPage::ReaderText.setFont(SimpleChess::StartPage::Font);
-    SimpleChess::StartPage::ReaderText.setColor(sf::Color::Blue);
-    SimpleChess::StartPage::ReaderText.setPosition(230.0, 275.0);
-    SimpleChess::StartPage::ReaderText.setCharacterSize(40);
-    SimpleChess::StartPage::ReaderText.setString("Reader");
+    ReaderText.setFont(Font);
+    ReaderText.setColor(sf::Color::Blue);
+    ReaderText.setPosition(230.0, 275.0);
+    ReaderText.setCharacterSize(40);
+    ReaderText.setString("Reader");
     
-    SimpleChess::StartPage::WhoWonText.setFont(SimpleChess::StartPage::Font);
-    SimpleChess::StartPage::WhoWonText.setPosition(80.0, 310.0);
-    SimpleChess::StartPage::WhoWonText.setCharacterSize(25);
-    if(SimpleChess::StartPage::WhoWon == 1) {
-        SimpleChess::StartPage::WhoWonText.setString("White (Player 1) Won!");
-    } else if(SimpleChess::StartPage::WhoWon == 2) {
-        SimpleChess::StartPage::WhoWonText.setString("Black (Player 2) Won!");
-    } else if(SimpleChess::StartPage::WhoWon == -1) {
-        SimpleChess::StartPage::WhoWonText.setString(" There was an error!");
+    WhoWonText.setFont(Font);
+    WhoWonText.setPosition(80.0, 310.0);
+    WhoWonText.setCharacterSize(25);
+    if(WhoWon == 1) {
+        WhoWonText.setString("White (Player 1) Won!");
+    } else if(WhoWon == 2) {
+        WhoWonText.setString("Black (Player 2) Won!");
+    } else if(WhoWon == -1) {
+        WhoWonText.setString(" There was an error!");
     } else {
-        SimpleChess::StartPage::WhoWonText.setString("");
+        WhoWonText.setString("");
     }
     
-    SimpleChess::StartPage::WhoWon = 0;
+    WhoWon = 0;
 }
 
 void SimpleChess::StartPage::CleanUp(void) {
-    SimpleChess::StartPage::Window.close();
+    Window.close();
 }
 
 void SimpleChess::StartPage::OnMouseMove(void) {
-    SimpleChess::StartPage::Mouse.x = Event.mouseMove.x;
-    SimpleChess::StartPage::Mouse.y = Event.mouseMove.y;
+    Mouse.x = Event.mouseMove.x;
+    Mouse.y = Event.mouseMove.y;
 }
 
 void SimpleChess::StartPage::OnKeyPressed(void) {
-    if(((SimpleChess::StartPage::Event.key.code is sf::Keyboard::W or SimpleChess::StartPage::Event.key.code is sf::Keyboard::C) and SimpleChess::StartPage::Event.key.control) or ((SimpleChess::StartPage::Event.key.code is sf::Keyboard::W or SimpleChess::StartPage::Event.key.code is sf::Keyboard::C) and SimpleChess::StartPage::Event.key.alt)) {
-        SimpleChess::StartPage::CleanUp();
+    if(((Event.key.code is sf::Keyboard::W or Event.key.code is sf::Keyboard::C) and Event.key.control) or ((Event.key.code is sf::Keyboard::W or Event.key.code is sf::Keyboard::C) and Event.key.alt)) {
+        CleanUp();
         exit(EXIT_SUCCESS);
     }
 }
 
 void SimpleChess::StartPage::OnMouseButtonReleased(void) {
-    if(Utils.Contains(SimpleChess::StartPage::Mouse.x, SimpleChess::StartPage::Mouse.y, SimpleChess::StartPage::NewGameButton.getPosition().x, SimpleChess::StartPage::NewGameButton.getPosition().y, SimpleChess::StartPage::NewGameButton.getSize().x, SimpleChess::StartPage::NewGameButton.getSize().y)) {
-        SimpleChess::Sounds::Music3.play();
-        SimpleChess::StartPage::Go = true;
-        SimpleChess::StartPage::CleanUp();
-    } else if(Utils.Contains(SimpleChess::StartPage::Mouse.x, SimpleChess::StartPage::Mouse.y, SimpleChess::StartPage::ReaderButton.getPosition().x, SimpleChess::StartPage::ReaderButton.getPosition().y, SimpleChess::StartPage::ReaderButton.getSize().x, SimpleChess::StartPage::ReaderButton.getSize().y)) {
-        SimpleChess::Sounds::Music3.play();
-        SimpleChess::StartPage::Go = false;
-        SimpleChess::StartPage::CleanUp();
+    if(Utils::Contains(Mouse.x, Mouse.y, NewGameButton.getPosition().x, NewGameButton.getPosition().y, NewGameButton.getSize().x, NewGameButton.getSize().y)) {
+        Sounds::Music3.play();
+        Go = true;
+        CleanUp();
+    } else if(Utils::Contains(Mouse.x, Mouse.y, ReaderButton.getPosition().x, ReaderButton.getPosition().y, ReaderButton.getSize().x, ReaderButton.getSize().y)) {
+        Sounds::Music3.play();
+        Go = false;
+        CleanUp();
     }
 }
 
 void SimpleChess::StartPage::OnEvent(void) {
-    switch(SimpleChess::StartPage::Event.type) {
-        case sf::Event::Closed: SimpleChess::StartPage::Window.close(); SimpleChess::StartPage::Window.setSize(sf::Vector2u(0, 0)); exit(EXIT_SUCCESS);
-        case sf::Event::KeyPressed: SimpleChess::StartPage::OnKeyPressed(); break;
-        case sf::Event::MouseMoved: SimpleChess::StartPage::OnMouseMove(); break;
-        case sf::Event::MouseButtonReleased: SimpleChess::StartPage::OnMouseButtonReleased(); break;
+    switch(Event.type) {
+        case sf::Event::Closed: Window.close(); Window.setSize(sf::Vector2u(0, 0)); exit(EXIT_SUCCESS);
+        case sf::Event::KeyPressed: OnKeyPressed(); break;
+        case sf::Event::MouseMoved: OnMouseMove(); break;
+        case sf::Event::MouseButtonReleased: OnMouseButtonReleased(); break;
         default: break;
     }
 }
 
 void SimpleChess::StartPage::Draw(void) {
-    SimpleChess::StartPage::Window.clear(sf::Color::Black);
-    SimpleChess::StartPage::Window.draw(SimpleChess::StartPage::Title);
-    SimpleChess::StartPage::Window.draw(SimpleChess::StartPage::NewGameButton);
-    SimpleChess::StartPage::Window.draw(SimpleChess::StartPage::NewGameText);
-    SimpleChess::StartPage::Window.draw(SimpleChess::StartPage::ReaderButton);
-    SimpleChess::StartPage::Window.draw(SimpleChess::StartPage::ReaderText);
-    SimpleChess::StartPage::Window.draw(SimpleChess::StartPage::WhoWonText);
-    SimpleChess::StartPage::Window.display();
+    Window.clear(sf::Color::Black);
+    Window.draw(Title);
+    Window.draw(NewGameButton);
+    Window.draw(NewGameText);
+    Window.draw(ReaderButton);
+    Window.draw(ReaderText);
+    Window.draw(WhoWonText);
+    Window.display();
 }
 
 bool SimpleChess::StartPage::Main(void) {
-    SimpleChess::StartPage::Initialize();
+    Initialize();
     
-    while(SimpleChess::StartPage::Window.isOpen()) {
-        SimpleChess::StartPage::Draw();
+    while(Window.isOpen()) {
+        Draw();
         
-        while(SimpleChess::StartPage::Window.pollEvent(SimpleChess::StartPage::Event)) {
-            SimpleChess::StartPage::OnEvent();
+        while(Window.pollEvent(Event)) {
+            OnEvent();
         }
     }
     
-    return SimpleChess::StartPage::Go;
+    return Go;
 }
 
 void SimpleChess::StartPage::SetWhoWon(short whowon) {
@@ -209,7 +209,7 @@ void SimpleChess::StartPage::SetWhoWon(short whowon) {
         return;
     }
     
-    SimpleChess::StartPage::WhoWon = whowon;
+    WhoWon = whowon;
 }
 
 #endif

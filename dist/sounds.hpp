@@ -29,15 +29,15 @@ namespace SimpleChess {
 ////////// SOURCE //////////
 
 void SimpleChess::Sounds::Initialize(void) {
-    if(!SimpleChess::Sounds::Music1.openFromFile(GetResource("1.wav"))) {
+    if(!Music1.openFromFile(GetResource("1.wav"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!SimpleChess::Sounds::Music2.openFromFile(GetResource("2.wav"))) {
+    if(!Music2.openFromFile(GetResource("2.wav"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!SimpleChess::Sounds::Music3.openFromFile(GetResource("3.wav"))) {
+    if(!Music3.openFromFile(GetResource("3.wav"))) {
         exit(EXIT_FAILURE);
     }
 }

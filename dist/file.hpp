@@ -75,18 +75,18 @@ namespace SimpleChess {
 ////////// SOURCE //////////
 
 void SimpleChess::File::SetPath(std::string str) {
-    SimpleChess::File::Path = str;
+    Path = str;
 }
 
 void SimpleChess::File::Clear(void) {
-    std::ofstream(SimpleChess::File::Path + "log/SimpleChess.log", std::ios::out).close();
+    std::ofstream(Path + "log/SimpleChess.log", std::ios::out).close();
 }
 
 void SimpleChess::File::Append(std::string str) {
-    std::ofstream fl(SimpleChess::File::Path + "log/SimpleChess.log", std::ios::out | std::ios::app);
+    std::ofstream fl(Path + "log/SimpleChess.log", std::ios::out | std::ios::app);
     if (not fl.is_open()) {
 #ifdef __CPP_DEBUG__
-        SimpleChess::Console::Log(__LINE__, __FILE__, __func__, "ERROR: SimpleChess.log could not be opened!");
+        Console::Log(__LINE__, __FILE__, __func__, "ERROR: SimpleChess.log could not be opened!");
 #endif
         throw 1;
         return;
@@ -96,11 +96,10 @@ void SimpleChess::File::Append(std::string str) {
 }
 
 void SimpleChess::File::Read(std::string filename, SimpleChess::File::Information* inf) {
-    SimpleChess::Console::Log("%s\n", (SimpleChess::File::Path + filename).c_str());
-    std::ifstream fl(SimpleChess::File::Path + filename, std::ios::in);
+    std::ifstream fl(Path + filename, std::ios::in);
     if (not fl.is_open()) {
 #ifdef __CPP_DEBUG__
-        SimpleChess::Console::Log(__LINE__, __FILE__, __func__, "ERROR: %s could not be opened!", filename.c_str());
+        Console::Log(__LINE__, __FILE__, __func__, "ERROR: %s could not be opened!", filename.c_str());
 #endif
         throw 1;
         return;
@@ -111,7 +110,7 @@ void SimpleChess::File::Read(std::string filename, SimpleChess::File::Informatio
     while (fl >> p1 >> c11 >> c12 >> m >> p2 >> c21 >> c22) {
         sf::Vector2<short> pp1 = { c11, c12 };
         sf::Vector2<short> pp2 = { c21, c22 };
-        SimpleChess::File::Info bf;
+        Info bf;
         bf.Piece1 = p1;
         bf.Piece2 = p2;
         bf.Move = m;
@@ -119,15 +118,13 @@ void SimpleChess::File::Read(std::string filename, SimpleChess::File::Informatio
         bf.Piece2Loc = pp2;
         (*inf).push_back(bf);
     }
-    
-    SimpleChess::Console::Log("%d\n", (*inf).size());
 }
 
 void SimpleChess::File::CreateBoardFromFile(std::string filename, SimpleChess::Board8 *board) {
-    std::ifstream fl(SimpleChess::File::Path + filename, std::ios::in);
+    std::ifstream fl(Path + filename, std::ios::in);
     if (not fl.is_open()) {
 #ifdef __CPP_DEBUG__
-        SimpleChess::Console::Log(__LINE__, __FILE__, __func__, "ERROR: %s could not be opened!", filename.c_str());
+        Console::Log(__LINE__, __FILE__, __func__, "ERROR: %s could not be opened!", filename.c_str());
 #endif
         throw 1;
         return;
@@ -138,7 +135,7 @@ void SimpleChess::File::CreateBoardFromFile(std::string filename, SimpleChess::B
     for (short c = 0; c < 8; c++) {
         if (not (fl >> binf[0] >> binf[1] >> binf[2] >> binf[3] >> binf[4] >> binf[5] >> binf[6] >> binf[7])) {
 #ifdef __CPP_DEBUG__
-            SimpleChess::Console::Log(__LINE__, __FILE__, __func__, "ERROR: %s not formatted correctly!", filename.c_str());
+            Console::Log(__LINE__, __FILE__, __func__, "ERROR: %s not formatted correctly!", filename.c_str());
 #endif
             throw 2;
             return;

@@ -80,7 +80,7 @@ void SimpleChess::Console::Log(const char* format, ...) {
 void SimpleChess::Console::Log(const unsigned short line, const char* file, const char* function, const char* format, ...) {
 	va_list args;
 	va_start(args, format);
-    SimpleChess::Console::Log("%11s:%-4d [%s] ", ParseFileName(file).c_str(), line, function);
+    Log("%11s:%-4d [%s] ", ParseFileName(file).c_str(), line, function);
     vprintf(format, args);
     if(format[strlen(format) - 1] != '\n') {
         putchar('\n');
@@ -89,14 +89,14 @@ void SimpleChess::Console::Log(const unsigned short line, const char* file, cons
 }
 
 void SimpleChess::Console::Pause(void) {
-	SimpleChess::Console::Log("Press the \'RETURN\' key to continue . . . ");
+	Log("Press the \'RETURN\' key to continue . . . ");
 	getchar();
 }
 
 void SimpleChess::Console::Error(const unsigned short line, const char* file, const char* function, const char* format, ...) {
 	va_list args;
 	va_start(args, format);
-    SimpleChess::Console::Log("%11s:%-4d [%s] ", ParseFileName(file).c_str(), line, function);
+    Log("%11s:%-4d [%s] ", ParseFileName(file).c_str(), line, function);
     vfprintf(stderr, format, args);
     if(format[strlen(format) - 1] != '\n') {
         fputc('\n', stderr);

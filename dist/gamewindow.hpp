@@ -235,64 +235,64 @@ namespace SimpleChess {
 ////////// SOURCE //////////
 
 void SimpleChess::GameWindow::Initialize(void) {
-    if (not SimpleChess::GameWindow::Font.loadFromFile(GetResource("sansation.ttf"))) {
+    if (not Font.loadFromFile(GetResource("sansation.ttf"))) {
         exit(EXIT_FAILURE);
     }
     
-    SimpleChess::GameWindow::PlayerTurn.setFont(SimpleChess::GameWindow::Font);
-    SimpleChess::GameWindow::PlayerTurn.setString("Player 1\'s Turn");
-    SimpleChess::GameWindow::PlayerTurn.setCharacterSize(11);
-    SimpleChess::GameWindow::PlayerTurn.setPosition(680.0, 10.0);
-    SimpleChess::GameWindow::PlayerTurn.setColor(sf::Color::White);
+    PlayerTurn.setFont(Font);
+    PlayerTurn.setString("Player 1\'s Turn");
+    PlayerTurn.setCharacterSize(11);
+    PlayerTurn.setPosition(680.0, 10.0);
+    PlayerTurn.setColor(sf::Color::White);
     
-    SimpleChess::GameWindow::LastMove.setFont(SimpleChess::GameWindow::Font);
-    SimpleChess::GameWindow::LastMove.setString("Last move:\nBoard Created.");
-    SimpleChess::GameWindow::LastMove.setCharacterSize(11);
-    SimpleChess::GameWindow::LastMove.setPosition(680.0, 40.0);
-    SimpleChess::GameWindow::LastMove.setColor(sf::Color::White);
+    LastMove.setFont(Font);
+    LastMove.setString("Last move:\nBoard Created.");
+    LastMove.setCharacterSize(11);
+    LastMove.setPosition(680.0, 40.0);
+    LastMove.setColor(sf::Color::White);
     
 	for (short y = 0; y < 8; y++) {
 		for (short x = 0; x < 8; x++) {
-			SimpleChess::GameWindow::BoardBackground[y][x] = Background::Empty;
+			BoardBackground[y][x] = Background::Empty;
 		}
 	}
 	
-	SimpleChess::GameWindow::Board[0][0] = SimpleChess::Pieces::Black_Rook;
-	SimpleChess::GameWindow::Board[0][1] = SimpleChess::Pieces::Black_Knight;
-	SimpleChess::GameWindow::Board[0][2] = SimpleChess::Pieces::Black_Bishop;
-	SimpleChess::GameWindow::Board[0][3] = SimpleChess::Pieces::Black_Queen;
-	SimpleChess::GameWindow::Board[0][4] = SimpleChess::Pieces::Black_King;
-	SimpleChess::GameWindow::Board[0][5] = SimpleChess::Pieces::Black_Bishop;
-	SimpleChess::GameWindow::Board[0][6] = SimpleChess::Pieces::Black_Knight;
-	SimpleChess::GameWindow::Board[0][7] = SimpleChess::Pieces::Black_Rook;
+	Board[0][0] = SimpleChess::Pieces::Black_Rook;
+	Board[0][1] = SimpleChess::Pieces::Black_Knight;
+	Board[0][2] = SimpleChess::Pieces::Black_Bishop;
+	Board[0][3] = SimpleChess::Pieces::Black_Queen;
+	Board[0][4] = SimpleChess::Pieces::Black_King;
+	Board[0][5] = SimpleChess::Pieces::Black_Bishop;
+	Board[0][6] = SimpleChess::Pieces::Black_Knight;
+	Board[0][7] = SimpleChess::Pieces::Black_Rook;
 	
 	for (short x = 0; x < 8; x++) {
-		SimpleChess::GameWindow::Board[1][x] = SimpleChess::Pieces::Black_Pawn;
-		SimpleChess::GameWindow::Board[6][x] = SimpleChess::Pieces::White_Pawn;
+		Board[1][x] = SimpleChess::Pieces::Black_Pawn;
+		Board[6][x] = SimpleChess::Pieces::White_Pawn;
 	}
 	
 	for (short y = 2; y < 6; y++) {
 		for (short x = 0; x < 8; x++) {
-			SimpleChess::GameWindow::Board[y][x] = SimpleChess::Pieces::Empty;
+			Board[y][x] = SimpleChess::Pieces::Empty;
 		}
 	}
 	
-	SimpleChess::GameWindow::Board[7][0] = SimpleChess::Pieces::White_Rook;
-	SimpleChess::GameWindow::Board[7][1] = SimpleChess::Pieces::White_Knight;
-	SimpleChess::GameWindow::Board[7][2] = SimpleChess::Pieces::White_Bishop;
-	SimpleChess::GameWindow::Board[7][3] = SimpleChess::Pieces::White_Queen;
-	SimpleChess::GameWindow::Board[7][4] = SimpleChess::Pieces::White_King;
-	SimpleChess::GameWindow::Board[7][5] = SimpleChess::Pieces::White_Bishop;
-	SimpleChess::GameWindow::Board[7][6] = SimpleChess::Pieces::White_Knight;
-	SimpleChess::GameWindow::Board[7][7] = SimpleChess::Pieces::White_Rook;
+	Board[7][0] = SimpleChess::Pieces::White_Rook;
+	Board[7][1] = SimpleChess::Pieces::White_Knight;
+	Board[7][2] = SimpleChess::Pieces::White_Bishop;
+	Board[7][3] = SimpleChess::Pieces::White_Queen;
+	Board[7][4] = SimpleChess::Pieces::White_King;
+	Board[7][5] = SimpleChess::Pieces::White_Bishop;
+	Board[7][6] = SimpleChess::Pieces::White_Knight;
+	Board[7][7] = SimpleChess::Pieces::White_Rook;
     
-    SimpleChess::GameWindow::Window.create(sf::VideoMode(900, 640), "SimpleChess - Game", sf::Style::Close);
-    SimpleChess::GameWindow::Window.setFramerateLimit(10);
+    Window.create(sf::VideoMode(900, 640), "SimpleChess - Game", sf::Style::Close);
+    Window.setFramerateLimit(10);
     
-    if (not SimpleChess::GameWindow::Icon.loadFromFile(GetResource("white_knight.png"))) {
+    if (not Icon.loadFromFile(GetResource("white_knight.png"))) {
         exit(EXIT_FAILURE);
     }
-    SimpleChess::GameWindow::Window.setIcon(SimpleChess::GameWindow::Icon.getSize().x, SimpleChess::GameWindow::Icon.getSize().y, SimpleChess::GameWindow::Icon.getPixelsPtr());
+    Window.setIcon(Icon.getSize().x, Icon.getSize().y, Icon.getPixelsPtr());
 }
 
 void SimpleChess::GameWindow::Create(sf::VideoMode Mode, const sf::String& Title, sf::Uint32 Style = sf::Style::Default, const sf::ContextSettings& Settings = sf::ContextSettings()) {
@@ -324,25 +324,25 @@ void SimpleChess::GameWindow::Print(void) {
 }
 
 void SimpleChess::GameWindow::Display(void) {
-    SimpleChess::GameWindow::Sprite.setTexture(SimpleChess::Textures::ChessBoard);
-    SimpleChess::GameWindow::Sprite.setPosition(0.0, 0.0);
-    SimpleChess::GameWindow::Draw(SimpleChess::GameWindow::Sprite);
+    Sprite.setTexture(SimpleChess::Textures::ChessBoard);
+    Sprite.setPosition(0.0, 0.0);
+    Draw(Sprite);
     
     for (int y = 0; y < 8; y++) {
         for (int x = 0; x < 8; x++) {
             bool isNotEmpty = true;
             
-            switch (SimpleChess::GameWindow::BoardBackground.at(y).at(x)) {
+            switch (BoardBackground.at(y).at(x)) {
                 case Background::Empty: isNotEmpty = false; break;
-                case Background::Enemy_Capture: SimpleChess::GameWindow::Sprite.setTexture(SimpleChess::Textures::Enemy_Capture); break;
-                case Background::Enemy_Move: SimpleChess::GameWindow::Sprite.setTexture(SimpleChess::Textures::Enemy_Move); break;
-                case Background::Valid_Capture: SimpleChess::GameWindow::Sprite.setTexture(SimpleChess::Textures::Valid_Capture); break;
-                case Background::Valid_Move: SimpleChess::GameWindow::Sprite.setTexture(SimpleChess::Textures::Valid_Move); break;
+                case Background::Enemy_Capture: Sprite.setTexture(SimpleChess::Textures::Enemy_Capture); break;
+                case Background::Enemy_Move: Sprite.setTexture(SimpleChess::Textures::Enemy_Move); break;
+                case Background::Valid_Capture: Sprite.setTexture(SimpleChess::Textures::Valid_Capture); break;
+                case Background::Valid_Move: Sprite.setTexture(SimpleChess::Textures::Valid_Move); break;
             }
             
             if (isNotEmpty) {
-                SimpleChess::GameWindow::Sprite.setPosition(float(x * 80), float(y * 80));
-                SimpleChess::GameWindow::Draw(SimpleChess::GameWindow::Sprite);
+                Sprite.setPosition(float(x * 80), float(y * 80));
+                Draw(Sprite);
             }
         }
     }
@@ -351,83 +351,83 @@ void SimpleChess::GameWindow::Display(void) {
         for (int x = 0; x < 8; x++) {
             bool isNotEmpty = true;
             
-            switch (SimpleChess::GameWindow::Board.at(y).at(x)) {
+            switch (Board.at(y).at(x)) {
                 case SimpleChess::Pieces::Empty: isNotEmpty = false; break;
-                case SimpleChess::Pieces::Black_Pawn: SimpleChess::GameWindow::Sprite.setTexture(SimpleChess::Textures::Black::Pawn); break;
-                case SimpleChess::Pieces::Black_Rook: SimpleChess::GameWindow::Sprite.setTexture(SimpleChess::Textures::Black::Rook); break;
-                case SimpleChess::Pieces::Black_Knight: SimpleChess::GameWindow::Sprite.setTexture(SimpleChess::Textures::Black::Knight); break;
-                case SimpleChess::Pieces::Black_Bishop: SimpleChess::GameWindow::Sprite.setTexture(SimpleChess::Textures::Black::Bishop); break;
-                case SimpleChess::Pieces::Black_Queen: SimpleChess::GameWindow::Sprite.setTexture(SimpleChess::Textures::Black::Queen); break;
-                case SimpleChess::Pieces::Black_King: SimpleChess::GameWindow::Sprite.setTexture(SimpleChess::Textures::Black::King); break;
-                case SimpleChess::Pieces::White_Pawn: SimpleChess::GameWindow::Sprite.setTexture(SimpleChess::Textures::White::Pawn); break;
-                case SimpleChess::Pieces::White_Rook: SimpleChess::GameWindow::Sprite.setTexture(SimpleChess::Textures::White::Rook); break;
-                case SimpleChess::Pieces::White_Knight: SimpleChess::GameWindow::Sprite.setTexture(SimpleChess::Textures::White::Knight); break;
-                case SimpleChess::Pieces::White_Bishop: SimpleChess::GameWindow::Sprite.setTexture(SimpleChess::Textures::White::Bishop); break;
-                case SimpleChess::Pieces::White_Queen: SimpleChess::GameWindow::Sprite.setTexture(SimpleChess::Textures::White::Queen); break;
-                case SimpleChess::Pieces::White_King: SimpleChess::GameWindow::Sprite.setTexture(SimpleChess::Textures::White::King); break;
+                case SimpleChess::Pieces::Black_Pawn: Sprite.setTexture(SimpleChess::Textures::Black::Pawn); break;
+                case SimpleChess::Pieces::Black_Rook: Sprite.setTexture(SimpleChess::Textures::Black::Rook); break;
+                case SimpleChess::Pieces::Black_Knight: Sprite.setTexture(SimpleChess::Textures::Black::Knight); break;
+                case SimpleChess::Pieces::Black_Bishop: Sprite.setTexture(SimpleChess::Textures::Black::Bishop); break;
+                case SimpleChess::Pieces::Black_Queen: Sprite.setTexture(SimpleChess::Textures::Black::Queen); break;
+                case SimpleChess::Pieces::Black_King: Sprite.setTexture(SimpleChess::Textures::Black::King); break;
+                case SimpleChess::Pieces::White_Pawn: Sprite.setTexture(SimpleChess::Textures::White::Pawn); break;
+                case SimpleChess::Pieces::White_Rook: Sprite.setTexture(SimpleChess::Textures::White::Rook); break;
+                case SimpleChess::Pieces::White_Knight: Sprite.setTexture(SimpleChess::Textures::White::Knight); break;
+                case SimpleChess::Pieces::White_Bishop: Sprite.setTexture(SimpleChess::Textures::White::Bishop); break;
+                case SimpleChess::Pieces::White_Queen: Sprite.setTexture(SimpleChess::Textures::White::Queen); break;
+                case SimpleChess::Pieces::White_King: Sprite.setTexture(SimpleChess::Textures::White::King); break;
             }
             
             if (isNotEmpty) {
-                SimpleChess::GameWindow::Sprite.setPosition(float(x * 80), float(y * 80));
-                SimpleChess::GameWindow::Draw(SimpleChess::GameWindow::Sprite);
+                Sprite.setPosition(float(x * 80), float(y * 80));
+                Draw(Sprite);
             }
         }
     }
     
-    SimpleChess::GameWindow::Draw(SimpleChess::GameWindow::PlayerTurn);
-    SimpleChess::GameWindow::Draw(SimpleChess::GameWindow::LastMove);
+    Draw(PlayerTurn);
+    Draw(LastMove);
     
-    SimpleChess::GameWindow::Print();
+    Print();
 }
 
 void SimpleChess::GameWindow::OnKeyPress(void) {
-    if ((SimpleChess::GameWindow::Event.key.code is sf::Keyboard::Escape) or ((SimpleChess::GameWindow::Event.key.control is true or SimpleChess::GameWindow::Event.key.alt is true) and (SimpleChess::GameWindow::Event.key.code is sf::Keyboard::W or SimpleChess::GameWindow::Event.key.code is sf::Keyboard::C))) {
-        SimpleChess::GameWindow::Close();
+    if ((Event.key.code is sf::Keyboard::Escape) or ((Event.key.control is true or Event.key.alt is true) and (Event.key.code is sf::Keyboard::W or Event.key.code is sf::Keyboard::C))) {
+        Close();
     }
 }
 
 void SimpleChess::GameWindow::OnMouseMove(void) {
-    SimpleChess::Move::Coord.x = SimpleChess::GameWindow::Event.mouseMove.x;
-    SimpleChess::Move::Coord.y = SimpleChess::GameWindow::Event.mouseMove.y;
+    Move::Coord.x = Event.mouseMove.x;
+    Move::Coord.y = Event.mouseMove.y;
 }
 
 void SimpleChess::GameWindow::OnMouseButtonPress(void) {
-    SimpleChess::Move::MovePiece();
+    Move::MovePiece();
 }
 
 void SimpleChess::GameWindow::OnEvent(void) {
-    switch (SimpleChess::GameWindow::Event.type) {
-        case sf::Event::Closed: SimpleChess::GameWindow::Close(); break;
-        case sf::Event::KeyPressed: SimpleChess::GameWindow::OnKeyPress(); break;
-        case sf::Event::MouseMoved: SimpleChess::GameWindow::OnMouseMove(); break;
-        case sf::Event::MouseButtonPressed: SimpleChess::GameWindow::OnMouseButtonPress(); break;
+    switch (Event.type) {
+        case sf::Event::Closed: Close(); break;
+        case sf::Event::KeyPressed: OnKeyPress(); break;
+        case sf::Event::MouseMoved: OnMouseMove(); break;
+        case sf::Event::MouseButtonPressed: OnMouseButtonPress(); break;
         default: break;
     }
 }
 
 void SimpleChess::GameWindow::Main(void) {
     SimpleChess::File::Clear();
-    SimpleChess::Move::Initialize();
-    SimpleChess::GameWindow::Initialize();
+    Move::Initialize();
+    Initialize();
     
-    while(SimpleChess::GameWindow::IsOpen()) {
-        SimpleChess::GameWindow::Clear();
+    while(IsOpen()) {
+        Clear();
         
-        while(SimpleChess::GameWindow::GetEvent(SimpleChess::GameWindow::Event)) {
-            SimpleChess::GameWindow::OnEvent();
+        while(GetEvent(Event)) {
+            OnEvent();
         }
         
-        SimpleChess::GameWindow::Display();
+        Display();
     }
 }
 
 void SimpleChess::Move::Initialize(void) {
-    SimpleChess::Move::PlayerTurn = 1;
+    PlayerTurn = 1;
 }
 
 void SimpleChess::Move::InitializePiece(void) {
-    SimpleChess::Move::Piece.x = (SimpleChess::Move::Coord.x - (SimpleChess::Move::Coord.x % 80)) / 80;
-    SimpleChess::Move::Piece.y = (SimpleChess::Move::Coord.y - (SimpleChess::Move::Coord.y % 80)) / 80;
+    Piece.x = (Coord.x - (Coord.x % 80)) / 80;
+    Piece.y = (Coord.y - (Coord.y % 80)) / 80;
 }
 
 void SimpleChess::Move::InitializeSelect(void) {
@@ -437,70 +437,70 @@ void SimpleChess::Move::InitializeSelect(void) {
 void SimpleChess::Move::InitializeBoard(void) {
     for (int y = 0; y < 8; y++) {
         for (int x = 0; x < 8; x++) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Empty;
+            GameWindow::BoardBackground[y][x] = Background::Empty;
         }
     }
 }
 
 void SimpleChess::Move::ShowWhitePawnPath(void) {
-    if (SimpleChess::Move::Piece.y - 1 >= 0) {
-        if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x] = Background::Valid_Move;
+    if (Piece.y - 1 >= 0) {
+        if (GameWindow::Board[Piece.y - 1][Piece.x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[Piece.y - 1][Piece.x] = Background::Valid_Move;
             
-            if (SimpleChess::Move::Piece.y is 6 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x] = Background::Valid_Move;
+            if (Piece.y is 6 and GameWindow::Board[Piece.y - 2][Piece.x] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y - 2][Piece.x] = Background::Valid_Move;
             }
         }
     }
     
-    if (SimpleChess::Move::Piece.x - 1 >= 0 and SimpleChess::Move::Piece.y - 1 >= 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 1] > 6) {
-        SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 1] = Background::Valid_Capture;
+    if (Piece.x - 1 >= 0 and Piece.y - 1 >= 0 and GameWindow::Board[Piece.y - 1][Piece.x - 1] > 6) {
+        GameWindow::BoardBackground[Piece.y - 1][Piece.x - 1] = Background::Valid_Capture;
     }
     
-    if (SimpleChess::Move::Piece.y - 1 >= 0 and SimpleChess::Move::Piece.x + 1 < 8 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 1] > 6) {
-        SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 1] = Background::Valid_Capture;
+    if (Piece.y - 1 >= 0 and Piece.x + 1 < 8 and GameWindow::Board[Piece.y - 1][Piece.x + 1] > 6) {
+        GameWindow::BoardBackground[Piece.y - 1][Piece.x + 1] = Background::Valid_Capture;
     }
 }
 
 void SimpleChess::Move::ShowWhiteRookPath(void) {
-    for (int x = SimpleChess::Move::Piece.x + 1; x < 8; x++) {
-        if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][x] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] > 6) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][x] = Background::Valid_Capture;
+    for (int x = Piece.x + 1; x < 8; x++) {
+        if (GameWindow::Board[Piece.y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[Piece.y][x] = Background::Valid_Move;
+        } else if (GameWindow::Board[Piece.y][x] > 6) {
+            GameWindow::BoardBackground[Piece.y][x] = Background::Valid_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int x = SimpleChess::Move::Piece.x - 1; x >= 0; x--) {
-        if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][x] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] > 6) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][x] = Background::Valid_Capture;
+    for (int x = Piece.x - 1; x >= 0; x--) {
+        if (GameWindow::Board[Piece.y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[Piece.y][x] = Background::Valid_Move;
+        } else if (GameWindow::Board[Piece.y][x] > 6) {
+            GameWindow::BoardBackground[Piece.y][x] = Background::Valid_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int y = SimpleChess::Move::Piece.y + 1; y < 8; y++) {
-        if (SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][SimpleChess::Move::Piece.x] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] > 6) {
-            SimpleChess::GameWindow::BoardBackground[y][SimpleChess::Move::Piece.x] = Background::Valid_Capture;
+    for (int y = Piece.y + 1; y < 8; y++) {
+        if (GameWindow::Board[y][Piece.x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][Piece.x] = Background::Valid_Move;
+        } else if (GameWindow::Board[y][Piece.x] > 6) {
+            GameWindow::BoardBackground[y][Piece.x] = Background::Valid_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int y = SimpleChess::Move::Piece.y - 1; y >= 0; y--) {
-        if (SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][SimpleChess::Move::Piece.x] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] > 6) {
-            SimpleChess::GameWindow::BoardBackground[y][SimpleChess::Move::Piece.x] = Background::Valid_Capture;
+    for (int y = Piece.y - 1; y >= 0; y--) {
+        if (GameWindow::Board[y][Piece.x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][Piece.x] = Background::Valid_Move;
+        } else if (GameWindow::Board[y][Piece.x] > 6) {
+            GameWindow::BoardBackground[y][Piece.x] = Background::Valid_Capture;
             break;
         } else {
             break;
@@ -509,116 +509,116 @@ void SimpleChess::Move::ShowWhiteRookPath(void) {
 }
 
 void SimpleChess::Move::ShowWhiteKnightPath(void) {
-    if (SimpleChess::Move::Piece.x + 2 < 8) {
-        if (SimpleChess::Move::Piece.y + 1 < 8) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 2] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 2] = Background::Valid_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 2] > 6) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 2] = Background::Valid_Capture;
+    if (Piece.x + 2 < 8) {
+        if (Piece.y + 1 < 8) {
+            if (GameWindow::Board[Piece.y + 1][Piece.x + 2] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y + 1][Piece.x + 2] = Background::Valid_Move;
+            } else if (GameWindow::Board[Piece.y + 1][Piece.x + 2] > 6) {
+                GameWindow::BoardBackground[Piece.y + 1][Piece.x + 2] = Background::Valid_Capture;
             }
         }
-        if (SimpleChess::Move::Piece.y - 1 >= 0) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 2] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 2] = Background::Valid_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 2] > 6) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 2] = Background::Valid_Capture;
-            }
-        }
-    }
-    
-    if (SimpleChess::Move::Piece.x - 2 >= 0) {
-        if (SimpleChess::Move::Piece.y + 1 < 8) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 2] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 2] = Background::Valid_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 2] > 6) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 2] = Background::Valid_Capture;
-            }
-        }
-        if (SimpleChess::Move::Piece.y - 1 >= 0) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 2] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 2] = Background::Valid_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 2] > 6) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 2] = Background::Valid_Capture;
+        if (Piece.y - 1 >= 0) {
+            if (GameWindow::Board[Piece.y - 1][Piece.x + 2] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y - 1][Piece.x + 2] = Background::Valid_Move;
+            } else if (GameWindow::Board[Piece.y - 1][Piece.x + 2] > 6) {
+                GameWindow::BoardBackground[Piece.y - 1][Piece.x + 2] = Background::Valid_Capture;
             }
         }
     }
     
-    if (SimpleChess::Move::Piece.y + 2 < 8) {
-        if (SimpleChess::Move::Piece.x + 1 < 8) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x + 1] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x + 1] = Background::Valid_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x + 1] > 6) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x + 1] = Background::Valid_Capture;
+    if (Piece.x - 2 >= 0) {
+        if (Piece.y + 1 < 8) {
+            if (GameWindow::Board[Piece.y + 1][Piece.x - 2] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y + 1][Piece.x - 2] = Background::Valid_Move;
+            } else if (GameWindow::Board[Piece.y + 1][Piece.x - 2] > 6) {
+                GameWindow::BoardBackground[Piece.y + 1][Piece.x - 2] = Background::Valid_Capture;
+            }
+        }
+        if (Piece.y - 1 >= 0) {
+            if (GameWindow::Board[Piece.y - 1][Piece.x - 2] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y - 1][Piece.x - 2] = Background::Valid_Move;
+            } else if (GameWindow::Board[Piece.y - 1][Piece.x - 2] > 6) {
+                GameWindow::BoardBackground[Piece.y - 1][Piece.x - 2] = Background::Valid_Capture;
+            }
+        }
+    }
+    
+    if (Piece.y + 2 < 8) {
+        if (Piece.x + 1 < 8) {
+            if (GameWindow::Board[Piece.y + 2][Piece.x + 1] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y + 2][Piece.x + 1] = Background::Valid_Move;
+            } else if (GameWindow::Board[Piece.y + 2][Piece.x + 1] > 6) {
+                GameWindow::BoardBackground[Piece.y + 2][Piece.x + 1] = Background::Valid_Capture;
             }
         }
         
-        if (SimpleChess::Move::Piece.x - 1 >= 0) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x - 1] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x - 1] = Background::Valid_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x - 1] > 6) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x - 1] = Background::Valid_Capture;
+        if (Piece.x - 1 >= 0) {
+            if (GameWindow::Board[Piece.y + 2][Piece.x - 1] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y + 2][Piece.x - 1] = Background::Valid_Move;
+            } else if (GameWindow::Board[Piece.y + 2][Piece.x - 1] > 6) {
+                GameWindow::BoardBackground[Piece.y + 2][Piece.x - 1] = Background::Valid_Capture;
             }
         }
     }
     
-    if (SimpleChess::Move::Piece.y - 2 >= 0) {
-        if (SimpleChess::Move::Piece.x + 1 < 8) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x + 1] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x + 1] = Background::Valid_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x + 1] > 6) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x + 1] = Background::Valid_Capture;
+    if (Piece.y - 2 >= 0) {
+        if (Piece.x + 1 < 8) {
+            if (GameWindow::Board[Piece.y - 2][Piece.x + 1] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y - 2][Piece.x + 1] = Background::Valid_Move;
+            } else if (GameWindow::Board[Piece.y - 2][Piece.x + 1] > 6) {
+                GameWindow::BoardBackground[Piece.y - 2][Piece.x + 1] = Background::Valid_Capture;
             }
         }
         
-        if (SimpleChess::Move::Piece.x - 1 >= 0) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x - 1] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x - 1] = Background::Valid_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x - 1] > 6) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x - 1] = Background::Valid_Capture;
+        if (Piece.x - 1 >= 0) {
+            if (GameWindow::Board[Piece.y - 2][Piece.x - 1] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y - 2][Piece.x - 1] = Background::Valid_Move;
+            } else if (GameWindow::Board[Piece.y - 2][Piece.x - 1] > 6) {
+                GameWindow::BoardBackground[Piece.y - 2][Piece.x - 1] = Background::Valid_Capture;
             }
         }
     }
 }
 
 void SimpleChess::Move::ShowWhiteBishopPath(void) {
-    for (int x = SimpleChess::Move::Piece.x - 1, y = SimpleChess::Move::Piece.y - 1; x >= 0 and y >= 0; x--, y--) {
-        if (SimpleChess::GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[y][x] > 6) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Valid_Capture;
+    for (int x = Piece.x - 1, y = Piece.y - 1; x >= 0 and y >= 0; x--, y--) {
+        if (GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][x] = Background::Valid_Move;
+        } else if (GameWindow::Board[y][x] > 6) {
+            GameWindow::BoardBackground[y][x] = Background::Valid_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int x = SimpleChess::Move::Piece.x + 1, y = SimpleChess::Move::Piece.y - 1; x < 8 and y >= 0; x++, y--) {
-        if (SimpleChess::GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[y][x] > 6) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Valid_Capture;
+    for (int x = Piece.x + 1, y = Piece.y - 1; x < 8 and y >= 0; x++, y--) {
+        if (GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][x] = Background::Valid_Move;
+        } else if (GameWindow::Board[y][x] > 6) {
+            GameWindow::BoardBackground[y][x] = Background::Valid_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int x = SimpleChess::Move::Piece.x + 1, y = SimpleChess::Move::Piece.y + 1; x < 8 and y < 8; x++, y++) {
-        if (SimpleChess::GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[y][x] > 6) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Valid_Capture;
+    for (int x = Piece.x + 1, y = Piece.y + 1; x < 8 and y < 8; x++, y++) {
+        if (GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][x] = Background::Valid_Move;
+        } else if (GameWindow::Board[y][x] > 6) {
+            GameWindow::BoardBackground[y][x] = Background::Valid_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int x = SimpleChess::Move::Piece.x - 1, y = SimpleChess::Move::Piece.y + 1; x >= 0 and y < 8; x--, y++) {
-        if (SimpleChess::GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[y][x] > 6) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Valid_Capture;
+    for (int x = Piece.x - 1, y = Piece.y + 1; x >= 0 and y < 8; x--, y++) {
+        if (GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][x] = Background::Valid_Move;
+        } else if (GameWindow::Board[y][x] > 6) {
+            GameWindow::BoardBackground[y][x] = Background::Valid_Capture;
             break;
         } else {
             break;
@@ -627,154 +627,154 @@ void SimpleChess::Move::ShowWhiteBishopPath(void) {
 }
 
 void SimpleChess::Move::ShowWhiteKingPath(void) {
-    if (SimpleChess::Move::Piece.x + 1 < 8) {
-        if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x + 1] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x + 1] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x + 1] > 6) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x + 1] = Background::Valid_Capture;
+    if (Piece.x + 1 < 8) {
+        if (GameWindow::Board[Piece.y][Piece.x + 1] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[Piece.y][Piece.x + 1] = Background::Valid_Move;
+        } else if (GameWindow::Board[Piece.y][Piece.x + 1] > 6) {
+            GameWindow::BoardBackground[Piece.y][Piece.x + 1] = Background::Valid_Capture;
         }
     }
     
-    if (SimpleChess::Move::Piece.x - 1 >= 0) {
-        if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x - 1] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x - 1] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x - 1] > 6) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x - 1] = Background::Valid_Capture;
+    if (Piece.x - 1 >= 0) {
+        if (GameWindow::Board[Piece.y][Piece.x - 1] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[Piece.y][Piece.x - 1] = Background::Valid_Move;
+        } else if (GameWindow::Board[Piece.y][Piece.x - 1] > 6) {
+            GameWindow::BoardBackground[Piece.y][Piece.x - 1] = Background::Valid_Capture;
         }
     }
     
-    if (SimpleChess::Move::Piece.y - 1 >= 0) {
-        if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x] > 6) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x] = Background::Valid_Capture;
+    if (Piece.y - 1 >= 0) {
+        if (GameWindow::Board[Piece.y - 1][Piece.x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[Piece.y - 1][Piece.x] = Background::Valid_Move;
+        } else if (GameWindow::Board[Piece.y - 1][Piece.x] > 6) {
+            GameWindow::BoardBackground[Piece.y - 1][Piece.x] = Background::Valid_Capture;
         }
         
-        if (SimpleChess::Move::Piece.x + 1 < 8) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 1] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 1] = Background::Valid_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 1] > 6) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 1] = Background::Valid_Capture;
+        if (Piece.x + 1 < 8) {
+            if (GameWindow::Board[Piece.y - 1][Piece.x + 1] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y - 1][Piece.x + 1] = Background::Valid_Move;
+            } else if (GameWindow::Board[Piece.y - 1][Piece.x + 1] > 6) {
+                GameWindow::BoardBackground[Piece.y - 1][Piece.x + 1] = Background::Valid_Capture;
             }
         }
         
-        if (SimpleChess::Move::Piece.x - 1 >= 0) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 1] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 1] = Background::Valid_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 1] > 6) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 1] = Background::Valid_Capture;
+        if (Piece.x - 1 >= 0) {
+            if (GameWindow::Board[Piece.y - 1][Piece.x - 1] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y - 1][Piece.x - 1] = Background::Valid_Move;
+            } else if (GameWindow::Board[Piece.y - 1][Piece.x - 1] > 6) {
+                GameWindow::BoardBackground[Piece.y - 1][Piece.x - 1] = Background::Valid_Capture;
             }
         }
     }
     
-    if (SimpleChess::Move::Piece.y + 1 < 8) {
-        if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x] > 6) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x] = Background::Valid_Capture;
+    if (Piece.y + 1 < 8) {
+        if (GameWindow::Board[Piece.y + 1][Piece.x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[Piece.y + 1][Piece.x] = Background::Valid_Move;
+        } else if (GameWindow::Board[Piece.y + 1][Piece.x] > 6) {
+            GameWindow::BoardBackground[Piece.y + 1][Piece.x] = Background::Valid_Capture;
         }
         
-        if (SimpleChess::Move::Piece.x + 1 < 8) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 1] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 1] = Background::Valid_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 1] > 6) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 1] = Background::Valid_Capture;
+        if (Piece.x + 1 < 8) {
+            if (GameWindow::Board[Piece.y + 1][Piece.x + 1] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y + 1][Piece.x + 1] = Background::Valid_Move;
+            } else if (GameWindow::Board[Piece.y + 1][Piece.x + 1] > 6) {
+                GameWindow::BoardBackground[Piece.y + 1][Piece.x + 1] = Background::Valid_Capture;
             }
         }
         
-        if (SimpleChess::Move::Piece.x - 1 >= 0) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 1] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 1] = Background::Valid_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 1] > 6) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 1] = Background::Valid_Capture;
+        if (Piece.x - 1 >= 0) {
+            if (GameWindow::Board[Piece.y + 1][Piece.x - 1] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y + 1][Piece.x - 1] = Background::Valid_Move;
+            } else if (GameWindow::Board[Piece.y + 1][Piece.x - 1] > 6) {
+                GameWindow::BoardBackground[Piece.y + 1][Piece.x - 1] = Background::Valid_Capture;
             }
         }
     }
 }
 
 void SimpleChess::Move::ShowWhiteQueenPath(void) {
-    for (int x = SimpleChess::Move::Piece.x + 1; x < 8; x++) {
-        if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][x] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] > 6) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][x] = Background::Valid_Capture;
+    for (int x = Piece.x + 1; x < 8; x++) {
+        if (GameWindow::Board[Piece.y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[Piece.y][x] = Background::Valid_Move;
+        } else if (GameWindow::Board[Piece.y][x] > 6) {
+            GameWindow::BoardBackground[Piece.y][x] = Background::Valid_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int x = SimpleChess::Move::Piece.x - 1; x >= 0; x--) {
-        if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][x] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] > 6) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][x] = Background::Valid_Capture;
+    for (int x = Piece.x - 1; x >= 0; x--) {
+        if (GameWindow::Board[Piece.y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[Piece.y][x] = Background::Valid_Move;
+        } else if (GameWindow::Board[Piece.y][x] > 6) {
+            GameWindow::BoardBackground[Piece.y][x] = Background::Valid_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int y = SimpleChess::Move::Piece.y + 1; y < 8; y++) {
-        if (SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][SimpleChess::Move::Piece.x] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] > 6) {
-            SimpleChess::GameWindow::BoardBackground[y][SimpleChess::Move::Piece.x] = Background::Valid_Capture;
+    for (int y = Piece.y + 1; y < 8; y++) {
+        if (GameWindow::Board[y][Piece.x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][Piece.x] = Background::Valid_Move;
+        } else if (GameWindow::Board[y][Piece.x] > 6) {
+            GameWindow::BoardBackground[y][Piece.x] = Background::Valid_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int y = SimpleChess::Move::Piece.y - 1; y >= 0; y--) {
-        if (SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][SimpleChess::Move::Piece.x] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] > 6) {
-            SimpleChess::GameWindow::BoardBackground[y][SimpleChess::Move::Piece.x] = Background::Valid_Capture;
+    for (int y = Piece.y - 1; y >= 0; y--) {
+        if (GameWindow::Board[y][Piece.x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][Piece.x] = Background::Valid_Move;
+        } else if (GameWindow::Board[y][Piece.x] > 6) {
+            GameWindow::BoardBackground[y][Piece.x] = Background::Valid_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int x = SimpleChess::Move::Piece.x - 1, y = SimpleChess::Move::Piece.y - 1; x >= 0 and y >= 0; x--, y--) {
-        if (SimpleChess::GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[y][x] > 6) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Valid_Capture;
+    for (int x = Piece.x - 1, y = Piece.y - 1; x >= 0 and y >= 0; x--, y--) {
+        if (GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][x] = Background::Valid_Move;
+        } else if (GameWindow::Board[y][x] > 6) {
+            GameWindow::BoardBackground[y][x] = Background::Valid_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int x = SimpleChess::Move::Piece.x + 1, y = SimpleChess::Move::Piece.y - 1; x < 8 and y >= 0; x++, y--) {
-        if (SimpleChess::GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[y][x] > 6) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Valid_Capture;
+    for (int x = Piece.x + 1, y = Piece.y - 1; x < 8 and y >= 0; x++, y--) {
+        if (GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][x] = Background::Valid_Move;
+        } else if (GameWindow::Board[y][x] > 6) {
+            GameWindow::BoardBackground[y][x] = Background::Valid_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int x = SimpleChess::Move::Piece.x + 1, y = SimpleChess::Move::Piece.y + 1; x < 8 and y < 8; x++, y++) {
-        if (SimpleChess::GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[y][x] > 6) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Valid_Capture;
+    for (int x = Piece.x + 1, y = Piece.y + 1; x < 8 and y < 8; x++, y++) {
+        if (GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][x] = Background::Valid_Move;
+        } else if (GameWindow::Board[y][x] > 6) {
+            GameWindow::BoardBackground[y][x] = Background::Valid_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int x = SimpleChess::Move::Piece.x - 1, y = SimpleChess::Move::Piece.y + 1; x >= 0 and y < 8; x--, y++) {
-        if (SimpleChess::GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Valid_Move;
-        } else if (SimpleChess::GameWindow::Board[y][x] > 6) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Valid_Capture;
+    for (int x = Piece.x - 1, y = Piece.y + 1; x >= 0 and y < 8; x--, y++) {
+        if (GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][x] = Background::Valid_Move;
+        } else if (GameWindow::Board[y][x] > 6) {
+            GameWindow::BoardBackground[y][x] = Background::Valid_Capture;
             break;
         } else {
             break;
@@ -783,64 +783,64 @@ void SimpleChess::Move::ShowWhiteQueenPath(void) {
 }
 
 void SimpleChess::Move::ShowBlackPawnPath(void) {
-    if (SimpleChess::Move::Piece.y + 1 < 8) {
-        if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x] = Background::Enemy_Move;
+    if (Piece.y + 1 < 8) {
+        if (GameWindow::Board[Piece.y + 1][Piece.x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[Piece.y + 1][Piece.x] = Background::Enemy_Move;
             
-            if (SimpleChess::Move::Piece.y is 1 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x] = Background::Enemy_Move;
+            if (Piece.y is 1 and GameWindow::Board[Piece.y + 2][Piece.x] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y + 2][Piece.x] = Background::Enemy_Move;
             }
         }
     }
     
-    if (SimpleChess::Move::Piece.x - 1 >= 0 and SimpleChess::Move::Piece.y + 1 < 8 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 1] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 1] < 7) {
-        SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 1] = Background::Enemy_Capture;
+    if (Piece.x - 1 >= 0 and Piece.y + 1 < 8 and GameWindow::Board[Piece.y + 1][Piece.x - 1] > 0 and GameWindow::Board[Piece.y + 1][Piece.x - 1] < 7) {
+        GameWindow::BoardBackground[Piece.y + 1][Piece.x - 1] = Background::Enemy_Capture;
     }
     
-    if (SimpleChess::Move::Piece.x + 1 < 8 and SimpleChess::Move::Piece.y + 1 < 8 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 1] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 1] < 7) {
-        SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 1] = Background::Enemy_Capture;
+    if (Piece.x + 1 < 8 and Piece.y + 1 < 8 and GameWindow::Board[Piece.y + 1][Piece.x + 1] > 0 and GameWindow::Board[Piece.y + 1][Piece.x + 1] < 7) {
+        GameWindow::BoardBackground[Piece.y + 1][Piece.x + 1] = Background::Enemy_Capture;
     }
 }
 
 void SimpleChess::Move::ShowBlackRookPath(void) {
-    for (int x = SimpleChess::Move::Piece.x + 1; x < 8; x++) {
-        if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][x] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] < 7) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][x] = Background::Enemy_Capture;
+    for (int x = Piece.x + 1; x < 8; x++) {
+        if (GameWindow::Board[Piece.y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[Piece.y][x] = Background::Enemy_Move;
+        } else if (GameWindow::Board[Piece.y][x] > 0 and GameWindow::Board[Piece.y][x] < 7) {
+            GameWindow::BoardBackground[Piece.y][x] = Background::Enemy_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int x = SimpleChess::Move::Piece.x - 1; x >= 0; x--) {
-        if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][x] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] < 7) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][x] = Background::Enemy_Capture;
+    for (int x = Piece.x - 1; x >= 0; x--) {
+        if (GameWindow::Board[Piece.y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[Piece.y][x] = Background::Enemy_Move;
+        } else if (GameWindow::Board[Piece.y][x] > 0 and GameWindow::Board[Piece.y][x] < 7) {
+            GameWindow::BoardBackground[Piece.y][x] = Background::Enemy_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int y = SimpleChess::Move::Piece.y + 1; y < 8; y++) {
-        if (SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][SimpleChess::Move::Piece.x] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] > 0 and SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] < 7) {
-            SimpleChess::GameWindow::BoardBackground[y][SimpleChess::Move::Piece.x] = Background::Enemy_Capture;
+    for (int y = Piece.y + 1; y < 8; y++) {
+        if (GameWindow::Board[y][Piece.x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][Piece.x] = Background::Enemy_Move;
+        } else if (GameWindow::Board[y][Piece.x] > 0 and GameWindow::Board[y][Piece.x] < 7) {
+            GameWindow::BoardBackground[y][Piece.x] = Background::Enemy_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int y = SimpleChess::Move::Piece.y - 1; y >= 0; y--) {
-        if (SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][SimpleChess::Move::Piece.x] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] > 0 and SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] < 7) {
-            SimpleChess::GameWindow::BoardBackground[y][SimpleChess::Move::Piece.x] = Background::Enemy_Capture;
+    for (int y = Piece.y - 1; y >= 0; y--) {
+        if (GameWindow::Board[y][Piece.x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][Piece.x] = Background::Enemy_Move;
+        } else if (GameWindow::Board[y][Piece.x] > 0 and GameWindow::Board[y][Piece.x] < 7) {
+            GameWindow::BoardBackground[y][Piece.x] = Background::Enemy_Capture;
             break;
         } else {
             break;
@@ -849,116 +849,116 @@ void SimpleChess::Move::ShowBlackRookPath(void) {
 }
 
 void SimpleChess::Move::ShowBlackKnightPath(void) {
-    if (SimpleChess::Move::Piece.x + 2 < 8) {
-        if (SimpleChess::Move::Piece.y + 1 < 8) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 2] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 2] = Background::Enemy_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 2] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 2] < 7) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 2] = Background::Enemy_Capture;
+    if (Piece.x + 2 < 8) {
+        if (Piece.y + 1 < 8) {
+            if (GameWindow::Board[Piece.y + 1][Piece.x + 2] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y + 1][Piece.x + 2] = Background::Enemy_Move;
+            } else if (GameWindow::Board[Piece.y + 1][Piece.x + 2] > 0 and GameWindow::Board[Piece.y + 1][Piece.x + 2] < 7) {
+                GameWindow::BoardBackground[Piece.y + 1][Piece.x + 2] = Background::Enemy_Capture;
             }
         }
-        if (SimpleChess::Move::Piece.y - 1 >= 0) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 2] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 2] = Background::Enemy_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 2] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 2] < 7) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 2] = Background::Enemy_Capture;
-            }
-        }
-    }
-    
-    if (SimpleChess::Move::Piece.x - 2 >= 0) {
-        if (SimpleChess::Move::Piece.y + 1 < 8) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 2] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 2] = Background::Enemy_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 2] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 2] < 7) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 2] = Background::Enemy_Capture;
-            }
-        }
-        if (SimpleChess::Move::Piece.y - 1 >= 0) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 2] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 2] = Background::Enemy_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 2] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 2] < 7) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 2] = Background::Enemy_Capture;
+        if (Piece.y - 1 >= 0) {
+            if (GameWindow::Board[Piece.y - 1][Piece.x + 2] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y - 1][Piece.x + 2] = Background::Enemy_Move;
+            } else if (GameWindow::Board[Piece.y - 1][Piece.x + 2] > 0 and GameWindow::Board[Piece.y - 1][Piece.x + 2] < 7) {
+                GameWindow::BoardBackground[Piece.y - 1][Piece.x + 2] = Background::Enemy_Capture;
             }
         }
     }
     
-    if (SimpleChess::Move::Piece.y + 2 < 8) {
-        if (SimpleChess::Move::Piece.x + 1 < 8) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x + 1] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x + 1] = Background::Enemy_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x + 1] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x + 1] < 7) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x + 1] = Background::Enemy_Capture;
+    if (Piece.x - 2 >= 0) {
+        if (Piece.y + 1 < 8) {
+            if (GameWindow::Board[Piece.y + 1][Piece.x - 2] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y + 1][Piece.x - 2] = Background::Enemy_Move;
+            } else if (GameWindow::Board[Piece.y + 1][Piece.x - 2] > 0 and GameWindow::Board[Piece.y + 1][Piece.x - 2] < 7) {
+                GameWindow::BoardBackground[Piece.y + 1][Piece.x - 2] = Background::Enemy_Capture;
+            }
+        }
+        if (Piece.y - 1 >= 0) {
+            if (GameWindow::Board[Piece.y - 1][Piece.x - 2] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y - 1][Piece.x - 2] = Background::Enemy_Move;
+            } else if (GameWindow::Board[Piece.y - 1][Piece.x - 2] > 0 and GameWindow::Board[Piece.y - 1][Piece.x - 2] < 7) {
+                GameWindow::BoardBackground[Piece.y - 1][Piece.x - 2] = Background::Enemy_Capture;
+            }
+        }
+    }
+    
+    if (Piece.y + 2 < 8) {
+        if (Piece.x + 1 < 8) {
+            if (GameWindow::Board[Piece.y + 2][Piece.x + 1] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y + 2][Piece.x + 1] = Background::Enemy_Move;
+            } else if (GameWindow::Board[Piece.y + 2][Piece.x + 1] > 0 and GameWindow::Board[Piece.y + 2][Piece.x + 1] < 7) {
+                GameWindow::BoardBackground[Piece.y + 2][Piece.x + 1] = Background::Enemy_Capture;
             }
         }
         
-        if (SimpleChess::Move::Piece.x - 1 >= 0) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x - 1] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x - 1] = Background::Enemy_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x - 1] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x - 1] < 7) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 2][SimpleChess::Move::Piece.x - 1] = Background::Enemy_Capture;
+        if (Piece.x - 1 >= 0) {
+            if (GameWindow::Board[Piece.y + 2][Piece.x - 1] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y + 2][Piece.x - 1] = Background::Enemy_Move;
+            } else if (GameWindow::Board[Piece.y + 2][Piece.x - 1] > 0 and GameWindow::Board[Piece.y + 2][Piece.x - 1] < 7) {
+                GameWindow::BoardBackground[Piece.y + 2][Piece.x - 1] = Background::Enemy_Capture;
             }
         }
     }
     
-    if (SimpleChess::Move::Piece.y - 2 >= 0) {
-        if (SimpleChess::Move::Piece.x + 1 < 8) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x + 1] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x + 1] = Background::Enemy_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x + 1] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x + 1] < 7) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x + 1] = Background::Enemy_Capture;
+    if (Piece.y - 2 >= 0) {
+        if (Piece.x + 1 < 8) {
+            if (GameWindow::Board[Piece.y - 2][Piece.x + 1] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y - 2][Piece.x + 1] = Background::Enemy_Move;
+            } else if (GameWindow::Board[Piece.y - 2][Piece.x + 1] > 0 and GameWindow::Board[Piece.y - 2][Piece.x + 1] < 7) {
+                GameWindow::BoardBackground[Piece.y - 2][Piece.x + 1] = Background::Enemy_Capture;
             }
         }
         
-        if (SimpleChess::Move::Piece.x - 1 >= 0) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x - 1] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x - 1] = Background::Enemy_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x - 1] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x - 1] < 7) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 2][SimpleChess::Move::Piece.x - 1] = Background::Enemy_Capture;
+        if (Piece.x - 1 >= 0) {
+            if (GameWindow::Board[Piece.y - 2][Piece.x - 1] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y - 2][Piece.x - 1] = Background::Enemy_Move;
+            } else if (GameWindow::Board[Piece.y - 2][Piece.x - 1] > 0 and GameWindow::Board[Piece.y - 2][Piece.x - 1] < 7) {
+                GameWindow::BoardBackground[Piece.y - 2][Piece.x - 1] = Background::Enemy_Capture;
             }
         }
     }
 }
 
 void SimpleChess::Move::ShowBlackBishopPath(void) {
-    for (int x = SimpleChess::Move::Piece.x - 1, y = SimpleChess::Move::Piece.y - 1; x >= 0 and y >= 0; x--, y--) {
-        if (SimpleChess::GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[y][x] > 0 and SimpleChess::GameWindow::Board[y][x] < 7) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Enemy_Capture;
+    for (int x = Piece.x - 1, y = Piece.y - 1; x >= 0 and y >= 0; x--, y--) {
+        if (GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][x] = Background::Enemy_Move;
+        } else if (GameWindow::Board[y][x] > 0 and GameWindow::Board[y][x] < 7) {
+            GameWindow::BoardBackground[y][x] = Background::Enemy_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int x = SimpleChess::Move::Piece.x + 1, y = SimpleChess::Move::Piece.y - 1; x < 8 and y >= 0; x++, y--) {
-        if (SimpleChess::GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[y][x] > 0 and SimpleChess::GameWindow::Board[y][x] < 7) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Enemy_Capture;
+    for (int x = Piece.x + 1, y = Piece.y - 1; x < 8 and y >= 0; x++, y--) {
+        if (GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][x] = Background::Enemy_Move;
+        } else if (GameWindow::Board[y][x] > 0 and GameWindow::Board[y][x] < 7) {
+            GameWindow::BoardBackground[y][x] = Background::Enemy_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int x = SimpleChess::Move::Piece.x + 1, y = SimpleChess::Move::Piece.y + 1; x < 8 and y < 8; x++, y++) {
-        if (SimpleChess::GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[y][x] > 0 and SimpleChess::GameWindow::Board[y][x] < 7) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Enemy_Capture;
+    for (int x = Piece.x + 1, y = Piece.y + 1; x < 8 and y < 8; x++, y++) {
+        if (GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][x] = Background::Enemy_Move;
+        } else if (GameWindow::Board[y][x] > 0 and GameWindow::Board[y][x] < 7) {
+            GameWindow::BoardBackground[y][x] = Background::Enemy_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int x = SimpleChess::Move::Piece.x - 1, y = SimpleChess::Move::Piece.y + 1; x >= 0 and y < 8; x--, y++) {
-        if (SimpleChess::GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[y][x] > 0 and SimpleChess::GameWindow::Board[y][x] < 7) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Enemy_Capture;
+    for (int x = Piece.x - 1, y = Piece.y + 1; x >= 0 and y < 8; x--, y++) {
+        if (GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][x] = Background::Enemy_Move;
+        } else if (GameWindow::Board[y][x] > 0 and GameWindow::Board[y][x] < 7) {
+            GameWindow::BoardBackground[y][x] = Background::Enemy_Capture;
             break;
         } else {
             break;
@@ -967,154 +967,154 @@ void SimpleChess::Move::ShowBlackBishopPath(void) {
 }
 
 void SimpleChess::Move::ShowBlackKingPath(void) {
-    if (SimpleChess::Move::Piece.x + 1 < 8) {
-        if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x + 1] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x + 1] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x + 1] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x + 1] < 7) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x + 1] = Background::Enemy_Capture;
+    if (Piece.x + 1 < 8) {
+        if (GameWindow::Board[Piece.y][Piece.x + 1] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[Piece.y][Piece.x + 1] = Background::Enemy_Move;
+        } else if (GameWindow::Board[Piece.y][Piece.x + 1] > 0 and GameWindow::Board[Piece.y][Piece.x + 1] < 7) {
+            GameWindow::BoardBackground[Piece.y][Piece.x + 1] = Background::Enemy_Capture;
         }
     }
     
-    if (SimpleChess::Move::Piece.x - 1 >= 0) {
-        if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x - 1] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x - 1] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x - 1] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x - 1] < 7) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x - 1] = Background::Enemy_Capture;
+    if (Piece.x - 1 >= 0) {
+        if (GameWindow::Board[Piece.y][Piece.x - 1] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[Piece.y][Piece.x - 1] = Background::Enemy_Move;
+        } else if (GameWindow::Board[Piece.y][Piece.x - 1] > 0 and GameWindow::Board[Piece.y][Piece.x - 1] < 7) {
+            GameWindow::BoardBackground[Piece.y][Piece.x - 1] = Background::Enemy_Capture;
         }
     }
     
-    if (SimpleChess::Move::Piece.y - 1 >= 0) {
-        if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x] < 7) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x] = Background::Enemy_Capture;
+    if (Piece.y - 1 >= 0) {
+        if (GameWindow::Board[Piece.y - 1][Piece.x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[Piece.y - 1][Piece.x] = Background::Enemy_Move;
+        } else if (GameWindow::Board[Piece.y - 1][Piece.x] > 0 and GameWindow::Board[Piece.y - 1][Piece.x] < 7) {
+            GameWindow::BoardBackground[Piece.y - 1][Piece.x] = Background::Enemy_Capture;
         }
         
-        if (SimpleChess::Move::Piece.x + 1 < 8) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 1] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 1] = Background::Enemy_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 1] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 1] < 7) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x + 1] = Background::Enemy_Capture;
-            }
-        }
-        
-        if (SimpleChess::Move::Piece.x - 1 >= 0) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 1] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 1] = Background::Enemy_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 1] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 1] < 7) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y - 1][SimpleChess::Move::Piece.x - 1] = Background::Enemy_Capture;
-            }
-        }
-    }
-    
-    if (SimpleChess::Move::Piece.y + 1 < 8) {
-        if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x] < 7) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x] = Background::Enemy_Capture;
-        }
-        
-        if (SimpleChess::Move::Piece.x + 1 < 8) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 1] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 1] = Background::Enemy_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 1] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 1] < 7) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x + 1] = Background::Enemy_Capture;
+        if (Piece.x + 1 < 8) {
+            if (GameWindow::Board[Piece.y - 1][Piece.x + 1] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y - 1][Piece.x + 1] = Background::Enemy_Move;
+            } else if (GameWindow::Board[Piece.y - 1][Piece.x + 1] > 0 and GameWindow::Board[Piece.y - 1][Piece.x + 1] < 7) {
+                GameWindow::BoardBackground[Piece.y - 1][Piece.x + 1] = Background::Enemy_Capture;
             }
         }
         
         if (Piece.x - 1 >= 0) {
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 1] is SimpleChess::Pieces::Empty) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 1] = Background::Enemy_Move;
-            } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 1] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 1] < 7) {
-                SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y + 1][SimpleChess::Move::Piece.x - 1] = Background::Enemy_Capture;
+            if (GameWindow::Board[Piece.y - 1][Piece.x - 1] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y - 1][Piece.x - 1] = Background::Enemy_Move;
+            } else if (GameWindow::Board[Piece.y - 1][Piece.x - 1] > 0 and GameWindow::Board[Piece.y - 1][Piece.x - 1] < 7) {
+                GameWindow::BoardBackground[Piece.y - 1][Piece.x - 1] = Background::Enemy_Capture;
+            }
+        }
+    }
+    
+    if (Piece.y + 1 < 8) {
+        if (GameWindow::Board[Piece.y + 1][Piece.x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[Piece.y + 1][Piece.x] = Background::Enemy_Move;
+        } else if (GameWindow::Board[Piece.y + 1][Piece.x] > 0 and GameWindow::Board[Piece.y + 1][Piece.x] < 7) {
+            GameWindow::BoardBackground[Piece.y + 1][Piece.x] = Background::Enemy_Capture;
+        }
+        
+        if (Piece.x + 1 < 8) {
+            if (GameWindow::Board[Piece.y + 1][Piece.x + 1] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y + 1][Piece.x + 1] = Background::Enemy_Move;
+            } else if (GameWindow::Board[Piece.y + 1][Piece.x + 1] > 0 and GameWindow::Board[Piece.y + 1][Piece.x + 1] < 7) {
+                GameWindow::BoardBackground[Piece.y + 1][Piece.x + 1] = Background::Enemy_Capture;
+            }
+        }
+        
+        if (Piece.x - 1 >= 0) {
+            if (GameWindow::Board[Piece.y + 1][Piece.x - 1] is SimpleChess::Pieces::Empty) {
+                GameWindow::BoardBackground[Piece.y + 1][Piece.x - 1] = Background::Enemy_Move;
+            } else if (GameWindow::Board[Piece.y + 1][Piece.x - 1] > 0 and GameWindow::Board[Piece.y + 1][Piece.x - 1] < 7) {
+                GameWindow::BoardBackground[Piece.y + 1][Piece.x - 1] = Background::Enemy_Capture;
             }
         }
     }
 }
 
 void SimpleChess::Move::ShowBlackQueenPath(void) {
-    for (int x = SimpleChess::Move::Piece.x + 1; x < 8; x++) {
-        if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][x] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] < 7) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][x] = Background::Enemy_Capture;
+    for (int x = Piece.x + 1; x < 8; x++) {
+        if (GameWindow::Board[Piece.y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[Piece.y][x] = Background::Enemy_Move;
+        } else if (GameWindow::Board[Piece.y][x] > 0 and GameWindow::Board[Piece.y][x] < 7) {
+            GameWindow::BoardBackground[Piece.y][x] = Background::Enemy_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int x = SimpleChess::Move::Piece.x - 1; x >= 0; x--) {
-        if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][x] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][x] < 7) {
-            SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][x] = Background::Enemy_Capture;
+    for (int x = Piece.x - 1; x >= 0; x--) {
+        if (GameWindow::Board[Piece.y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[Piece.y][x] = Background::Enemy_Move;
+        } else if (GameWindow::Board[Piece.y][x] > 0 and GameWindow::Board[Piece.y][x] < 7) {
+            GameWindow::BoardBackground[Piece.y][x] = Background::Enemy_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int y = SimpleChess::Move::Piece.y + 1; y < 8; y++) {
-        if (SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][SimpleChess::Move::Piece.x] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] > 0 and SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] < 7) {
-            SimpleChess::GameWindow::BoardBackground[y][SimpleChess::Move::Piece.x] = Background::Enemy_Capture;
+    for (int y = Piece.y + 1; y < 8; y++) {
+        if (GameWindow::Board[y][Piece.x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][Piece.x] = Background::Enemy_Move;
+        } else if (GameWindow::Board[y][Piece.x] > 0 and GameWindow::Board[y][Piece.x] < 7) {
+            GameWindow::BoardBackground[y][Piece.x] = Background::Enemy_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int y = SimpleChess::Move::Piece.y - 1; y >= 0; y--) {
-        if (SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][SimpleChess::Move::Piece.x] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] > 0 and SimpleChess::GameWindow::Board[y][SimpleChess::Move::Piece.x] < 7) {
-            SimpleChess::GameWindow::BoardBackground[y][SimpleChess::Move::Piece.x] = Background::Enemy_Capture;
+    for (int y = Piece.y - 1; y >= 0; y--) {
+        if (GameWindow::Board[y][Piece.x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][Piece.x] = Background::Enemy_Move;
+        } else if (GameWindow::Board[y][Piece.x] > 0 and GameWindow::Board[y][Piece.x] < 7) {
+            GameWindow::BoardBackground[y][Piece.x] = Background::Enemy_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int x = SimpleChess::Move::Piece.x - 1, y = SimpleChess::Move::Piece.y - 1; x >= 0 and y >= 0; x--, y--) {
-        if (SimpleChess::GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[y][x] > 0 and SimpleChess::GameWindow::Board[y][x] < 7) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Enemy_Capture;
+    for (int x = Piece.x - 1, y = Piece.y - 1; x >= 0 and y >= 0; x--, y--) {
+        if (GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][x] = Background::Enemy_Move;
+        } else if (GameWindow::Board[y][x] > 0 and GameWindow::Board[y][x] < 7) {
+            GameWindow::BoardBackground[y][x] = Background::Enemy_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int x = SimpleChess::Move::Piece.x + 1, y = SimpleChess::Move::Piece.y - 1; x < 8 and y >= 0; x++, y--) {
-        if (SimpleChess::GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[y][x] > 0 and SimpleChess::GameWindow::Board[y][x] < 7) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Enemy_Capture;
+    for (int x = Piece.x + 1, y = Piece.y - 1; x < 8 and y >= 0; x++, y--) {
+        if (GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][x] = Background::Enemy_Move;
+        } else if (GameWindow::Board[y][x] > 0 and GameWindow::Board[y][x] < 7) {
+            GameWindow::BoardBackground[y][x] = Background::Enemy_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int x = SimpleChess::Move::Piece.x + 1, y = SimpleChess::Move::Piece.y + 1; x < 8 and y < 8; x++, y++) {
-        if (SimpleChess::GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[y][x] > 0 and SimpleChess::GameWindow::Board[y][x] < 7) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Enemy_Capture;
+    for (int x = Piece.x + 1, y = Piece.y + 1; x < 8 and y < 8; x++, y++) {
+        if (GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][x] = Background::Enemy_Move;
+        } else if (GameWindow::Board[y][x] > 0 and GameWindow::Board[y][x] < 7) {
+            GameWindow::BoardBackground[y][x] = Background::Enemy_Capture;
             break;
         } else {
             break;
         }
     }
     
-    for (int x = SimpleChess::Move::Piece.x - 1, y = SimpleChess::Move::Piece.y + 1; x >= 0 and y < 8; x--, y++) {
-        if (SimpleChess::GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Enemy_Move;
-        } else if (SimpleChess::GameWindow::Board[y][x] > 0 and SimpleChess::GameWindow::Board[y][x] < 7) {
-            SimpleChess::GameWindow::BoardBackground[y][x] = Background::Enemy_Capture;
+    for (int x = Piece.x - 1, y = Piece.y + 1; x >= 0 and y < 8; x--, y++) {
+        if (GameWindow::Board[y][x] is SimpleChess::Pieces::Empty) {
+            GameWindow::BoardBackground[y][x] = Background::Enemy_Move;
+        } else if (GameWindow::Board[y][x] > 0 and GameWindow::Board[y][x] < 7) {
+            GameWindow::BoardBackground[y][x] = Background::Enemy_Capture;
             break;
         } else {
             break;
@@ -1123,113 +1123,113 @@ void SimpleChess::Move::ShowBlackQueenPath(void) {
 }
 
 void SimpleChess::Move::OnPlayer1Turn(void) {
-    if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x] > 0 and SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x] < 7) {
+    if (GameWindow::Board[Piece.y][Piece.x] > 0 and GameWindow::Board[Piece.y][Piece.x] < 7) {
         SimpleChess::Sounds::Music2.play();
-        SimpleChess::Move::InitializeSelect();
-        SimpleChess::Move::InitializeBoard();
+        InitializeSelect();
+        InitializeBoard();
         
-        switch (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x]) {
-            case SimpleChess::Pieces::White_Pawn: SimpleChess::Move::ShowWhitePawnPath(); break;
-            case SimpleChess::Pieces::White_Rook: SimpleChess::Move::ShowWhiteRookPath(); break;
-            case SimpleChess::Pieces::White_Knight: SimpleChess::Move::ShowWhiteKnightPath(); break;
-            case SimpleChess::Pieces::White_Bishop: SimpleChess::Move::ShowWhiteBishopPath(); break;
-            case SimpleChess::Pieces::White_King: SimpleChess::Move::ShowWhiteKingPath(); break;
-            case SimpleChess::Pieces::White_Queen: SimpleChess::Move::ShowWhiteQueenPath(); break;
+        switch (GameWindow::Board[Piece.y][Piece.x]) {
+            case SimpleChess::Pieces::White_Pawn: ShowWhitePawnPath(); break;
+            case SimpleChess::Pieces::White_Rook: ShowWhiteRookPath(); break;
+            case SimpleChess::Pieces::White_Knight: ShowWhiteKnightPath(); break;
+            case SimpleChess::Pieces::White_Bishop: ShowWhiteBishopPath(); break;
+            case SimpleChess::Pieces::White_King: ShowWhiteKingPath(); break;
+            case SimpleChess::Pieces::White_Queen: ShowWhiteQueenPath(); break;
         }
-    } else if (SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x] is Background::Valid_Move or SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x] is Background::Valid_Capture) {
+    } else if (GameWindow::BoardBackground[Piece.y][Piece.x] is Background::Valid_Move or GameWindow::BoardBackground[Piece.y][Piece.x] is Background::Valid_Capture) {
         SimpleChess::Sounds::Music1.play();
         std::stringstream ss, dss;
-        short omove = SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x];
-        SimpleChess::Move::InitializeBoard();
-        short opp = SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x];
+        short omove = GameWindow::BoardBackground[Piece.y][Piece.x];
+        InitializeBoard();
+        short opp = GameWindow::Board[Piece.y][Piece.x];
         
-        if (SimpleChess::Move::Select.y != SimpleChess::Move::Piece.y or SimpleChess::Move::Select.x != SimpleChess::Move::Piece.x) {
-            SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x] = SimpleChess::GameWindow::Board[SimpleChess::Move::Select.y][SimpleChess::Move::Select.x];
+        if (Select.y != Piece.y or Select.x != Piece.x) {
+            GameWindow::Board[Piece.y][Piece.x] = GameWindow::Board[Select.y][Select.x];
             
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x] is SimpleChess::Pieces::White_Pawn and SimpleChess::Move::Piece.y is 0) {
-                SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x] = SimpleChess::Pieces::White_Queen;
+            if (GameWindow::Board[Piece.y][Piece.x] is SimpleChess::Pieces::White_Pawn and Piece.y is 0) {
+                GameWindow::Board[Piece.y][Piece.x] = SimpleChess::Pieces::White_Queen;
             }
             
-            SimpleChess::GameWindow::Board[SimpleChess::Move::Select.y][SimpleChess::Move::Select.x] = SimpleChess::Pieces::Empty;
-            SimpleChess::Move::PlayerTurn = SimpleChess::Move::PlayerTurn is 1 ? 2 : 1;
-            SimpleChess::GameWindow::PlayerTurn.setString("Player 2\'s Turn");
+            GameWindow::Board[Select.y][Select.x] = SimpleChess::Pieces::Empty;
+            PlayerTurn = PlayerTurn is 1 ? 2 : 1;
+            GameWindow::PlayerTurn.setString("Player 2\'s Turn");
         }
         
         if (omove is Background::Valid_Capture) {
-            ss << Utils.PStringify(SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x]) << " (" << SimpleChess::Move::Select.x << ", " << SimpleChess::Move::Select.y << ") captured " << Utils.PStringify(opp) << " (" << SimpleChess::Move::Piece.x << ", " << SimpleChess::Move::Piece.y << ").";
-            dss << SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x] << " " << SimpleChess::Move::Select.x << " " << SimpleChess::Move::Select.y << " " << 1 << " " << opp << " " << SimpleChess::Move::Piece.x << " " << SimpleChess::Move::Piece.y;
+            ss << Utils::PStringify(GameWindow::Board[Piece.y][Piece.x]) << " (" << Select.x << ", " << Select.y << ") captured " << Utils::PStringify(opp) << " (" << Piece.x << ", " << Piece.y << ").";
+            dss << GameWindow::Board[Piece.y][Piece.x] << " " << Select.x << " " << Select.y << " " << 1 << " " << opp << " " << Piece.x << " " << Piece.y;
 #ifdef __CPP_DEBUG__
             SimpleChess::Console::Log(__LINE__, __FILE__, __func__, "%s", ss.str().c_str());
 #endif
         } else {
-            ss << Utils.PStringify(SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x]) << " (" << SimpleChess::Move::Select.x << ", " << SimpleChess::Move::Select.y << ") moved to (" << SimpleChess::Move::Piece.x << ", " << SimpleChess::Move::Piece.y << ").";
-            dss << SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x] << " " << SimpleChess::Move::Select.x << " " << SimpleChess::Move::Select.y << " " << 2 << " " << opp << " " << SimpleChess::Move::Piece.x << " " << SimpleChess::Move::Piece.y;
+            ss << Utils::PStringify(GameWindow::Board[Piece.y][Piece.x]) << " (" << Select.x << ", " << Select.y << ") moved to (" << Piece.x << ", " << Piece.y << ").";
+            dss << GameWindow::Board[Piece.y][Piece.x] << " " << Select.x << " " << Select.y << " " << 2 << " " << opp << " " << Piece.x << " " << Piece.y;
 #ifdef __CPP_DEBUG__
             SimpleChess::Console::Log(__LINE__, __FILE__, __func__, "%s", ss.str().c_str());
 #endif
         }
         
         SimpleChess::File::Append(dss.str() + "\n");
-        SimpleChess::GameWindow::LastMove.setString("Last move:\n" + ss.str());
+        GameWindow::LastMove.setString("Last move:\n" + ss.str());
     }
 }
 
 void SimpleChess::Move::OnPlayer2Turn(void) {
-    if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x] > 6) {
+    if (GameWindow::Board[Piece.y][Piece.x] > 6) {
         SimpleChess::Sounds::Music2.play();
-        SimpleChess::Move::InitializeSelect();
-        SimpleChess::Move::InitializeBoard();
+        InitializeSelect();
+        InitializeBoard();
         
-        switch (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x]) {
-            case SimpleChess::Pieces::Black_Pawn: SimpleChess::Move::ShowBlackPawnPath(); break;
-            case SimpleChess::Pieces::Black_Rook: SimpleChess::Move::ShowBlackRookPath(); break;
-            case SimpleChess::Pieces::Black_Knight: SimpleChess::Move::ShowBlackKnightPath(); break;
-            case SimpleChess::Pieces::Black_Bishop: SimpleChess::Move::ShowBlackBishopPath(); break;
-            case SimpleChess::Pieces::Black_King: SimpleChess::Move::ShowBlackKingPath(); break;
-            case SimpleChess::Pieces::Black_Queen: SimpleChess::Move::ShowBlackQueenPath(); break;
+        switch (GameWindow::Board[Piece.y][Piece.x]) {
+            case SimpleChess::Pieces::Black_Pawn: ShowBlackPawnPath(); break;
+            case SimpleChess::Pieces::Black_Rook: ShowBlackRookPath(); break;
+            case SimpleChess::Pieces::Black_Knight: ShowBlackKnightPath(); break;
+            case SimpleChess::Pieces::Black_Bishop: ShowBlackBishopPath(); break;
+            case SimpleChess::Pieces::Black_King: ShowBlackKingPath(); break;
+            case SimpleChess::Pieces::Black_Queen: ShowBlackQueenPath(); break;
         }
-    } else if (SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x] is Background::Enemy_Move or SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x] is Background::Enemy_Capture) {
+    } else if (GameWindow::BoardBackground[Piece.y][Piece.x] is Background::Enemy_Move or GameWindow::BoardBackground[Piece.y][Piece.x] is Background::Enemy_Capture) {
         SimpleChess::Sounds::Music1.play();
         std::stringstream ss, dss;
-        short omove = SimpleChess::GameWindow::BoardBackground[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x];
-        SimpleChess::Move::InitializeBoard();
-        short opp = SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x];
+        short omove = GameWindow::BoardBackground[Piece.y][Piece.x];
+        InitializeBoard();
+        short opp = GameWindow::Board[Piece.y][Piece.x];
         
-        if (SimpleChess::Move::Select.y != SimpleChess::Move::Piece.y or SimpleChess::Move::Select.x != SimpleChess::Move::Piece.x) {
-            SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x] = SimpleChess::GameWindow::Board[SimpleChess::Move::Select.y][SimpleChess::Move::Select.x];
+        if (Select.y != Piece.y or Select.x != Piece.x) {
+            GameWindow::Board[Piece.y][Piece.x] = GameWindow::Board[Select.y][Select.x];
             
-            if (SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x] is SimpleChess::Pieces::Black_Pawn and SimpleChess::Move::Piece.y is 7) {
-                SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x] = SimpleChess::Pieces::Black_Queen;
+            if (GameWindow::Board[Piece.y][Piece.x] is SimpleChess::Pieces::Black_Pawn and Piece.y is 7) {
+                GameWindow::Board[Piece.y][Piece.x] = SimpleChess::Pieces::Black_Queen;
             }
             
-            SimpleChess::GameWindow::Board[SimpleChess::Move::Select.y][SimpleChess::Move::Select.x] = SimpleChess::Pieces::Empty;
-            SimpleChess::Move::PlayerTurn = SimpleChess::Move::PlayerTurn is 1 ? 2 : 1;
-            SimpleChess::GameWindow::PlayerTurn.setString("Player 1\'s Turn");
+            GameWindow::Board[Select.y][Select.x] = SimpleChess::Pieces::Empty;
+            PlayerTurn = PlayerTurn is 1 ? 2 : 1;
+            GameWindow::PlayerTurn.setString("Player 1\'s Turn");
         }
         
         if (omove is Background::Enemy_Capture) {
-            ss << Utils.PStringify(SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x]) << " (" << SimpleChess::Move::Select.x << ", " << SimpleChess::Move::Select.y << ") captured " << Utils.PStringify(opp) << " (" << SimpleChess::Move::Piece.x << ", " << SimpleChess::Move::Piece.y << ").";
-            dss << SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x] << " " << SimpleChess::Move::Select.x << " " << SimpleChess::Move::Select.y << " " << 1 << " " << opp << " " << SimpleChess::Move::Piece.x << " " << SimpleChess::Move::Piece.y;
+            ss << Utils::PStringify(GameWindow::Board[Piece.y][Piece.x]) << " (" << Select.x << ", " << Select.y << ") captured " << Utils::PStringify(opp) << " (" << Piece.x << ", " << Piece.y << ").";
+            dss << GameWindow::Board[Piece.y][Piece.x] << " " << Select.x << " " << Select.y << " " << 1 << " " << opp << " " << Piece.x << " " << Piece.y;
 #ifdef __CPP_DEBUG__
             SimpleChess::Console::Log(__LINE__, __FILE__, __func__, "%s", ss.str().c_str());
 #endif
         } else {
-            ss << Utils.PStringify(SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x]) << " (" << SimpleChess::Move::Select.x << ", " << SimpleChess::Move::Select.y << ") moved to (" << SimpleChess::Move::Piece.x << ", " << SimpleChess::Move::Piece.y << ").";
-            dss << SimpleChess::GameWindow::Board[SimpleChess::Move::Piece.y][SimpleChess::Move::Piece.x] << " " << SimpleChess::Move::Select.x << " " << SimpleChess::Move::Select.y << " " << 2 << " " << opp << " " << SimpleChess::Move::Piece.x << " " << SimpleChess::Move::Piece.y;
+            ss << Utils::PStringify(GameWindow::Board[Piece.y][Piece.x]) << " (" << Select.x << ", " << Select.y << ") moved to (" << Piece.x << ", " << Piece.y << ").";
+            dss << GameWindow::Board[Piece.y][Piece.x] << " " << Select.x << " " << Select.y << " " << 2 << " " << opp << " " << Piece.x << " " << Piece.y;
 #ifdef __CPP_DEBUG__
             SimpleChess::Console::Log(__LINE__, __FILE__, __func__, "%s", ss.str().c_str());
 #endif
         }
         
         SimpleChess::File::Append(dss.str() + "\n");
-        SimpleChess::GameWindow::LastMove.setString("Last move:\n" + ss.str());
+        GameWindow::LastMove.setString("Last move:\n" + ss.str());
     }
 }
 
 void SimpleChess::Move::MovePiece(void) {
-    SimpleChess::Move::InitializePiece();
-    SimpleChess::Move::PlayerTurn is 1 ? SimpleChess::Move::OnPlayer1Turn() : SimpleChess::Move::OnPlayer2Turn();
-    SimpleChess::Move::IfGameIsOver();
+    InitializePiece();
+    PlayerTurn is 1 ? OnPlayer1Turn() : OnPlayer2Turn();
+    IfGameIsOver();
 }
 
 void SimpleChess::Move::IfGameIsOver(void) {
@@ -1242,9 +1242,9 @@ void SimpleChess::Move::IfGameIsOver(void) {
                 return;
             }
             
-            if (SimpleChess::GameWindow::Board[y][x] is SimpleChess::Pieces::Black_King) {
+            if (GameWindow::Board[y][x] is SimpleChess::Pieces::Black_King) {
                 BlackKingExists = true;
-            } else if (SimpleChess::GameWindow::Board[y][x] is SimpleChess::Pieces::White_King) {
+            } else if (GameWindow::Board[y][x] is SimpleChess::Pieces::White_King) {
                 WhiteKingExists = true;
             }
         }
@@ -1256,7 +1256,7 @@ void SimpleChess::Move::IfGameIsOver(void) {
         SimpleChess::StartPage::SetWhoWon(2);
     }
     
-    SimpleChess::GameWindow::Close();
+    GameWindow::Close();
 }
 
 #endif
