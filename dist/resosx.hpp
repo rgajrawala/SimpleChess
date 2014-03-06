@@ -29,7 +29,11 @@
 
 #include <string>
 
-std::string resourcePath(void);
-std::string GetResource(const std::string);
+namespace SimpleChess {
+    namespace Resources {
+        std::string resourcePath(void);
+        std::string GetResource(const std::string);
+    };
+};
 
 #endif

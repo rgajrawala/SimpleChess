@@ -27,7 +27,7 @@
 #include "resosx.hpp"
 #import <Foundation/Foundation.h>
 
-std::string resourcePath(void) {
+std::string SimpleChess::Resources::resourcePath(void) {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 
     std::string rpath;
@@ -47,6 +47,6 @@ std::string resourcePath(void) {
 }
 
 // Return the path to the resource itself.
-std::string GetResource(const std::string str) {
+std::string SimpleChess::Resources::GetResource(const std::string str) {
     return resourcePath() + str;
 }
