@@ -91,19 +91,19 @@ void SimpleChess::StartPage::Initialize(void) {
     Window.create(sf::VideoMode(600, 600), "SimpleChess - Start Page", sf::Style::Close);
     Window.setFramerateLimit(10);
     
-    if (!Icon.loadFromFile(GetResource("white_knight.png"))) {
+    if (!Icon.loadFromFile(Resources::GetResource("white_knight.png"))) {
         exit(EXIT_FAILURE);
     }
     Window.setIcon(Icon.getSize().x, Icon.getSize().y, Icon.getPixelsPtr());
     
-    if(!Font.loadFromFile(GetResource("sansation.ttf"))) {
+    if(!Font.loadFromFile(Resources::GetResource("sansation.ttf"))) {
         exit(EXIT_FAILURE);
     }
     
     Title.setFont(Font);
     Title.setString("SimpleChess");
-    Title.setPosition(20.0, 50.0);
-    Title.setCharacterSize(100);
+    Title.setPosition(22.0, 50.0);
+    Title.setCharacterSize(93);
     
     NewGameButton.setFillColor(sf::Color::Yellow);
     NewGameButton.setSize(sf::Vector2f(300.0, 50.0));
@@ -126,7 +126,7 @@ void SimpleChess::StartPage::Initialize(void) {
     ReaderText.setString("Reader");
     
     WhoWonText.setFont(Font);
-    WhoWonText.setPosition(80.0, 310.0);
+    WhoWonText.setPosition(180.0, 340.0);
     WhoWonText.setCharacterSize(25);
     if(WhoWon == 1) {
         WhoWonText.setString("White (Player 1) Won!");

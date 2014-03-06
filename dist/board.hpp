@@ -125,71 +125,71 @@ namespace SimpleChess {
 ////////// SOURCE //////////
 
 void SimpleChess::Textures::Initialize(void) {
-    if(!ChessBoard.loadFromFile(GetResource("chessboard.png"))) {
+    if(!ChessBoard.loadFromFile(Resources::GetResource("chessboard.png"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!Black::Pawn.loadFromFile(GetResource("black_pawn.png"))) {
+    if(!Black::Pawn.loadFromFile(Resources::GetResource("black_pawn.png"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!Black::Rook.loadFromFile(GetResource("black_rook.png"))) {
+    if(!Black::Rook.loadFromFile(Resources::GetResource("black_rook.png"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!Black::Knight.loadFromFile(GetResource("black_knight.png"))) {
+    if(!Black::Knight.loadFromFile(Resources::GetResource("black_knight.png"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!Black::Bishop.loadFromFile(GetResource("black_bishop.png"))) {
+    if(!Black::Bishop.loadFromFile(Resources::GetResource("black_bishop.png"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!Black::Queen.loadFromFile(GetResource("black_queen.png"))) {
+    if(!Black::Queen.loadFromFile(Resources::GetResource("black_queen.png"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!Black::King.loadFromFile(GetResource("black_king.png"))) {
+    if(!Black::King.loadFromFile(Resources::GetResource("black_king.png"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!White::Pawn.loadFromFile(GetResource("white_pawn.png"))) {
+    if(!White::Pawn.loadFromFile(Resources::GetResource("white_pawn.png"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!White::Rook.loadFromFile(GetResource("white_rook.png"))) {
+    if(!White::Rook.loadFromFile(Resources::GetResource("white_rook.png"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!White::Knight.loadFromFile(GetResource("white_knight.png"))) {
+    if(!White::Knight.loadFromFile(Resources::GetResource("white_knight.png"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!White::Bishop.loadFromFile(GetResource("white_bishop.png"))) {
+    if(!White::Bishop.loadFromFile(Resources::GetResource("white_bishop.png"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!White::Queen.loadFromFile(GetResource("white_queen.png"))) {
+    if(!White::Queen.loadFromFile(Resources::GetResource("white_queen.png"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!White::King.loadFromFile(GetResource("white_king.png"))) {
+    if(!White::King.loadFromFile(Resources::GetResource("white_king.png"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!Valid_Move.loadFromFile(GetResource("valid_move.png"))) {
+    if(!Valid_Move.loadFromFile(Resources::GetResource("valid_move.png"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!Valid_Capture.loadFromFile(GetResource("valid_capture.png"))) {
+    if(!Valid_Capture.loadFromFile(Resources::GetResource("valid_capture.png"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!Enemy_Move.loadFromFile(GetResource("enemy_move.png"))) {
+    if(!Enemy_Move.loadFromFile(Resources::GetResource("enemy_move.png"))) {
         exit(EXIT_FAILURE);
     }
     
-    if(!Enemy_Capture.loadFromFile(GetResource("enemy_capture.png"))) {
+    if(!Enemy_Capture.loadFromFile(Resources::GetResource("enemy_capture.png"))) {
         exit(EXIT_FAILURE);
     }
 }

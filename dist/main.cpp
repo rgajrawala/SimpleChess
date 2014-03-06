@@ -18,7 +18,10 @@
 
 ChessMain
     // Make sure the config folder (and its contents) and the log folder (and its contents) are in this directory.
-    SimpleChess::File::SetPath("/Users/usandfriends/Documents/GitHub/SimpleChess/");
+    SimpleChess::File::SetPath("C:/Users/Ronak/Documents/GitHub/SimpleChess/");
+#if !(defined(__APPLE__) || defined(__MACH__))
+    SimpleChess::Resources::SetPath("C:/Users/Ronak/Documents/GitHub/SimpleChess/res/");
+#endif
     
     SimpleChess::Textures::Initialize();
     SimpleChess::Sounds::Initialize();

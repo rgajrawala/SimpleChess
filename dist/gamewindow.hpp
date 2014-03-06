@@ -235,7 +235,7 @@ namespace SimpleChess {
 ////////// SOURCE //////////
 
 void SimpleChess::GameWindow::Initialize(void) {
-    if (not Font.loadFromFile(GetResource("sansation.ttf"))) {
+    if (not Font.loadFromFile(Resources::GetResource("sansation.ttf"))) {
         exit(EXIT_FAILURE);
     }
     
@@ -289,7 +289,7 @@ void SimpleChess::GameWindow::Initialize(void) {
     Window.create(sf::VideoMode(900, 640), "SimpleChess - Game", sf::Style::Close);
     Window.setFramerateLimit(10);
     
-    if (not Icon.loadFromFile(GetResource("white_knight.png"))) {
+    if (not Icon.loadFromFile(Resources::GetResource("white_knight.png"))) {
         exit(EXIT_FAILURE);
     }
     Window.setIcon(Icon.getSize().x, Icon.getSize().y, Icon.getPixelsPtr());
@@ -1163,7 +1163,7 @@ void SimpleChess::Move::OnPlayer1Turn(void) {
 #endif
         } else {
             ss << Utils::PStringify(GameWindow::Board[Piece.y][Piece.x]) << " (" << Select.x << ", " << Select.y << ") moved to (" << Piece.x << ", " << Piece.y << ").";
-            dss << GameWindow::Board[Piece.y][Piece.x] << " " << Select.x << " " << Select.y << " " << 2 << " " << opp << " " << Piece.x << " " << Piece.y;
+            dss << GameWindow::Board[Piece.y][Piece.x] << " " << Select.x << " " << Select.y << " " << 0 << " " << opp << " " << Piece.x << " " << Piece.y;
 #ifdef __CPP_DEBUG__
             SimpleChess::Console::Log(__LINE__, __FILE__, __func__, "%s", ss.str().c_str());
 #endif
@@ -1215,7 +1215,7 @@ void SimpleChess::Move::OnPlayer2Turn(void) {
 #endif
         } else {
             ss << Utils::PStringify(GameWindow::Board[Piece.y][Piece.x]) << " (" << Select.x << ", " << Select.y << ") moved to (" << Piece.x << ", " << Piece.y << ").";
-            dss << GameWindow::Board[Piece.y][Piece.x] << " " << Select.x << " " << Select.y << " " << 2 << " " << opp << " " << Piece.x << " " << Piece.y;
+            dss << GameWindow::Board[Piece.y][Piece.x] << " " << Select.x << " " << Select.y << " " << 0 << " " << opp << " " << Piece.x << " " << Piece.y;
 #ifdef __CPP_DEBUG__
             SimpleChess::Console::Log(__LINE__, __FILE__, __func__, "%s", ss.str().c_str());
 #endif

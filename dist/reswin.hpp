@@ -9,10 +9,18 @@
 #ifndef SimpleChess_reswin_hpp
 #define SimpleChess_reswin_hpp
 
-const std::string ResourcePath = "res/"; /**< The resource path has to be set manually by the user in Windows. */
-
-const std::string GetResource(const std::string file) {
-	return ResourcePath + file;
-}
+namespace SimpleChess {
+    namespace Resources {
+        std::string ResourcePath = "./"; /**< The resource path has to be set manually by the user in Windows. */
+        
+        void SetPath(std::string path) {
+            ResourcePath = path;
+        }
+        
+        const std::string GetResource(const std::string file) {
+        	return ResourcePath + file;
+        }
+    };
+};
 
 #endif

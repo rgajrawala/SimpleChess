@@ -23,16 +23,16 @@ namespace SimpleChess {
         sf::Sprite Sprite; /**< The Sprite that will load the board and pieces. */
         
         sf::Text PlayerTurn, /**< Stores who's turn it is. */
-        LastMove, /**< Stores the last move. */
-        NextBtnText, /**< Text for the Next Button. */
-        GoBackBtnText; /**< Text for the Go-Back Button. */
+                 LastMove, /**< Stores the last move. */
+                 NextBtnText, /**< Text for the Next Button. */
+                 GoBackBtnText; /**< Text for the Go-Back Button. */
         
         sf::RectangleShape NextButton, /**< The button that says "Next". */
-        GoBackButton; /**< The button that says "Back". */
+                           GoBackButton; /**< The button that says "Back". */
         
         File::Information FileInfo; /**< File information necessary for the replay. */
         SimpleChess::Board8 Board; /**< The board we will be replaying. */
-        unsigned short moveNumber;
+        short moveNumber;
         
         /**
          * Creates the menu and other important parts of the start page.
@@ -81,12 +81,12 @@ void SimpleChess::Reader::Initialize(void) {
     Window.create(sf::VideoMode(900, 640), "SimpleChess - Reader", sf::Style::Close);
     Window.setFramerateLimit(10);
     
-    if(!Icon.loadFromFile(GetResource("white_knight.png"))) {
+    if(!Icon.loadFromFile(Resources::GetResource("white_knight.png"))) {
         exit(EXIT_FAILURE);
     }
     Window.setIcon(Icon.getSize().x, Icon.getSize().y, Icon.getPixelsPtr());
     
-    if(!Font.loadFromFile(GetResource("sansation.ttf"))) {
+    if(!Font.loadFromFile(Resources::GetResource("sansation.ttf"))) {
         exit(EXIT_FAILURE);
     }
     
@@ -137,22 +137,31 @@ void SimpleChess::Reader::OnMouseButtonReleased(void) {
         if (moveNumber < 0) {
             moveNumber = 0;
             return;
-        } else if (moveNumber > FileInfo.size() - 1) {
+        } else if (moveNumber >= FileInfo.size() - 1) {
             moveNumber = FileInfo.size() - 1;
             return;
         }
         
-        Board[FileInfo.at(moveNumber).Piece2Loc.y][FileInfo.at(moveNumber).Piece2Loc.x] = Board[FileInfo.at(moveNumber).Piece1Loc.y][FileInfo.at(moveNumber).Piece1Loc.x];
+        Board[FileInfo.at(moveNumber).Piece2Loc.y][FileInfo.at(moveNumber).Piece2Loc.x] = FileInfo.at(moveNumber).Piece1;
         Board[FileInfo.at(moveNumber).Piece1Loc.y][FileInfo.at(moveNumber).Piece1Loc.x] = Pieces::Empty;
         moveNumber++;
     } else if(Utils::Contains(Mouse.x, Mouse.y, GoBackButton.getPosition().x, GoBackButton.getPosition().y, GoBackButton.getSize().x, GoBackButton.getSize().y)) {
-        if (moveNumber < 0 || moveNumber > FileInfo.size() - 1) {
+        if (moveNumber <= 0) {
+            moveNumber = 0;
+            return;
+        } else if (moveNumber > FileInfo.size() - 1) {
+            moveNumber = FileInfo.size() - 1;
             return;
         }
-        
-        Board[FileInfo.at(moveNumber).Piece1Loc.y][FileInfo.at(moveNumber).Piece1Loc.x] = Board[FileInfo.at(moveNumber).Piece2Loc.y][FileInfo.at(moveNumber).Piece2Loc.x];
-        Board[FileInfo.at(moveNumber).Piece2Loc.y][FileInfo.at(moveNumber).Piece2Loc.x] = Pieces::Empty;
         moveNumber--;
+        
+        if (FileInfo.at(moveNumber).Move == 0) {
+            Board[FileInfo.at(moveNumber).Piece2Loc.y][FileInfo.at(moveNumber).Piece2Loc.x] = Pieces::Empty;
+            Board[FileInfo.at(moveNumber).Piece1Loc.y][FileInfo.at(moveNumber).Piece1Loc.x] = FileInfo.at(moveNumber).Piece1;
+        } else {
+            Board[FileInfo.at(moveNumber).Piece2Loc.y][FileInfo.at(moveNumber).Piece2Loc.x] = FileInfo.at(moveNumber).Piece2;
+            Board[FileInfo.at(moveNumber).Piece1Loc.y][FileInfo.at(moveNumber).Piece1Loc.x] = FileInfo.at(moveNumber).Piece1;
+        }
     }
 }
 
