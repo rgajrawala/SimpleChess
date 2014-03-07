@@ -53,10 +53,10 @@
 #include "gamewindow.hpp"
 
 namespace SimpleChess {
-    void EndChessMain(void) {
-        SimpleChess::Console::Pause();
-        exit(EXIT_SUCCESS);
-    }
+	void EndChessMain(void) {
+		Console::Pause();
+		exit(EXIT_SUCCESS);
+	}
 };
 
 #endif

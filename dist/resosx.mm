@@ -28,25 +28,22 @@
 #import <Foundation/Foundation.h>
 
 std::string SimpleChess::Resources::resourcePath(void) {
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	std::string rpath;
+	NSBundle* bundle = [NSBundle mainBundle];
 
-    std::string rpath;
-    NSBundle* bundle = [NSBundle mainBundle];
+	if (bundle == nil) {
+		NSLog(@"No resource path can be found.\n");
+		rpath = std::string("/");
+	} else {
+		NSString* path = [bundle resourcePath];
+		rpath = [path UTF8String] + std::string("/");
+	}
 
-    if (bundle == nil) {
-        NSLog(@"No resource path can be found.\n");
-        rpath = std::string("/");
-    } else {
-        NSString* path = [bundle resourcePath];
-        rpath = [path UTF8String] + std::string("/");
-    }
-
-    [pool drain];
-
-    return rpath;
+	[pool drain];
+	return rpath;
 }
 
-// Return the path to the resource itself.
 std::string SimpleChess::Resources::GetResource(const std::string str) {
-    return resourcePath() + str;
+	return resourcePath() + str;
 }

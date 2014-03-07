@@ -30,10 +30,24 @@
 #include <string>
 
 namespace SimpleChess {
-    namespace Resources {
-        std::string resourcePath(void);
-        std::string GetResource(const std::string);
-    };
+	/**
+	 * The Resources class.
+	 * Used for anything involving file paths of resources.
+	 */
+	namespace Resources {
+		/**
+		 * Gets the resource folder path in XCode.
+		 * @return The resource folder path in XCode.
+		 */
+		std::string resourcePath(void);
+
+		/*
+		 * Gets the resource path in XCode.
+		 * @param str The file name of the resource file in XCode.
+		 * @return The resource file path in XCode.
+		 */
+		std::string GetResource(const std::string);
+	};
 };
 
 #endif

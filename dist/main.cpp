@@ -17,20 +17,23 @@
 #include "main.hpp"
 
 ChessMain
-    // Make sure the config folder (and its contents) and the log folder (and its contents) are in this directory.
-    SimpleChess::File::SetPath("/Users/usandfriends/Documents/GitHub/SimpleChess/");
-#if !(defined(__APPLE__) || defined(__MACH__))
-    SimpleChess::Resources::SetPath("C:/Users/Ronak/Documents/GitHub/SimpleChess/res/");
+	// Make sure the config folder (and its contents) and the log folder (and its contents) are in this directory.
+	// Make sure the res folder (and its contents) are in this directory.
+#if (defined(__APPLE__) || defined(__MACH__))
+	SimpleChess::File::SetPath("/Users/usandfriends/Documents/GitHub/SimpleChess/");
+#else
+	SimpleChess::File::SetPath("C:/Users/Ronak/Documents/GitHub/SimpleChess/");
+	SimpleChess::Resources::SetPath("C:/Users/Ronak/Documents/GitHub/SimpleChess/res/");
 #endif
-    
-    SimpleChess::Textures::Initialize();
-    SimpleChess::Sounds::Initialize();
-    
-    while(true) {
-        if(SimpleChess::StartPage::Main()) {
-            SimpleChess::GameWindow::Main();
-        } else {
-            SimpleChess::Reader::Main();
-        }
-    }
+
+	SimpleChess::Textures::Initialize();
+	SimpleChess::Sounds::Initialize();
+
+	while (true) {
+		if (SimpleChess::StartPage::Main()) {
+			SimpleChess::GameWindow::Main();
+		} else {
+			SimpleChess::Reader::Main();
+		}
+	}
 ChessEnd
