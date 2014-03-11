@@ -46,6 +46,7 @@
 #include "sounds.hpp"
 #include "console.hpp"
 #include "board.hpp"
+#include "move.hpp"
 #include "file.hpp"
 #include "utils.hpp"
 #include "start.hpp"
