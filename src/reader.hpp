@@ -112,13 +112,13 @@ void SimpleChess::Reader::Initialize(void) {
 	GoBackBtnText.setFont(Font);
 	GoBackBtnText.setString("Back");
 
-	try {
-		File::Read("log/SimpleChess.log", &FileInfo);
-		File::CreateBoardFromFile("config/default.chessconf", &Board);
-	} catch (int e) {
-		StartPage::SetWhoWon(-1);
-		Window.close();
-	}
+    try {
+        File::Read("log/SimpleChess.log", &FileInfo);
+        File::CreateBoardFromFile("config/default.chessconf", &Board);
+    } catch (int e) {
+        StartPage::WhoWon = -1;
+        Window.close();
+    }
 }
 
 void SimpleChess::Reader::OnMouseMove(void) {
@@ -153,7 +153,7 @@ void SimpleChess::Reader::OnMouseButtonReleased(void) {
 			moveNumber = FileInfo.size() - 1;
 			return;
 		}
-	moveNumber--;
+        moveNumber--;
 
 		if (FileInfo.at(moveNumber).Move == 0) {
 			Board[FileInfo.at(moveNumber).Piece2Loc.y][FileInfo.at(moveNumber).Piece2Loc.x] = Pieces::Empty;
@@ -171,7 +171,7 @@ void SimpleChess::Reader::OnEvent(void) {
 		case sf::Event::KeyPressed: OnKeyPressed(); break;
 		case sf::Event::MouseMoved: OnMouseMove(); break;
 		case sf::Event::MouseButtonReleased: OnMouseButtonReleased(); break;
-		default: break;
+		default: {}
 	}
 }
 
@@ -212,6 +212,7 @@ void SimpleChess::Reader::Display(void) {
 				case Pieces::White_Bishop: Sprite.setTexture(Textures::White::Bishop); break;
 				case Pieces::White_Queen: Sprite.setTexture(Textures::White::Queen); break;
 				case Pieces::White_King: Sprite.setTexture(Textures::White::King); break;
+                default: {}
 			}
 
 			if(isNotEmpty) {

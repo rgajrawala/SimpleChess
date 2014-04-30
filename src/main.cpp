@@ -6,7 +6,7 @@
  *  Copyright (c) 2013 Ronak Gajrawala. All rights reserved.
  */
 
-#define __CPP_DEBUG__ // If you are debugging. (Currently, this changes very little.)
+#define __CPP_DEBUG__ /** If you are debugging. @note Currently, this changes very little. */
 
 /*
  * @todo Add Castle button.
@@ -30,10 +30,12 @@ ChessMain
 	SimpleChess::Sounds::Initialize();
 
 	while (true) {
-		if (SimpleChess::StartPage::Main()) {
-			SimpleChess::GameWindow::Main();
-		} else {
-			SimpleChess::Reader::Main();
-		}
+        switch (SimpleChess::StartPage::Main()) {
+            case 0: SimpleChess::NewGame::Main(); break;
+            case 1: SimpleChess::Reader::Main(); break;
+            case 2: SimpleChess::ConnectedGame::Main(); break;
+            case 3: SimpleChess::LocalGame::Main(); break;
+            default: SimpleChess::StartPage::Go = -1;
+        }
 	}
 ChessEnd

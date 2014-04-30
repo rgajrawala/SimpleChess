@@ -1,20 +1,20 @@
 /*
- *  gamewindow.hpp
+ *  newgame.hpp
  *  SimpleChess
  *
  *  Created by Ronak Gajrawala on 12/01/13.
  *  Copyright (c) 2013 Ronak Gajrawala. All rights reserved.
  */
 
-#ifndef SimpleChess_gamewindow_hpp
-#define SimpleChess_gamewindow_hpp
+#ifndef SimpleChess_newgame_hpp
+#define SimpleChess_newgame_hpp
 
 namespace SimpleChess {
 	/**
-	 * The GameWindow class.
+	 * The NewGame class.
 	 * Loads the window along with functions to create, clear, write to, and display it.
 	 */
-	namespace GameWindow {
+	namespace NewGame {
 		sf::Event Event; /**< Where the window's new event will be stored. */
 		sf::Text PlayerTurn, /**< Stores who's turn it is. */
                  LastMove; /**< Stores the last move. */
@@ -24,6 +24,9 @@ namespace SimpleChess {
 		sf::Sprite Sprite; /**< The Sprite that will load the board and pieces. */
 		SimpleChess::Board8 BoardBackground, /**< The board's background. */
 							Board; /**< The board's pieces. */
+
+        sf::TcpListener Listener; /**< Listener for client socket. */
+        sf::TcpSocket Client; /**< Client socket. */
 
 		/**
 		 * Intializes Window.
@@ -173,7 +176,42 @@ namespace SimpleChess {
 
 ////////// SOURCE //////////
 
-void SimpleChess::GameWindow::Initialize(void) {
+void SimpleChess::NewGame::Initialize(void) {
+    std::ifstream fl(File::Path + "config/connection.chessconf", std::ios::in);
+    if (not fl.is_open()) {
+#ifdef __CPP_DEBUG__
+		FError(false, "ERROR: config/connection.chessconf could not be opened!");
+#endif
+
+        StartPage::WhoWon = -1;
+        Close();
+        return;
+	}
+
+    std::string port;
+    std::getline(fl, port);
+    std::getline(fl, port);
+
+    if (Listener.listen(atoi(port.c_str())) != sf::Socket::Done) {
+#ifdef __CPP_DEBUG__
+        FError(false, "ERROR: Could not listen on port %s.", port.c_str());
+#endif
+
+        StartPage::WhoWon = -1;
+        Close();
+        return;
+    }
+
+    if (Listener.accept(Client) != sf::Socket::Done) {
+#ifdef __CPP_DEBUG__
+        FError(false, "ERROR: Could not connect to client.");
+#endif
+
+        StartPage::WhoWon = -1;
+        Close();
+        return;
+    }
+
 	if (not Font.loadFromFile(Resources::GetResource("sansation.ttf"))) {
 		exit(EXIT_FAILURE);
 	}
@@ -234,35 +272,35 @@ void SimpleChess::GameWindow::Initialize(void) {
 	Window.setIcon(Icon.getSize().x, Icon.getSize().y, Icon.getPixelsPtr());
 }
 
-void SimpleChess::GameWindow::Create(sf::VideoMode Mode, const sf::String& Title, sf::Uint32 Style = sf::Style::Default, const sf::ContextSettings& Settings = sf::ContextSettings()) {
+void SimpleChess::NewGame::Create(sf::VideoMode Mode, const sf::String& Title, sf::Uint32 Style = sf::Style::Default, const sf::ContextSettings& Settings = sf::ContextSettings()) {
 	Window.create(Mode, Title, Style, Settings);
 }
 
-void SimpleChess::GameWindow::Draw(sf::Drawable& Sprite) {
+void SimpleChess::NewGame::Draw(sf::Drawable& Sprite) {
 	Window.draw(Sprite);
 }
 
-bool SimpleChess::GameWindow::IsOpen(void) {
+bool SimpleChess::NewGame::IsOpen(void) {
 	return Window.isOpen();
 }
 
-bool SimpleChess::GameWindow::GetEvent(sf::Event& Event) {
+bool SimpleChess::NewGame::GetEvent(sf::Event& Event) {
 	return Window.pollEvent(Event);
 }
 
-void SimpleChess::GameWindow::Clear(void) {
+void SimpleChess::NewGame::Clear(void) {
 	Window.clear(sf::Color::Black);
 }
 
-void SimpleChess::GameWindow::Close(void) {
+void SimpleChess::NewGame::Close(void) {
 	Window.close();
 }
 
-void SimpleChess::GameWindow::Print(void) {
+void SimpleChess::NewGame::Print(void) {
 	Window.display();
 }
 
-void SimpleChess::GameWindow::Display(void) {
+void SimpleChess::NewGame::Display(void) {
 	Sprite.setTexture(SimpleChess::Textures::ChessBoard);
 	Sprite.setPosition(0.0, 0.0);
 	Draw(Sprite);
@@ -277,6 +315,7 @@ void SimpleChess::GameWindow::Display(void) {
 				case Background::Enemy_Move: Sprite.setTexture(SimpleChess::Textures::Enemy_Move); break;
 				case Background::Valid_Capture: Sprite.setTexture(SimpleChess::Textures::Valid_Capture); break;
 				case Background::Valid_Move: Sprite.setTexture(SimpleChess::Textures::Valid_Move); break;
+                default: {}
 			}
 
 			if (isNotEmpty) {
@@ -304,6 +343,7 @@ void SimpleChess::GameWindow::Display(void) {
 				case SimpleChess::Pieces::White_Bishop: Sprite.setTexture(SimpleChess::Textures::White::Bishop); break;
 				case SimpleChess::Pieces::White_Queen: Sprite.setTexture(SimpleChess::Textures::White::Queen); break;
 				case SimpleChess::Pieces::White_King: Sprite.setTexture(SimpleChess::Textures::White::King); break;
+                default: {}
 			}
 
 			if (isNotEmpty) {
@@ -319,32 +359,32 @@ void SimpleChess::GameWindow::Display(void) {
 	Print();
 }
 
-void SimpleChess::GameWindow::OnKeyPress(void) {
+void SimpleChess::NewGame::OnKeyPress(void) {
 	if ((Event.key.code is sf::Keyboard::Escape) or ((Event.key.control is true or Event.key.alt is true) and (Event.key.code is sf::Keyboard::W or Event.key.code is sf::Keyboard::C))) {
 		Close();
 	}
 }
 
-void SimpleChess::GameWindow::OnMouseMove(void) {
+void SimpleChess::NewGame::OnMouseMove(void) {
 	Move::Coord.x = Event.mouseMove.x;
 	Move::Coord.y = Event.mouseMove.y;
 }
 
-void SimpleChess::GameWindow::OnMouseButtonPress(void) {
+void SimpleChess::NewGame::OnMouseButtonPress(void) {
 	Move::MovePiece();
 }
 
-void SimpleChess::GameWindow::OnEvent(void) {
+void SimpleChess::NewGame::OnEvent(void) {
 	switch (Event.type) {
 		case sf::Event::Closed: Close(); break;
 		case sf::Event::KeyPressed: OnKeyPress(); break;
 		case sf::Event::MouseMoved: OnMouseMove(); break;
 		case sf::Event::MouseButtonPressed: OnMouseButtonPress(); break;
-		default: break;
+		default: {}
 	}
 }
 
-void SimpleChess::GameWindow::Main(void) {
+void SimpleChess::NewGame::Main(void) {
 	SimpleChess::File::Clear();
 	Move::Initialize();
 	Initialize();
@@ -353,145 +393,161 @@ void SimpleChess::GameWindow::Main(void) {
 		Clear();
 
 		while (GetEvent(Event)) {
-		OnEvent();
+            OnEvent();
 		}
 
 		Display();
 	}
 }
 
-void SimpleChess::GameWindow::Move::Initialize(void) {
+void SimpleChess::NewGame::Move::Initialize(void) {
 	PlayerTurn = 1;
 }
 
-void SimpleChess::GameWindow::Move::InitializePiece(void) {
+void SimpleChess::NewGame::Move::InitializePiece(void) {
 	Piece.x = (Coord.x - (Coord.x % 80)) / 80;
 	Piece.y = (Coord.y - (Coord.y % 80)) / 80;
 }
 
-void SimpleChess::GameWindow::Move::InitializeSelect(void) {
+void SimpleChess::NewGame::Move::InitializeSelect(void) {
 	Select = Piece;
 }
 
-void SimpleChess::GameWindow::Move::InitializeBoard(void) {
+void SimpleChess::NewGame::Move::InitializeBoard(void) {
 	for (int y = 0; y < 8; y++) {
 		for (int x = 0; x < 8; x++) {
-			GameWindow::BoardBackground[y][x] = Background::Empty;
+			NewGame::BoardBackground[y][x] = Background::Empty;
 		}
 	}
 }
 
-void SimpleChess::GameWindow::Move::OnPlayer1Turn(void) {
-	if (GameWindow::Board[Piece.y][Piece.x] > 0 and GameWindow::Board[Piece.y][Piece.x] < 7) {
+void SimpleChess::NewGame::Move::OnPlayer1Turn(void) {
+	if (NewGame::Board[Piece.y][Piece.x] > 0 and NewGame::Board[Piece.y][Piece.x] < 7) {
 		SimpleChess::Sounds::Music2.play();
 		InitializeSelect();
 		InitializeBoard();
 
-		switch (GameWindow::Board[Piece.y][Piece.x]) {
-			case SimpleChess::Pieces::White_Pawn: SimpleChess::Move::ShowWhitePawnPath(GameWindow::Board, GameWindow::BoardBackground, Piece); break;
-			case SimpleChess::Pieces::White_Rook: SimpleChess::Move::ShowWhiteRookPath(GameWindow::Board, GameWindow::BoardBackground, Piece); break;
-			case SimpleChess::Pieces::White_Knight: SimpleChess::Move::ShowWhiteKnightPath(GameWindow::Board, GameWindow::BoardBackground, Piece); break;
-			case SimpleChess::Pieces::White_Bishop: SimpleChess::Move::ShowWhiteBishopPath(GameWindow::Board, GameWindow::BoardBackground, Piece); break;
-			case SimpleChess::Pieces::White_King: SimpleChess::Move::ShowWhiteKingPath(GameWindow::Board, GameWindow::BoardBackground, Piece); break;
-			case SimpleChess::Pieces::White_Queen: SimpleChess::Move::ShowWhiteQueenPath(GameWindow::Board, GameWindow::BoardBackground, Piece); break;
+		switch (NewGame::Board[Piece.y][Piece.x]) {
+			case SimpleChess::Pieces::White_Pawn: SimpleChess::Move::ShowWhitePawnPath(NewGame::Board, NewGame::BoardBackground, Piece, true); break;
+			case SimpleChess::Pieces::White_Rook: SimpleChess::Move::ShowWhiteRookPath(NewGame::Board, NewGame::BoardBackground, Piece, true); break;
+			case SimpleChess::Pieces::White_Knight: SimpleChess::Move::ShowWhiteKnightPath(NewGame::Board, NewGame::BoardBackground, Piece, true); break;
+			case SimpleChess::Pieces::White_Bishop: SimpleChess::Move::ShowWhiteBishopPath(NewGame::Board, NewGame::BoardBackground, Piece, true); break;
+			case SimpleChess::Pieces::White_King: SimpleChess::Move::ShowWhiteKingPath(NewGame::Board, NewGame::BoardBackground, Piece, true); break;
+			case SimpleChess::Pieces::White_Queen: SimpleChess::Move::ShowWhiteQueenPath(NewGame::Board, NewGame::BoardBackground, Piece, true); break;
+            default: {}
 		}
-	} else if (GameWindow::BoardBackground[Piece.y][Piece.x] is Background::Valid_Move or GameWindow::BoardBackground[Piece.y][Piece.x] is Background::Valid_Capture) {
+	} else if (NewGame::BoardBackground[Piece.y][Piece.x] is Background::Valid_Move or NewGame::BoardBackground[Piece.y][Piece.x] is Background::Valid_Capture) {
 		SimpleChess::Sounds::Music1.play();
 		std::stringstream ss, dss;
-		short omove = GameWindow::BoardBackground[Piece.y][Piece.x];
+		short omove = NewGame::BoardBackground[Piece.y][Piece.x];
 		InitializeBoard();
-		short opp = GameWindow::Board[Piece.y][Piece.x];
+		short opp = NewGame::Board[Piece.y][Piece.x];
 
 		if (Select.y != Piece.y or Select.x != Piece.x) {
-			GameWindow::Board[Piece.y][Piece.x] = GameWindow::Board[Select.y][Select.x];
+			NewGame::Board[Piece.y][Piece.x] = NewGame::Board[Select.y][Select.x];
 
-			if (GameWindow::Board[Piece.y][Piece.x] is SimpleChess::Pieces::White_Pawn and Piece.y is 0) {
-				GameWindow::Board[Piece.y][Piece.x] = SimpleChess::Pieces::White_Queen;
+			if (NewGame::Board[Piece.y][Piece.x] is SimpleChess::Pieces::White_Pawn and Piece.y is 0) {
+				NewGame::Board[Piece.y][Piece.x] = SimpleChess::Pieces::White_Queen;
 			}
 
-			GameWindow::Board[Select.y][Select.x] = SimpleChess::Pieces::Empty;
+			NewGame::Board[Select.y][Select.x] = SimpleChess::Pieces::Empty;
 			PlayerTurn = PlayerTurn is 1 ? 2 : 1;
-			GameWindow::PlayerTurn.setString("Player 2\'s Turn");
+			NewGame::PlayerTurn.setString("Player 2\'s Turn");
 		}
 
 		if (omove is Background::Valid_Capture) {
-			ss << Utils::PStringify(GameWindow::Board[Piece.y][Piece.x]) << " (" << Select.x << ", " << Select.y << ") captured " << Utils::PStringify(opp) << " (" << Piece.x << ", " << Piece.y << ").";
-			dss << GameWindow::Board[Piece.y][Piece.x] << " " << Select.x << " " << Select.y << " " << 1 << " " << opp << " " << Piece.x << " " << Piece.y;
-#ifdef __CPP_DEBUG__
-			Console::Log(__LINE__, __FILE__, __func__, "%s", ss.str().c_str());
-#endif
+			ss << Utils::PStringify(NewGame::Board[Piece.y][Piece.x]) << " (" << Select.x << ", " << Select.y << ") captured " << Utils::PStringify(opp) << " (" << Piece.x << ", " << Piece.y << ").";
 		} else {
-			ss << Utils::PStringify(GameWindow::Board[Piece.y][Piece.x]) << " (" << Select.x << ", " << Select.y << ") moved to (" << Piece.x << ", " << Piece.y << ").";
-			dss << GameWindow::Board[Piece.y][Piece.x] << " " << Select.x << " " << Select.y << " " << 0 << " " << opp << " " << Piece.x << " " << Piece.y;
-#ifdef __CPP_DEBUG__
-			Console::Log(__LINE__, __FILE__, __func__, "%s", ss.str().c_str());
-#endif
+			ss << Utils::PStringify(NewGame::Board[Piece.y][Piece.x]) << " (" << Select.x << ", " << Select.y << ") moved to (" << Piece.x << ", " << Piece.y << ").";
 		}
 
+#ifdef __CPP_DEBUG__
+        FLog("%s", ss.str().c_str());
+#endif
+
+        dss << NewGame::Board[Piece.y][Piece.x] << ' ' << Select.x << ' ' << Select.y << ' ' << (omove is Background::Valid_Capture ? 1 : 0) << ' ' << opp << ' ' << Piece.x << ' ' << Piece.y;
+
 		SimpleChess::File::Append(dss.str() + "\n");
-		GameWindow::LastMove.setString("Last move:\n" + ss.str());
+		NewGame::LastMove.setString("Last move:\n" + ss.str());
+
+        sf::Packet packet;
+        packet << (sf::Uint8)NewGame::Board[Piece.y][Piece.x] << (sf::Uint8)Select.x << (sf::Uint8)Select.y << (sf::Uint8)0 << (sf::Uint8)opp << (sf::Uint8)Piece.x << (sf::Uint8)Piece.y;
+        if (Client.send(packet) != sf::Socket::Done) {
+#ifdef __CPP_DEBUG__
+            FError(false, "ERROR: Could not send packet.");
+#endif
+            Client.disconnect();
+            StartPage::Go = -1;
+            Close();
+            return;
+        }
 	}
 }
 
-void SimpleChess::GameWindow::Move::OnPlayer2Turn(void) {
-	if (GameWindow::Board[Piece.y][Piece.x] > 6) {
-		SimpleChess::Sounds::Music2.play();
-		InitializeSelect();
-		InitializeBoard();
+void SimpleChess::NewGame::Move::OnPlayer2Turn(void) {
+    InitializeBoard();
 
-		switch (GameWindow::Board[Piece.y][Piece.x]) {
-			case SimpleChess::Pieces::Black_Pawn: SimpleChess::Move::ShowBlackPawnPath(GameWindow::Board, GameWindow::BoardBackground, Piece); break;
-			case SimpleChess::Pieces::Black_Rook: SimpleChess::Move::ShowBlackRookPath(GameWindow::Board, GameWindow::BoardBackground, Piece); break;
-			case SimpleChess::Pieces::Black_Knight: SimpleChess::Move::ShowBlackKnightPath(GameWindow::Board, GameWindow::BoardBackground, Piece); break;
-			case SimpleChess::Pieces::Black_Bishop: SimpleChess::Move::ShowBlackBishopPath(GameWindow::Board, GameWindow::BoardBackground, Piece); break;
-			case SimpleChess::Pieces::Black_King: SimpleChess::Move::ShowBlackKingPath(GameWindow::Board, GameWindow::BoardBackground, Piece); break;
-			case SimpleChess::Pieces::Black_Queen: SimpleChess::Move::ShowBlackQueenPath(GameWindow::Board, GameWindow::BoardBackground, Piece); break;
-		}
-	} else if (GameWindow::BoardBackground[Piece.y][Piece.x] is Background::Enemy_Move or GameWindow::BoardBackground[Piece.y][Piece.x] is Background::Enemy_Capture) {
-		SimpleChess::Sounds::Music1.play();
-		std::stringstream ss, dss;
-		short omove = GameWindow::BoardBackground[Piece.y][Piece.x];
-		InitializeBoard();
-		short opp = GameWindow::Board[Piece.y][Piece.x];
+    sf::Packet packet;
 
-		if (Select.y != Piece.y or Select.x != Piece.x) {
-			GameWindow::Board[Piece.y][Piece.x] = GameWindow::Board[Select.y][Select.x];
-
-			if (GameWindow::Board[Piece.y][Piece.x] is SimpleChess::Pieces::Black_Pawn and Piece.y is 7) {
-				GameWindow::Board[Piece.y][Piece.x] = SimpleChess::Pieces::Black_Queen;
-			}
-
-			GameWindow::Board[Select.y][Select.x] = SimpleChess::Pieces::Empty;
-			PlayerTurn = PlayerTurn is 1 ? 2 : 1;
-			GameWindow::PlayerTurn.setString("Player 1\'s Turn");
-		}
-
-		if (omove is Background::Enemy_Capture) {
-			ss << Utils::PStringify(GameWindow::Board[Piece.y][Piece.x]) << " (" << Select.x << ", " << Select.y << ") captured " << Utils::PStringify(opp) << " (" << Piece.x << ", " << Piece.y << ").";
-			dss << GameWindow::Board[Piece.y][Piece.x] << " " << Select.x << " " << Select.y << " " << 1 << " " << opp << " " << Piece.x << " " << Piece.y;
+    if (Client.receive(packet) != sf::Socket::Done) {
 #ifdef __CPP_DEBUG__
-			Console::Log(__LINE__, __FILE__, __func__, "%s", ss.str().c_str());
+        FError(false, "ERROR: Did not receive packet.");
 #endif
-			} else {
-			ss << Utils::PStringify(GameWindow::Board[Piece.y][Piece.x]) << " (" << Select.x << ", " << Select.y << ") moved to (" << Piece.x << ", " << Piece.y << ").";
-			dss << GameWindow::Board[Piece.y][Piece.x] << " " << Select.x << " " << Select.y << " " << 0 << " " << opp << " " << Piece.x << " " << Piece.y;
-#ifdef __CPP_DEBUG__
-			Console::Log(__LINE__, __FILE__, __func__, "%s", ss.str().c_str());
-#endif
-		}
+        Client.disconnect();
+        StartPage::Go = -1;
+        Close();
+        return;
+    }
 
-		SimpleChess::File::Append(dss.str() + "\n");
-		GameWindow::LastMove.setString("Last move:\n" + ss.str());
+    File::Info info;
+    if (not (packet >> info.Piece1 >> info.Piece1Loc.x >> info.Piece1Loc.y >> info.Move >> info.Piece2 >> info.Piece2Loc.x >> info.Piece2Loc.y)) {
+#ifdef __CPP_DEBUG__
+        FError(false, "ERROR: Packet is not formatted correctly.");
+#endif
+        Client.disconnect();
+        StartPage::Go = -1;
+        Close();
+        return;
+    }
+
+    SimpleChess::Sounds::Music1.play();
+
+    NewGame::Board[info.Piece2Loc.y][info.Piece2Loc.x] = NewGame::Board[info.Piece1Loc.y][info.Piece1Loc.x];
+
+    if (NewGame::Board[info.Piece2Loc.y][info.Piece2Loc.x] is SimpleChess::Pieces::Black_Pawn and info.Piece2Loc.y is 7) {
+        NewGame::Board[info.Piece2Loc.y][info.Piece2Loc.x] = SimpleChess::Pieces::Black_Queen;
+    }
+
+    NewGame::Board[info.Piece1Loc.y][info.Piece1Loc.x] = SimpleChess::Pieces::Empty;
+
+    PlayerTurn = PlayerTurn is 1 ? 2 : 1;
+    NewGame::PlayerTurn.setString("Player 1\'s Turn");
+
+    std::stringstream ss, dss;
+
+    if (info.Move is 1) {
+        ss << Utils::PStringify(info.Piece1) << " (" << info.Piece1Loc.x << ", " << info.Piece1Loc.y << ") captured " << Utils::PStringify(info.Piece2) << " (" << info.Piece2Loc.x << ", " << info.Piece2Loc.y << ").";
+    } else {
+        ss << Utils::PStringify(info.Piece1) << " (" << info.Piece1Loc.x << ", " << info.Piece1Loc.y << ") moved to (" << info.Piece2Loc.x << ", " << info.Piece2Loc.y << ").";
 	}
+
+#ifdef __CPP_DEBUG__
+    FLog("%s", ss.str().c_str());
+#endif
+
+    dss << info.Piece1 << ' ' << info.Piece1Loc.x << ' ' << info.Piece1Loc.y << ' ' << info.Move << ' ' << info.Piece2 << ' ' << info.Piece2Loc.x << ' ' << info.Piece2Loc.y;
+
+    SimpleChess::File::Append(dss.str() + "\n");
+    NewGame::LastMove.setString("Last move:\n" + ss.str());
 }
 
-void SimpleChess::GameWindow::Move::MovePiece(void) {
+void SimpleChess::NewGame::Move::MovePiece(void) {
 	InitializePiece();
 	PlayerTurn is 1 ? OnPlayer1Turn() : OnPlayer2Turn();
 	IfGameIsOver();
 }
 
-void SimpleChess::GameWindow::Move::IfGameIsOver(void) {
+void SimpleChess::NewGame::Move::IfGameIsOver(void) {
 	bool WhiteKingExists = false,
 		 BlackKingExists = false;
 
@@ -501,9 +557,9 @@ void SimpleChess::GameWindow::Move::IfGameIsOver(void) {
 				return;
 			}
 
-			if (GameWindow::Board[y][x] is SimpleChess::Pieces::Black_King) {
+			if (NewGame::Board[y][x] is SimpleChess::Pieces::Black_King) {
 				BlackKingExists = true;
-			} else if (GameWindow::Board[y][x] is SimpleChess::Pieces::White_King) {
+			} else if (NewGame::Board[y][x] is SimpleChess::Pieces::White_King) {
 				WhiteKingExists = true;
 			}
 		}
@@ -515,7 +571,7 @@ void SimpleChess::GameWindow::Move::IfGameIsOver(void) {
 		SimpleChess::StartPage::SetWhoWon(2);
 	}
 
-	GameWindow::Close();
+	NewGame::Close();
 }
 
 #endif

@@ -26,7 +26,7 @@ namespace SimpleChess {
 		 * Simple log function.
 		 * @see printf
 		 * @param format Format to be printed.
-		 * @param ... Variables to be printed.
+		 * @param ... Variables to be formatted.
 		 */
 		void Log(const char*, ...);
 
@@ -37,9 +37,10 @@ namespace SimpleChess {
 		 * @param file The file you are calling the function from (__FILE__).
 		 * @param function The function you are calling the function from (__func__).
 		 * @param format Format to be printed.
-		 * @param ... Variables to be printed.
+		 * @param ... Variables to be formatted.
 		 */
 		void Log(const unsigned short, const char*, const char*, const char*, ...);
+        #define FLog(format, ...) SimpleChess::Console::Log(__LINE__, __FILE__, __func__, format, ##__VA_ARGS__)
 
 		/**
 		 * Waits for the user to press the ENTER (RETURN) key.
@@ -54,17 +55,19 @@ namespace SimpleChess {
 		 * @param line The line number you are calling the function from (__LINE__).
 		 * @param file The file you are calling the function from (__FILE__).
 		 * @param function The function you are calling the function from (__func__).
+         * @param leave If true, calls exit also.
 		 * @param format Format to be printed.
-		 * @param ... Variables to be printed.
+		 * @param ... Variables to be formatted.
 		 */
-		void Error(const unsigned short, const char*, const char*, const char*, ...);
+		void Error(const unsigned short, const char*, const char*, const bool, const char*, ...);
+        #define FError(leave, format, ...) SimpleChess::Console::Error(__LINE__, __FILE__, __func__, leave, format, ##__VA_ARGS__)
 	};
 };
 
 ////////// SOURCE //////////
 
 std::string SimpleChess::Console::ParseFileName(const std::string file) {
-	unsigned found = file.find_last_of("\\/");
+	unsigned long found = file.find_last_of("\\/");
 	return file.substr(found + 1);
 }
 
@@ -92,7 +95,7 @@ void SimpleChess::Console::Pause(void) {
 	fflush(stdin);
 }
 
-void SimpleChess::Console::Error(const unsigned short line, const char* file, const char* function, const char* format, ...) {
+void SimpleChess::Console::Error(const unsigned short line, const char* file, const char* function, const bool leave, const char* format, ...) {
 	va_list args;
 	va_start(args, format);
 	Log("%11s:%-4d [%s] ", ParseFileName(file).c_str(), line, function);
@@ -100,8 +103,11 @@ void SimpleChess::Console::Error(const unsigned short line, const char* file, co
 	if (format[strlen(format) - 1] != '\n') {
 		fputc('\n', stderr);
 	}
+
 	va_end(args);
-	exit(1);
+    if (leave) {
+        exit(1);
+    }
 }
 
 #endif

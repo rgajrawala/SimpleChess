@@ -12,6 +12,7 @@
 #include <cstdio>
 #include <cstdarg>
 #include <cstring>
+#include <cassert>
 
 #include <iostream>
 #include <string>
@@ -42,16 +43,18 @@
 #include "reswin.hpp"
 #endif
 
-#include "alert.hpp"
 #include "sounds.hpp"
 #include "console.hpp"
+#include "alert.hpp"
 #include "board.hpp"
 #include "move.hpp"
 #include "file.hpp"
 #include "utils.hpp"
 #include "start.hpp"
 #include "reader.hpp"
-#include "gamewindow.hpp"
+#include "newgame.hpp"
+#include "localgame.hpp"
+#include "connectedgame.hpp"
 
 namespace SimpleChess {
 	void EndChessMain(void) {
