@@ -34,7 +34,7 @@ namespace SimpleChess {
                            LocalGameButton; /**< The button to connect to a local game. */
 
 		short WhoWon = 0; /**< Who won the game. -1 if an error occured, 1 if white won. 2 if black won. 0 if game is still playing or tie. */
-		short Go; /**< 0 if go to game, 1 if go to reader, 2 if connect to game, 3 if play local game. */
+		short Go; /**< -1 if error, 0 if go to game, 1 if go to reader, 2 if connect to game, 3 if play local game. */
 
 		/**
 		 * Creates the menu and other important parts of the start page.

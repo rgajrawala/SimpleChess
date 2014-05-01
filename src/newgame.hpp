@@ -197,6 +197,7 @@ void SimpleChess::NewGame::Initialize(void) {
         FError(false, "ERROR: Could not listen on port %s.", port.c_str());
 #endif
 
+        Listener.close();
         StartPage::WhoWon = -1;
         Close();
         return;
@@ -207,10 +208,13 @@ void SimpleChess::NewGame::Initialize(void) {
         FError(false, "ERROR: Could not connect to client.");
 #endif
 
+        Listener.close();
         StartPage::WhoWon = -1;
         Close();
         return;
     }
+
+    fl.close();
 
 	if (not Font.loadFromFile(Resources::GetResource("sansation.ttf"))) {
 		exit(EXIT_FAILURE);
@@ -398,6 +402,9 @@ void SimpleChess::NewGame::Main(void) {
 
 		Display();
 	}
+
+    Client.disconnect();
+    Listener.close();
 }
 
 void SimpleChess::NewGame::Move::Initialize(void) {
@@ -477,6 +484,7 @@ void SimpleChess::NewGame::Move::OnPlayer1Turn(void) {
             FError(false, "ERROR: Could not send packet.");
 #endif
             Client.disconnect();
+            Listener.close();
             StartPage::Go = -1;
             Close();
             return;
@@ -494,6 +502,7 @@ void SimpleChess::NewGame::Move::OnPlayer2Turn(void) {
         FError(false, "ERROR: Did not receive packet.");
 #endif
         Client.disconnect();
+        Listener.close();
         StartPage::Go = -1;
         Close();
         return;
@@ -505,6 +514,7 @@ void SimpleChess::NewGame::Move::OnPlayer2Turn(void) {
         FError(false, "ERROR: Packet is not formatted correctly.");
 #endif
         Client.disconnect();
+        Listener.close();
         StartPage::Go = -1;
         Close();
         return;
@@ -535,7 +545,7 @@ void SimpleChess::NewGame::Move::OnPlayer2Turn(void) {
     FLog("%s", ss.str().c_str());
 #endif
 
-    dss << info.Piece1 << ' ' << info.Piece1Loc.x << ' ' << info.Piece1Loc.y << ' ' << info.Move << ' ' << info.Piece2 << ' ' << info.Piece2Loc.x << ' ' << info.Piece2Loc.y;
+    dss << (unsigned short)info.Piece1 << ' ' << (unsigned short)info.Piece1Loc.x << ' ' << (unsigned short)info.Piece1Loc.y << ' ' << (unsigned short)info.Move << ' ' << (unsigned short)info.Piece2 << ' ' << (unsigned short)info.Piece2Loc.x << ' ' << (unsigned short)info.Piece2Loc.y;
 
     SimpleChess::File::Append(dss.str() + "\n");
     NewGame::LastMove.setString("Last move:\n" + ss.str());

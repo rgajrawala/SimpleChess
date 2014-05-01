@@ -196,10 +196,13 @@ void SimpleChess::ConnectedGame::Initialize(void) {
         FError(false, "ERROR: Could not connect to remote host at %s:%s.", ipaddr.c_str(), port.c_str());
 #endif
 
+        Socket.disconnect();
         StartPage::WhoWon = -1;
         Close();
         return;
     }
+
+    fl.close();
 
 	if (not Font.loadFromFile(Resources::GetResource("sansation.ttf"))) {
 		exit(EXIT_FAILURE);
@@ -387,6 +390,8 @@ void SimpleChess::ConnectedGame::Main(void) {
 
 		Display();
 	}
+
+    Socket.disconnect();
 }
 
 void SimpleChess::ConnectedGame::Move::Initialize(void) {
@@ -461,7 +466,7 @@ void SimpleChess::ConnectedGame::Move::OnPlayer1Turn(void) {
     FLog("%s", ss.str().c_str());
 #endif
 
-    dss << info.Piece1 << ' ' << info.Piece1Loc.x << ' ' << info.Piece1Loc.y << ' ' << info.Move << ' ' << info.Piece2 << ' ' << info.Piece2Loc.x << ' ' << info.Piece2Loc.y;
+    dss << (unsigned short)info.Piece1 << ' ' << (unsigned short)info.Piece1Loc.x << ' ' << (unsigned short)info.Piece1Loc.y << ' ' << (unsigned short)info.Move << ' ' << (unsigned short)info.Piece2 << ' ' << (unsigned short)info.Piece2Loc.x << ' ' << (unsigned short)info.Piece2Loc.y;
 
     SimpleChess::File::Append(dss.str() + "\n");
     ConnectedGame::LastMove.setString("Last move:\n" + ss.str());
@@ -561,7 +566,6 @@ void SimpleChess::ConnectedGame::Move::IfGameIsOver(void) {
 	}
 
 	ConnectedGame::Close();
-    Socket.disconnect();
 }
 
 #endif
