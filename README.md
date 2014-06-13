@@ -16,9 +16,9 @@ This project has been tested on the following IDEs (working):
 ## HowTo
 There are three main steps to build.
 <br>
-1. Follow the tutorial for your IDE [here](http://www.sfml-dev.org/tutorials/2.1/) to get SFML started.
+1. Follow the tutorial for your IDE [here](http://www.sfml-dev.org/tutorials/2.1/#getting-started) to get SFML started.
 <br>
-2. Add the source code files in [./dist](https://github.com/usandfriends/SimpleChess/tree/master/dist) to your project source files and add the files in [./dist/res](https://github.com/usandfriends/SimpleChess/tree/master/dist/res) to your project resources. Learn about how to add files to your IDE [here](https://www.google.com/search?q=how+to+add+resources+to+%24IDE_NAME) and replace $IDE_NAME with the name of your IDE.
+2. Add the source code files in [src](./src) to your project source files and add the files in [res](./res) to your project resources. Learn about how to add files to your IDE [here](https://www.google.com/search#q=how+to+add+resources+to+%24IDE_NAME) and replace $IDE_NAME with the name of your IDE.
 <br>
 3. Build with <i>-lstdc++</i> and <i>-std=c++11</i>.
 
