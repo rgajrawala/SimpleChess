@@ -30,12 +30,12 @@ ChessMain
 	SimpleChess::Sounds::Initialize();
 
 	while (true) {
-        switch (SimpleChess::StartPage::Main()) {
-            case 0: SimpleChess::NewGame::Main(); break;
-            case 1: SimpleChess::Reader::Main(); break;
-            case 2: SimpleChess::ConnectedGame::Main(); break;
-            case 3: SimpleChess::LocalGame::Main(); break;
-            default: SimpleChess::StartPage::Go = -1;
-        }
+		switch (SimpleChess::StartPage::Main()) {
+			case 0: SimpleChess::NewGame::Main(); break;
+			case 1: SimpleChess::Reader::Main(); break;
+			case 2: SimpleChess::ConnectedGame::Main(); break;
+			case 3: SimpleChess::LocalGame::Main(); break;
+			default: SimpleChess::StartPage::Go = -1;
+		}
 	}
 ChessEnd
