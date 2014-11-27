@@ -40,7 +40,7 @@ namespace SimpleChess {
 		 * @param ... Variables to be formatted.
 		 */
 		void Log(const unsigned short, const char*, const char*, const char*, ...);
-        #define FLog(format, ...) SimpleChess::Console::Log(__LINE__, __FILE__, __func__, format, ##__VA_ARGS__)
+		#define FLog(format, ...) SimpleChess::Console::Log(__LINE__, __FILE__, __func__, format, ##__VA_ARGS__)
 
 		/**
 		 * Waits for the user to press the ENTER (RETURN) key.
@@ -55,12 +55,12 @@ namespace SimpleChess {
 		 * @param line The line number you are calling the function from (__LINE__).
 		 * @param file The file you are calling the function from (__FILE__).
 		 * @param function The function you are calling the function from (__func__).
-         * @param leave If true, calls exit also.
+		 * @param leave If true, calls exit also.
 		 * @param format Format to be printed.
 		 * @param ... Variables to be formatted.
 		 */
 		void Error(const unsigned short, const char*, const char*, const bool, const char*, ...);
-        #define FError(leave, format, ...) SimpleChess::Console::Error(__LINE__, __FILE__, __func__, leave, format, ##__VA_ARGS__)
+		#define FError(leave, format, ...) SimpleChess::Console::Error(__LINE__, __FILE__, __func__, leave, format, ##__VA_ARGS__)
 	};
 };
 
@@ -105,9 +105,9 @@ void SimpleChess::Console::Error(const unsigned short line, const char* file, co
 	}
 
 	va_end(args);
-    if (leave) {
-        exit(1);
-    }
+	if (leave) {
+		exit(1);
+	}
 }
 
 #endif

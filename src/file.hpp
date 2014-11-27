@@ -23,20 +23,15 @@ namespace SimpleChess {
 		 */
 		typedef struct {
 		public:
-            sf::Uint8 Piece1, /**< Initial piece. */
-                      Piece2, /**< Captured piece or 0 for none. */
-                      Move; /**< The type of move. 0 for move, 1 for capture. */
+			sf::Uint8 Piece1, /**< Initial piece. */
+					  Piece2, /**< Captured piece or 0 for none. */
+					  Move; /**< The type of move. 0 for move, 1 for capture. */
 
 			sf::Vector2<sf::Uint8> Piece1Loc, /**< Location of piece before it moves. */
 							   Piece2Loc; /**< Location of piece after it moves. */
 		} Info;
 
 		typedef std::vector<Info> Information;
-
-		/**
-		 * Adds starting paths to Paths.
-		 */
-		void InitializePaths(void);
 
 		/**
 		 * Appends str to "SimpleChess.log".
@@ -89,8 +84,8 @@ void SimpleChess::File::Append(std::string str) {
 		FError(false, "ERROR: SimpleChess.log could not be opened!");
 #endif
 
-        throw 1;
-        return;
+		throw 1;
+		return;
 	}
 
 	fl << str;
@@ -101,14 +96,14 @@ void SimpleChess::File::Read(std::string filename, SimpleChess::File::Informatio
 	std::ifstream fl(Path + filename, std::ios::in);
 	if (not fl.is_open()) {
 #ifdef __CPP_DEBUG__
-        FError(false, "ERROR: %s could not be opened!", filename.c_str());
+		FError(false, "ERROR: %s could not be opened!", filename.c_str());
 #endif
 
-        throw 1;
-        return;
+		throw 1;
+		return;
 	}
 
-    sf::Uint8 p1, p2, m, c11, c12, c21, c22;
+	sf::Uint8 p1, p2, m, c11, c12, c21, c22;
 
 	while (fl >> p1 >> c11 >> c12 >> m >> p2 >> c21 >> c22) {
 		sf::Vector2<sf::Uint8> pp1 = { c11, c12 };
@@ -130,8 +125,8 @@ void SimpleChess::File::CreateBoardFromFile(std::string filename, SimpleChess::B
 		FError(false, "ERROR: %s could not be opened!", filename.c_str());
 #endif
 
-        throw 1;
-        return;
+		throw 1;
+		return;
 	}
 
 	short binf[8];
@@ -142,8 +137,8 @@ void SimpleChess::File::CreateBoardFromFile(std::string filename, SimpleChess::B
 			FError(false, "ERROR: %s not formatted correctly!", filename.c_str());
 #endif
 
-            throw 2;
-            return;
+			throw 2;
+			return;
 		}
 
 		for (int x = 0; x < 8; x++) {

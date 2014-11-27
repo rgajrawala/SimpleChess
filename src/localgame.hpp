@@ -17,7 +17,7 @@ namespace SimpleChess {
 	namespace LocalGame {
 		sf::Event Event; /**< Where the window's new event will be stored. */
 		sf::Text PlayerTurn, /**< Stores who's turn it is. */
-                 LastMove; /**< Stores the last move. */
+				 LastMove; /**< Stores the last move. */
 		sf::Font Font; /**< Stores the font file (sansation.ttf) for the text. */
 		sf::RenderWindow Window; /**< The window for the app. */
 		sf::Image Icon; /**< The icon for the application. */
@@ -111,63 +111,63 @@ namespace SimpleChess {
 		 */
 		void Main(void);
 
-        /**
-         * The Move class.
-         * Anything to do with the board.
-         */
-        namespace Move {
-            sf::Vector2i Select, /**< The user's selection coordinates. */
-                         Coord, /**< The user's raw current-click coordinates. */
-                         Piece; /**< The user's refined current-click coordinates. @see Coord */
+		/**
+		 * The Move class.
+		 * Anything to do with the board.
+		 */
+		namespace Move {
+			sf::Vector2i Select, /**< The user's selection coordinates. */
+						 Coord, /**< The user's raw current-click coordinates. */
+						 Piece; /**< The user's refined current-click coordinates. @see Coord */
 
-            int PlayerTurn = 1; /**< Which player's turn it is. */
+			int PlayerTurn = 1; /**< Which player's turn it is. */
 
-            /**
-             * Sets PlayerTurn back to 1 (White).
-             * @see PlayerTurn
-             */
-            void Initialize(void);
+			/**
+			 * Sets PlayerTurn back to 1 (White).
+			 * @see PlayerTurn
+			 */
+			void Initialize(void);
 
-            /**
-             * Refines the raw clicks (Coord) from the user and stores the new, refined values (Piece).
-             * @see Piece
-             * @see Coord
-             */
-            void InitializePiece(void);
+			/**
+			 * Refines the raw clicks (Coord) from the user and stores the new, refined values (Piece).
+			 * @see Piece
+			 * @see Coord
+			 */
+			void InitializePiece(void);
 
-            /**
-             * Sets the user's selection.
-             * @see Select
-             * @see Piece
-             */
-            void InitializeSelect(void);
+			/**
+			 * Sets the user's selection.
+			 * @see Select
+			 * @see Piece
+			 */
+			void InitializeSelect(void);
 
-            /**
-             * Resets the board's background to empty.
-             * @see Empty
-             */
-            void InitializeBoard(void);
+			/**
+			 * Resets the board's background to empty.
+			 * @see Empty
+			 */
+			void InitializeBoard(void);
 
-            /**
-             * Handler for player 1's turn.
-             */
-            void OnPlayer1Turn(void);
+			/**
+			 * Handler for player 1's turn.
+			 */
+			void OnPlayer1Turn(void);
 
-            /**
-             * Handler for player 2's turn.
-             */
-            void OnPlayer2Turn(void);
+			/**
+			 * Handler for player 2's turn.
+			 */
+			void OnPlayer2Turn(void);
 
-            /**
-             * Handler for player's turn.
-             */
-            void MovePiece(void);
+			/**
+			 * Handler for player's turn.
+			 */
+			void MovePiece(void);
 
-            /**
-             * Checks if a king is missing and acts accordingly.
-             */
-            void IfGameIsOver(void);
-        };
+			/**
+			 * Checks if a king is missing and acts accordingly.
+			 */
+			void IfGameIsOver(void);
+		};
 	};
 };
 
@@ -277,7 +277,7 @@ void SimpleChess::LocalGame::Display(void) {
 				case Background::Enemy_Move: Sprite.setTexture(SimpleChess::Textures::Enemy_Move); break;
 				case Background::Valid_Capture: Sprite.setTexture(SimpleChess::Textures::Valid_Capture); break;
 				case Background::Valid_Move: Sprite.setTexture(SimpleChess::Textures::Valid_Move); break;
-                default: {}
+				default: {}
 			}
 
 			if (isNotEmpty) {
@@ -305,7 +305,7 @@ void SimpleChess::LocalGame::Display(void) {
 				case SimpleChess::Pieces::White_Bishop: Sprite.setTexture(SimpleChess::Textures::White::Bishop); break;
 				case SimpleChess::Pieces::White_Queen: Sprite.setTexture(SimpleChess::Textures::White::Queen); break;
 				case SimpleChess::Pieces::White_King: Sprite.setTexture(SimpleChess::Textures::White::King); break;
-                default: {}
+				default: {}
 			}
 
 			if (isNotEmpty) {
@@ -355,7 +355,7 @@ void SimpleChess::LocalGame::Main(void) {
 		Clear();
 
 		while (GetEvent(Event)) {
-            OnEvent();
+			OnEvent();
 		}
 
 		Display();
@@ -396,7 +396,7 @@ void SimpleChess::LocalGame::Move::OnPlayer1Turn(void) {
 			case SimpleChess::Pieces::White_Bishop: SimpleChess::Move::ShowWhiteBishopPath(LocalGame::Board, LocalGame::BoardBackground, Piece, true); break;
 			case SimpleChess::Pieces::White_King: SimpleChess::Move::ShowWhiteKingPath(LocalGame::Board, LocalGame::BoardBackground, Piece, true); break;
 			case SimpleChess::Pieces::White_Queen: SimpleChess::Move::ShowWhiteQueenPath(LocalGame::Board, LocalGame::BoardBackground, Piece, true); break;
-            default: {}
+			default: {}
 		}
 	} else if (LocalGame::BoardBackground[Piece.y][Piece.x] is Background::Valid_Move or LocalGame::BoardBackground[Piece.y][Piece.x] is Background::Valid_Capture) {
 		SimpleChess::Sounds::Music1.play();
@@ -424,10 +424,10 @@ void SimpleChess::LocalGame::Move::OnPlayer1Turn(void) {
 		}
 
 #ifdef __CPP_DEBUG__
-        FLog("%s", ss.str().c_str());
+		FLog("%s", ss.str().c_str());
 #endif
 
-        dss << LocalGame::Board[Piece.y][Piece.x] << " " << Select.x << " " << Select.y << " " << (omove is Background::Valid_Capture ? 1 : 0) << " " << opp << " " << Piece.x << " " << Piece.y;
+		dss << LocalGame::Board[Piece.y][Piece.x] << " " << Select.x << " " << Select.y << " " << (omove is Background::Valid_Capture ? 1 : 0) << " " << opp << " " << Piece.x << " " << Piece.y;
 
 		SimpleChess::File::Append(dss.str() + "\n");
 		LocalGame::LastMove.setString("Last move:\n" + ss.str());
@@ -447,7 +447,7 @@ void SimpleChess::LocalGame::Move::OnPlayer2Turn(void) {
 			case SimpleChess::Pieces::Black_Bishop: SimpleChess::Move::ShowBlackBishopPath(LocalGame::Board, LocalGame::BoardBackground, Piece, false); break;
 			case SimpleChess::Pieces::Black_King: SimpleChess::Move::ShowBlackKingPath(LocalGame::Board, LocalGame::BoardBackground, Piece, false); break;
 			case SimpleChess::Pieces::Black_Queen: SimpleChess::Move::ShowBlackQueenPath(LocalGame::Board, LocalGame::BoardBackground, Piece, false); break;
-            default: {}
+			default: {}
 		}
 	} else if (LocalGame::BoardBackground[Piece.y][Piece.x] is Background::Enemy_Move or LocalGame::BoardBackground[Piece.y][Piece.x] is Background::Enemy_Capture) {
 		SimpleChess::Sounds::Music1.play();
@@ -470,15 +470,15 @@ void SimpleChess::LocalGame::Move::OnPlayer2Turn(void) {
 
 		if (omove is Background::Enemy_Capture) {
 			ss << Utils::PStringify(LocalGame::Board[Piece.y][Piece.x]) << " (" << Select.x << ", " << Select.y << ") captured " << Utils::PStringify(opp) << " (" << Piece.x << ", " << Piece.y << ").";
-        } else {
+		} else {
 			ss << Utils::PStringify(LocalGame::Board[Piece.y][Piece.x]) << " (" << Select.x << ", " << Select.y << ") moved to (" << Piece.x << ", " << Piece.y << ").";
-        }
+		}
 
 #ifdef __CPP_DEBUG__
-        FLog("%s", ss.str().c_str());
+		FLog("%s", ss.str().c_str());
 #endif
 
-        dss << LocalGame::Board[Piece.y][Piece.x] << " " << Select.x << " " << Select.y << " " << (omove is Background::Enemy_Capture ? 1 : 0) << " " << opp << " " << Piece.x << " " << Piece.y;
+		dss << LocalGame::Board[Piece.y][Piece.x] << " " << Select.x << " " << Select.y << " " << (omove is Background::Enemy_Capture ? 1 : 0) << " " << opp << " " << Piece.x << " " << Piece.y;
 
 		SimpleChess::File::Append(dss.str() + "\n");
 		LocalGame::LastMove.setString("Last move:\n" + ss.str());

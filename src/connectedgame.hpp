@@ -17,7 +17,7 @@ namespace SimpleChess {
 	namespace ConnectedGame {
 		sf::Event Event; /**< Where the window's new event will be stored. */
 		sf::Text PlayerTurn, /**< Stores who's turn it is. */
-                 LastMove; /**< Stores the last move. */
+				 LastMove; /**< Stores the last move. */
 		sf::Font Font; /**< Stores the font file (sansation.ttf) for the text. */
 		sf::RenderWindow Window; /**< The window for the app. */
 		sf::Image Icon; /**< The icon for the application. */
@@ -25,7 +25,7 @@ namespace SimpleChess {
 		SimpleChess::Board8 BoardBackground, /**< The board's background. */
 							Board; /**< The board's pieces. */
 
-        sf::TcpSocket Socket; /**< Connection to server. */
+		sf::TcpSocket Socket; /**< Connection to server. */
 
 		/**
 		 * Intializes Window.
@@ -113,96 +113,96 @@ namespace SimpleChess {
 		 */
 		void Main(void);
 
-        /**
-         * The Move class.
-         * Anything to do with the board.
-         */
-        namespace Move {
-            sf::Vector2i Select, /**< The user's selection coordinates. */
-                         Coord, /**< The user's raw current-click coordinates. */
-                         Piece; /**< The user's refined current-click coordinates. @see Coord */
+		/**
+		 * The Move class.
+		 * Anything to do with the board.
+		 */
+		namespace Move {
+			sf::Vector2i Select, /**< The user's selection coordinates. */
+						 Coord, /**< The user's raw current-click coordinates. */
+						 Piece; /**< The user's refined current-click coordinates. @see Coord */
 
-            int PlayerTurn = 1; /**< Which player's turn it is. */
+			int PlayerTurn = 1; /**< Which player's turn it is. */
 
-            /**
-             * Sets PlayerTurn back to 1 (White).
-             * @see PlayerTurn
-             */
-            void Initialize(void);
+			/**
+			 * Sets PlayerTurn back to 1 (White).
+			 * @see PlayerTurn
+			 */
+			void Initialize(void);
 
-            /**
-             * Refines the raw clicks (Coord) from the user and stores the new, refined values (Piece).
-             * @see Piece
-             * @see Coord
-             */
-            void InitializePiece(void);
+			/**
+			 * Refines the raw clicks (Coord) from the user and stores the new, refined values (Piece).
+			 * @see Piece
+			 * @see Coord
+			 */
+			void InitializePiece(void);
 
-            /**
-             * Sets the user's selection.
-             * @see Select
-             * @see Piece
-             */
-            void InitializeSelect(void);
+			/**
+			 * Sets the user's selection.
+			 * @see Select
+			 * @see Piece
+			 */
+			void InitializeSelect(void);
 
-            /**
-             * Resets the board's background to empty.
-             * @see Empty
-             */
-            void InitializeBoard(void);
+			/**
+			 * Resets the board's background to empty.
+			 * @see Empty
+			 */
+			void InitializeBoard(void);
 
-            /**
-             * Handler for player 1's turn.
-             */
-            void OnPlayer1Turn(void);
+			/**
+			 * Handler for player 1's turn.
+			 */
+			void OnPlayer1Turn(void);
 
-            /**
-             * Handler for player 2's turn.
-             */
-            void OnPlayer2Turn(void);
+			/**
+			 * Handler for player 2's turn.
+			 */
+			void OnPlayer2Turn(void);
 
-            /**
-             * Handler for player's turn.
-             */
-            void MovePiece(void);
+			/**
+			 * Handler for player's turn.
+			 */
+			void MovePiece(void);
 
-            /**
-             * Checks if a king is missing and acts accordingly.
-             */
-            void IfGameIsOver(void);
-        };
+			/**
+			 * Checks if a king is missing and acts accordingly.
+			 */
+			void IfGameIsOver(void);
+		};
 	};
 };
 
 ////////// SOURCE //////////
 
 void SimpleChess::ConnectedGame::Initialize(void) {
-    std::ifstream fl(File::Path + "config/connection.chessconf", std::ios::in);
-    if (not fl.is_open()) {
+	std::ifstream fl(File::Path + "config/connection.chessconf", std::ios::in);
+	if (not fl.is_open()) {
 #ifdef __CPP_DEBUG__
 		FError(false, "ERROR: config/connection.chessconf could not be opened!");
 #endif
 
-        StartPage::WhoWon = -1;
-        Close();
-        return;
+		StartPage::WhoWon = -1;
+		Close();
+		return;
 	}
 
-    std::string ipaddr, port;
-    std::getline(fl, ipaddr);
-    std::getline(fl, port);
+	std::string ipaddr, port;
+	std::getline(fl, ipaddr);
+	std::getline(fl, port);
 
-    if (Socket.connect(ipaddr, atoi(port.c_str())) != sf::Socket::Done) {
+	if (Socket.connect(ipaddr, atoi(port.c_str())) != sf::Socket::Done) {
 #ifdef __CPP_DEBUG__
-        FError(false, "ERROR: Could not connect to remote host at %s:%s.", ipaddr.c_str(), port.c_str());
+		FError(false, "ERROR: Could not connect to remote host at %s:%s.", ipaddr.c_str(), port.c_str());
 #endif
 
-        Socket.disconnect();
-        StartPage::WhoWon = -1;
-        Close();
-        return;
-    }
+		Socket.disconnect();
+		StartPage::WhoWon = -1;
+		Close();
+		return;
+	}
 
-    fl.close();
+	fl.close();
 
 	if (not Font.loadFromFile(Resources::GetResource("sansation.ttf"))) {
 		exit(EXIT_FAILURE);
@@ -307,7 +307,7 @@ void SimpleChess::ConnectedGame::Display(void) {
 				case Background::Enemy_Move: Sprite.setTexture(SimpleChess::Textures::Enemy_Move); break;
 				case Background::Valid_Capture: Sprite.setTexture(SimpleChess::Textures::Valid_Capture); break;
 				case Background::Valid_Move: Sprite.setTexture(SimpleChess::Textures::Valid_Move); break;
-                default: {}
+				default: {}
 			}
 
 			if (isNotEmpty) {
@@ -335,7 +335,7 @@ void SimpleChess::ConnectedGame::Display(void) {
 				case SimpleChess::Pieces::White_Bishop: Sprite.setTexture(SimpleChess::Textures::White::Bishop); break;
 				case SimpleChess::Pieces::White_Queen: Sprite.setTexture(SimpleChess::Textures::White::Queen); break;
 				case SimpleChess::Pieces::White_King: Sprite.setTexture(SimpleChess::Textures::White::King); break;
-                default: {}
+				default: {}
 			}
 
 			if (isNotEmpty) {
@@ -385,13 +385,13 @@ void SimpleChess::ConnectedGame::Main(void) {
 		Clear();
 
 		while (GetEvent(Event)) {
-            OnEvent();
+			OnEvent();
 		}
 
 		Display();
 	}
 
-    Socket.disconnect();
+	Socket.disconnect();
 }
 
 void SimpleChess::ConnectedGame::Move::Initialize(void) {
@@ -416,60 +416,60 @@ void SimpleChess::ConnectedGame::Move::InitializeBoard(void) {
 }
 
 void SimpleChess::ConnectedGame::Move::OnPlayer1Turn(void) {
-    InitializeBoard();
+	InitializeBoard();
 
-    sf::Packet packet;
+	sf::Packet packet;
 
-    if (Socket.receive(packet) != sf::Socket::Done) {
+	if (Socket.receive(packet) != sf::Socket::Done) {
 #ifdef __CPP_DEBUG__
-        FError(false, "ERROR: Did not receive packet.");
+		FError(false, "ERROR: Did not receive packet.");
 #endif
-        Socket.disconnect();
-        StartPage::Go = -1;
-        Close();
-        return;
-    }
+		Socket.disconnect();
+		StartPage::Go = -1;
+		Close();
+		return;
+	}
 
-    File::Info info;
-    if (not (packet >> info.Piece1 >> info.Piece1Loc.x >> info.Piece1Loc.y >> info.Move >> info.Piece2 >> info.Piece2Loc.x >> info.Piece2Loc.y)) {
+	File::Info info;
+	if (not (packet >> info.Piece1 >> info.Piece1Loc.x >> info.Piece1Loc.y >> info.Move >> info.Piece2 >> info.Piece2Loc.x >> info.Piece2Loc.y)) {
 #ifdef __CPP_DEBUG__
-        FError(false, "ERROR: Packet is not formatted correctly.");
+		FError(false, "ERROR: Packet is not formatted correctly.");
 #endif
-        Socket.disconnect();
-        StartPage::Go = -1;
-        Close();
-        return;
-    }
+		Socket.disconnect();
+		StartPage::Go = -1;
+		Close();
+		return;
+	}
 
-    SimpleChess::Sounds::Music1.play();
+	SimpleChess::Sounds::Music1.play();
 
-    ConnectedGame::Board[info.Piece2Loc.y][info.Piece2Loc.x] = ConnectedGame::Board[info.Piece1Loc.y][info.Piece1Loc.x];
+	ConnectedGame::Board[info.Piece2Loc.y][info.Piece2Loc.x] = ConnectedGame::Board[info.Piece1Loc.y][info.Piece1Loc.x];
 
-    if (ConnectedGame::Board[info.Piece2Loc.y][info.Piece2Loc.x] is SimpleChess::Pieces::White_Pawn and info.Piece2Loc.y is 0) {
-        ConnectedGame::Board[info.Piece2Loc.y][info.Piece2Loc.x] = SimpleChess::Pieces::White_Queen;
-    }
+	if (ConnectedGame::Board[info.Piece2Loc.y][info.Piece2Loc.x] is SimpleChess::Pieces::White_Pawn and info.Piece2Loc.y is 0) {
+		ConnectedGame::Board[info.Piece2Loc.y][info.Piece2Loc.x] = SimpleChess::Pieces::White_Queen;
+	}
 
-    ConnectedGame::Board[info.Piece1Loc.y][info.Piece1Loc.x] = SimpleChess::Pieces::Empty;
+	ConnectedGame::Board[info.Piece1Loc.y][info.Piece1Loc.x] = SimpleChess::Pieces::Empty;
 
-    PlayerTurn = PlayerTurn is 1 ? 2 : 1;
-    ConnectedGame::PlayerTurn.setString("Player 2\'s Turn");
+	PlayerTurn = PlayerTurn is 1 ? 2 : 1;
+	ConnectedGame::PlayerTurn.setString("Player 2\'s Turn");
 
-    std::stringstream ss, dss;
+	std::stringstream ss, dss;
 
-    if (info.Move is 1) {
-        ss << Utils::PStringify(info.Piece1) << " (" << info.Piece1Loc.x << ", " << info.Piece1Loc.y << ") captured " << Utils::PStringify(info.Piece2) << " (" << info.Piece2Loc.x << ", " << info.Piece2Loc.y << ").";
-    } else {
-        ss << Utils::PStringify(info.Piece1) << " (" << info.Piece1Loc.x << ", " << info.Piece1Loc.y << ") moved to (" << info.Piece2Loc.x << ", " << info.Piece2Loc.y << ").";
+	if (info.Move is 1) {
+		ss << Utils::PStringify(info.Piece1) << " (" << info.Piece1Loc.x << ", " << info.Piece1Loc.y << ") captured " << Utils::PStringify(info.Piece2) << " (" << info.Piece2Loc.x << ", " << info.Piece2Loc.y << ").";
+	} else {
+		ss << Utils::PStringify(info.Piece1) << " (" << info.Piece1Loc.x << ", " << info.Piece1Loc.y << ") moved to (" << info.Piece2Loc.x << ", " << info.Piece2Loc.y << ").";
 	}
 
 #ifdef __CPP_DEBUG__
-    FLog("%s", ss.str().c_str());
+	FLog("%s", ss.str().c_str());
 #endif
 
-    dss << (unsigned short)info.Piece1 << ' ' << (unsigned short)info.Piece1Loc.x << ' ' << (unsigned short)info.Piece1Loc.y << ' ' << (unsigned short)info.Move << ' ' << (unsigned short)info.Piece2 << ' ' << (unsigned short)info.Piece2Loc.x << ' ' << (unsigned short)info.Piece2Loc.y;
+	dss << (unsigned short)info.Piece1 << ' ' << (unsigned short)info.Piece1Loc.x << ' ' << (unsigned short)info.Piece1Loc.y << ' ' << (unsigned short)info.Move << ' ' << (unsigned short)info.Piece2 << ' ' << (unsigned short)info.Piece2Loc.x << ' ' << (unsigned short)info.Piece2Loc.y;
 
-    SimpleChess::File::Append(dss.str() + "\n");
-    ConnectedGame::LastMove.setString("Last move:\n" + ss.str());
+	SimpleChess::File::Append(dss.str() + "\n");
+	ConnectedGame::LastMove.setString("Last move:\n" + ss.str());
 }
 
 void SimpleChess::ConnectedGame::Move::OnPlayer2Turn(void) {
@@ -485,7 +485,7 @@ void SimpleChess::ConnectedGame::Move::OnPlayer2Turn(void) {
 			case SimpleChess::Pieces::Black_Bishop: SimpleChess::Move::ShowBlackBishopPath(ConnectedGame::Board, ConnectedGame::BoardBackground, Piece, true); break;
 			case SimpleChess::Pieces::Black_King: SimpleChess::Move::ShowBlackKingPath(ConnectedGame::Board, ConnectedGame::BoardBackground, Piece, true); break;
 			case SimpleChess::Pieces::Black_Queen: SimpleChess::Move::ShowBlackQueenPath(ConnectedGame::Board, ConnectedGame::BoardBackground, Piece, true); break;
-            default: {}
+			default: {}
 		}
 	} else if (ConnectedGame::BoardBackground[Piece.y][Piece.x] is Background::Valid_Move or ConnectedGame::BoardBackground[Piece.y][Piece.x] is Background::Valid_Capture) {
 		SimpleChess::Sounds::Music1.play();
@@ -512,26 +512,26 @@ void SimpleChess::ConnectedGame::Move::OnPlayer2Turn(void) {
 			ss << Utils::PStringify(ConnectedGame::Board[Piece.y][Piece.x]) << " (" << Select.x << ", " << Select.y << ") moved to (" << Piece.x << ", " << Piece.y << ").";
 		}
 
-        dss << ConnectedGame::Board[Piece.y][Piece.x] << ' ' << Select.x << ' ' << Select.y << ' ' << (omove is Background::Enemy_Capture ? 1 : 0) << ' ' << opp << ' ' << Piece.x << ' ' << Piece.y;
+		dss << ConnectedGame::Board[Piece.y][Piece.x] << ' ' << Select.x << ' ' << Select.y << ' ' << (omove is Background::Enemy_Capture ? 1 : 0) << ' ' << opp << ' ' << Piece.x << ' ' << Piece.y;
 
 #ifdef __CPP_DEBUG__
-        FLog("%s", ss.str().c_str());
+		FLog("%s", ss.str().c_str());
 #endif
 
 		SimpleChess::File::Append(dss.str() + "\n");
 		ConnectedGame::LastMove.setString("Last move:\n" + ss.str());
 
-        sf::Packet packet;
-        packet << (sf::Uint8)ConnectedGame::Board[Piece.y][Piece.x] << (sf::Uint8)Select.x << (sf::Uint8)Select.y << (sf::Uint8)0 << (sf::Uint8)opp << (sf::Uint8)Piece.x << (sf::Uint8)Piece.y;
-        if (Socket.send(packet) != sf::Socket::Done) {
+		sf::Packet packet;
+		packet << (sf::Uint8)ConnectedGame::Board[Piece.y][Piece.x] << (sf::Uint8)Select.x << (sf::Uint8)Select.y << (sf::Uint8)0 << (sf::Uint8)opp << (sf::Uint8)Piece.x << (sf::Uint8)Piece.y;
+		if (Socket.send(packet) != sf::Socket::Done) {
 #ifdef __CPP_DEBUG__
-            FError(false, "ERROR: Could not send packet.");
+			FError(false, "ERROR: Could not send packet.");
 #endif
-            Socket.disconnect();
-            StartPage::Go = -1;
-            Close();
-            return;
-        }
+			Socket.disconnect();
+			StartPage::Go = -1;
+			Close();
+			return;
+		}
 	}
 }
 

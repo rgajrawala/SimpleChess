@@ -70,7 +70,7 @@ const char* SimpleChess::Utils::PStringify(short piece_type) {
 		case Pieces::Black_Bishop: return "Black Bishop";
 		case Pieces::Black_King: return "Black King";
 		case Pieces::Black_Queen: return "Black Queen";
-        default: {}
+		default: {}
 	}
 
 	return "Empty";
@@ -82,7 +82,7 @@ const char* SimpleChess::Utils::BStringify(short background_type) {
 		case Background::Enemy_Capture: return "captured";
 		case Background::Valid_Move:
 		case Background::Enemy_Move: return "moved";
-        default: {}
+		default: {}
 	}
 
 	return "did nothing";

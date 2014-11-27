@@ -10,7 +10,7 @@
 #define SimpleChess_move_hpp
 
 namespace SimpleChess {
-    /**
+	/**
 	 * The Move class.
 	 * Shows the paths of each piece.
 	 */
@@ -20,7 +20,7 @@ namespace SimpleChess {
 		 * @param board The board to edit.
 		 * @param boardbackground The board's background to edit.
 		 * @param piece The location of the piece to show the paths of.
-         * @param isFriendly True if show green paths, false if show red paths.
+		 * @param isFriendly True if show green paths, false if show red paths.
 		 */
 		void ShowWhitePawnPath(SimpleChess::Board8&, SimpleChess::Board8&, sf::Vector2i, bool);
 
