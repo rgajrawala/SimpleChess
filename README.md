@@ -4,7 +4,7 @@ A simple Chess game made in C++11.
 ## Environments?
 The current version of SFML used here is v2.1.
 <br>
-The current target OSs are Windows 7+ and OSX 10.8+.
+The current target OSs are Windows 7+ and OSX 10+.
 <br>
 <br>
 This project has been tested on the following IDEs (working):
