@@ -19,9 +19,12 @@ namespace SimpleChess {
 		sf::Font Font; /**< The font that the text on the menu will use (sansation.ttf). */
 		sf::Event Event; /**< Any window events. */
 		sf::Vector2u Mouse; /**< Mouse coordinates. */
-		sf::Image Icon; /**< The icon for the window */
+		sf::Image Icon; /**< The icon for the window. */
 
-		sf::Text Title, /**< The menu's title. Will say: "Simple Chess". */
+		sf::Texture Background; /**< The background for the start window. */
+		sf::Sprite BackgroundSprite; /**< The background sprite. */
+
+		sf::Text Title, /**< The menu's title. Will say: "SimpleChess". */
 				 WhoWonText, /**< Shows who won. */
 				 NewGameText, /**< Will say: "New Game". */
 				 ReaderText, /**< Will say: "Reader". */
@@ -103,6 +106,13 @@ void SimpleChess::StartPage::Initialize(void) {
 	if (!Font.loadFromFile(Resources::GetResource("sansation.ttf"))) {
 		exit(EXIT_FAILURE);
 	}
+
+	if (!Background.loadFromFile(Resources::GetResource("menu_bg.png"))) {
+		exit(EXIT_FAILURE);
+	}
+
+	BackgroundSprite.setTexture(Background);
+	BackgroundSprite.setPosition(-30, -30.0);
 
 	Title.setFont(Font);
 	Title.setString("SimpleChess");
@@ -213,6 +223,7 @@ void SimpleChess::StartPage::OnEvent(void) {
 
 void SimpleChess::StartPage::Draw(void) {
 	Window.clear(sf::Color::Black);
+	Window.draw(BackgroundSprite);
 	Window.draw(Title);
 	Window.draw(NewGameButton);
 	Window.draw(NewGameText);
