@@ -37,12 +37,7 @@
 #define ChessEnd return 0; }
 #define ChessHoldAtExit atexit(SimpleChess::EndChessMain);
 
-#if defined(__APPLE__) || defined(__MACH__)
-#include "resosx.hpp"
-#else
-#include "reswin.hpp"
-#endif
-
+#include "resources.hpp"
 #include "sounds.hpp"
 #include "console.hpp"
 #include "alert.hpp"

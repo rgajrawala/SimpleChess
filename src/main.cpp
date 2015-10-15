@@ -18,13 +18,9 @@
 
 ChessMain
 	// Make sure the config folder (and its contents) and the log folder (and its contents) are in this directory.
+	SimpleChess::File::SetPath("");
 	// Make sure the res folder (and its contents) are in this directory.
-#if (defined(__APPLE__) || defined(__MACH__))
-	SimpleChess::File::SetPath("");
-#else
-	SimpleChess::File::SetPath("");
-	SimpleChess::Resources::SetPath("");
-#endif
+	SimpleChess::Resources::SetPath("./res/");
 
 	SimpleChess::Textures::Initialize();
 	SimpleChess::Sounds::Initialize();
