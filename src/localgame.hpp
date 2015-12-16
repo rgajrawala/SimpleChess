@@ -2,8 +2,8 @@
  *  localgame.hpp
  *  SimpleChess
  *
- *  Created by Ronak Gajrawala on 04/29/14.
- *  Copyright (c) 2014 Ronak Gajrawala. All rights reserved.
+ *  Created by Usandfriends on 04/29/14.
+ *  Copyright (c) 2014 Usandfriends. All rights reserved.
  */
 
 #ifndef SimpleChess_localgame_hpp

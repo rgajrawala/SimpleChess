@@ -2,8 +2,8 @@
  *  main.cpp
  *  SimpleChess
  *
- *  Created by Ronak Gajrawala on 12/01/13.
- *  Copyright (c) 2013 Ronak Gajrawala. All rights reserved.
+ *  Created by Usandfriends on 12/01/13.
+ *  Copyright (c) 2013 Usandfriends. All rights reserved.
  */
 
 #define __CPP_DEBUG__ /** If you are debugging. @note Currently, this changes very little. */

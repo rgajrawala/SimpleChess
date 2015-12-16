@@ -2,8 +2,8 @@
  *  connectedgame.hpp
  *  SimpleChess
  *
- *  Created by Ronak Gajrawala on 04/27/14.
- *  Copyright (c) 2014 Ronak Gajrawala. All rights reserved.
+ *  Created by Usandfriends on 04/27/14.
+ *  Copyright (c) 2014 Usandfriends. All rights reserved.
  */
 
 #ifndef SimpleChess_connectedgame_hpp

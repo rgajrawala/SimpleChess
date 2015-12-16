@@ -2,8 +2,8 @@
  *  file.hpp
  *  SimpleChess
  *
- *  Created by Ronak Gajrawala on 12/26/13.
- *  Copyright (c) 2013 Ronak Gajrawala. All rights reserved.
+ *  Created by Usandfriends on 12/26/13.
+ *  Copyright (c) 2013 Usandfriends. All rights reserved.
  */
 
 #ifndef SimpleChess_file_hpp

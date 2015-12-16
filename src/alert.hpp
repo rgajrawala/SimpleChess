@@ -2,7 +2,7 @@
  *  alert.hpp
  *  SimpleChess
  *
- *  Created by Ronak Gajrawala on 1/7/14.
+ *  Created by Usandfriends on 1/7/14.
  *  Copyright (c) 2014 Usandfriends. All rights reserved.
  */
 
