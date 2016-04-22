@@ -2,11 +2,11 @@
  *  main.cpp
  *  SimpleChess
  *
- *  Created by Usandfriends on 12/01/13.
- *  Copyright (c) 2013 Usandfriends. All rights reserved.
+ *  Created by Ronak Gajrawala on 12/01/13.
+ *  Copyright (c) 2013-2015 Ronak Gajrawala. All rights reserved.
  */
 
-#define __CPP_DEBUG__ /** If you are debugging. @note Currently, this changes very little. */
+#define __CPP_DEBUG__ /** If you are debugging. @note Turns on log output. */
 
 /*
  * @todo Add Castle button.
@@ -18,7 +18,7 @@
 
 ChessMain
 	// Make sure the config folder (and its contents) and the log folder (and its contents) are in this directory.
-	SimpleChess::File::SetPath("");
+	SimpleChess::File::SetPath("./");
 	// Make sure the res folder (and its contents) are in this directory.
 	SimpleChess::Resources::SetPath("./res/");
 

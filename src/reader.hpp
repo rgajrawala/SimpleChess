@@ -2,8 +2,8 @@
  *  reader.hpp
  *  SimpleChess
  *
- *  Created by Usandfriends on 12/26/13.
- *  Copyright (c) 2013 Usandfriends. All rights reserved.
+ *  Created by Ronak Gajrawala on 12/26/13.
+ *  Copyright (c) 2013-2015 Ronak Gajrawala. All rights reserved.
  */
 
 #ifndef SimpleChess_reader_hpp
@@ -113,8 +113,8 @@ void SimpleChess::Reader::Initialize(void) {
 	GoBackBtnText.setString("Back");
 
 	try {
-		File::Read("log/SimpleChess.log", &FileInfo);
-		File::CreateBoardFromFile("config/default.chessconf", &Board);
+		File::Read("log/SimpleChess.log", FileInfo);
+		File::CreateBoardFromFile("config/default.chessconf", Board);
 	} catch (int e) {
 		StartPage::WhoWon = -1;
 		Window.close();

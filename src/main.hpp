@@ -2,8 +2,8 @@
  *  main.hpp
  *  SimpleChess
  *
- *  Created by Usandfriends on 12/01/13.
- *  Copyright (c) 2013 Usandfriends. All rights reserved.
+ *  Created by Ronak Gajrawala on 12/01/13.
+ *  Copyright (c) 2013-2015 Ronak Gajrawala. All rights reserved.
  */
 
 #ifndef SimpleChess_main_hpp

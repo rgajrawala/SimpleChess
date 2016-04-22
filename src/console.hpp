@@ -2,8 +2,8 @@
  *  console.hpp
  *  SimpleChess
  *
- *  Created by Usandfriends on 12/01/13.
- *  Copyright (c) 2013 Usandfriends. All rights reserved.
+ *  Created by Ronak Gajrawala on 12/01/13.
+ *  Copyright (c) 2013-2015 Ronak Gajrawala. All rights reserved.
  */
 
 #ifndef SimpleChess_console_hpp
@@ -40,7 +40,11 @@ namespace SimpleChess {
 		 * @param ... Variables to be formatted.
 		 */
 		void Log(const unsigned short, const char*, const char*, const char*, ...);
-		#define FLog(format, ...) SimpleChess::Console::Log(__LINE__, __FILE__, __func__, format, ##__VA_ARGS__)
+		#ifdef __CPP_DEBUG__
+			#define FLog(format, ...) SimpleChess::Console::Log(__LINE__, __FILE__, __func__, format, ##__VA_ARGS__)
+		#else
+			#define FLog(format, ...)
+		#endif
 
 		/**
 		 * Waits for the user to press the ENTER (RETURN) key.
@@ -60,7 +64,11 @@ namespace SimpleChess {
 		 * @param ... Variables to be formatted.
 		 */
 		void Error(const unsigned short, const char*, const char*, const bool, const char*, ...);
-		#define FError(leave, format, ...) SimpleChess::Console::Error(__LINE__, __FILE__, __func__, leave, format, ##__VA_ARGS__)
+		#ifdef __CPP_DEBUG__
+			#define FError(leave, format, ...) SimpleChess::Console::Error(__LINE__, __FILE__, __func__, leave, format, ##__VA_ARGS__)
+		#else
+			#define FError(leave, format, ...)
+		#endif
 	};
 };
 

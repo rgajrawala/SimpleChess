@@ -2,8 +2,8 @@
  *  newgame.hpp
  *  SimpleChess
  *
- *  Created by Usandfriends on 12/01/13.
- *  Copyright (c) 2013 Usandfriends. All rights reserved.
+ *  Created by Ronak Gajrawala on 12/01/13.
+ *  Copyright (c) 2013-2015 Ronak Gajrawala. All rights reserved.
  */
 
 #ifndef SimpleChess_newgame_hpp
@@ -179,9 +179,7 @@ namespace SimpleChess {
 void SimpleChess::NewGame::Initialize(void) {
 	std::ifstream fl(File::Path + "config/connection.chessconf", std::ios::in);
 	if (not fl.is_open()) {
-#ifdef __CPP_DEBUG__
 		FError(false, "ERROR: config/connection.chessconf could not be opened!");
-#endif
 
 		StartPage::WhoWon = -1;
 		Close();
@@ -193,9 +191,7 @@ void SimpleChess::NewGame::Initialize(void) {
 	std::getline(fl, port);
 
 	if (Listener.listen(atoi(port.c_str())) != sf::Socket::Done) {
-#ifdef __CPP_DEBUG__
 		FError(false, "ERROR: Could not listen on port %s.", port.c_str());
-#endif
 
 		Listener.close();
 		StartPage::WhoWon = -1;
@@ -204,9 +200,7 @@ void SimpleChess::NewGame::Initialize(void) {
 	}
 
 	if (Listener.accept(Client) != sf::Socket::Done) {
-#ifdef __CPP_DEBUG__
 		FError(false, "ERROR: Could not connect to client.");
-#endif
 
 		Listener.close();
 		StartPage::WhoWon = -1;
@@ -468,9 +462,7 @@ void SimpleChess::NewGame::Move::OnPlayer1Turn(void) {
 			ss << Utils::PStringify(NewGame::Board[Piece.y][Piece.x]) << " (" << Select.x << ", " << Select.y << ") moved to (" << Piece.x << ", " << Piece.y << ").";
 		}
 
-#ifdef __CPP_DEBUG__
 		FLog("%s", ss.str().c_str());
-#endif
 
 		dss << NewGame::Board[Piece.y][Piece.x] << ' ' << Select.x << ' ' << Select.y << ' ' << (omove is Background::Valid_Capture ? 1 : 0) << ' ' << opp << ' ' << Piece.x << ' ' << Piece.y;
 
@@ -480,9 +472,8 @@ void SimpleChess::NewGame::Move::OnPlayer1Turn(void) {
 		sf::Packet packet;
 		packet << (sf::Uint8)NewGame::Board[Piece.y][Piece.x] << (sf::Uint8)Select.x << (sf::Uint8)Select.y << (sf::Uint8)0 << (sf::Uint8)opp << (sf::Uint8)Piece.x << (sf::Uint8)Piece.y;
 		if (Client.send(packet) != sf::Socket::Done) {
-#ifdef __CPP_DEBUG__
 			FError(false, "ERROR: Could not send packet.");
-#endif
+
 			Client.disconnect();
 			Listener.close();
 			StartPage::Go = -1;
@@ -498,9 +489,8 @@ void SimpleChess::NewGame::Move::OnPlayer2Turn(void) {
 	sf::Packet packet;
 
 	if (Client.receive(packet) != sf::Socket::Done) {
-#ifdef __CPP_DEBUG__
 		FError(false, "ERROR: Did not receive packet.");
-#endif
+
 		Client.disconnect();
 		Listener.close();
 		StartPage::Go = -1;
@@ -510,9 +500,8 @@ void SimpleChess::NewGame::Move::OnPlayer2Turn(void) {
 
 	File::Info info;
 	if (not (packet >> info.Piece1 >> info.Piece1Loc.x >> info.Piece1Loc.y >> info.Move >> info.Piece2 >> info.Piece2Loc.x >> info.Piece2Loc.y)) {
-#ifdef __CPP_DEBUG__
 		FError(false, "ERROR: Packet is not formatted correctly.");
-#endif
+
 		Client.disconnect();
 		Listener.close();
 		StartPage::Go = -1;
@@ -541,9 +530,7 @@ void SimpleChess::NewGame::Move::OnPlayer2Turn(void) {
 		ss << Utils::PStringify(info.Piece1) << " (" << info.Piece1Loc.x << ", " << info.Piece1Loc.y << ") moved to (" << info.Piece2Loc.x << ", " << info.Piece2Loc.y << ").";
 	}
 
-#ifdef __CPP_DEBUG__
 	FLog("%s", ss.str().c_str());
-#endif
 
 	dss << (unsigned short)info.Piece1 << ' ' << (unsigned short)info.Piece1Loc.x << ' ' << (unsigned short)info.Piece1Loc.y << ' ' << (unsigned short)info.Move << ' ' << (unsigned short)info.Piece2 << ' ' << (unsigned short)info.Piece2Loc.x << ' ' << (unsigned short)info.Piece2Loc.y;
 

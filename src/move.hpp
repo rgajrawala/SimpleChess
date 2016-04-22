@@ -2,8 +2,8 @@
  *  move.hpp
  *  SimpleChess
  *
- *  Created by Usandfriends on 3/10/14.
- *  Copyright (c) 2014 Usandfriends. All rights reserved.
+ *  Created by Ronak Gajrawala on 3/10/14.
+ *  Copyright (c) 2014-2015 Usandfriends. All rights reserved.
  */
 
 #ifndef SimpleChess_move_hpp
