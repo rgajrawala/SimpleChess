@@ -3,7 +3,7 @@ A simple Chess game made in C++.
 
 ## HowTo
 + [Get started with SFML.](http://www.sfml-dev.org/tutorials/2.3/#getting-started)
-+ `git clone https://github.com/usandfriends/SimpleChess.git`
++ `git clone ...`
 + `cd bin`
 + `cmake .. && make`
 + `./SimpleChess`
